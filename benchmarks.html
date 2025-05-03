@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSIDH Benchmarks</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button class="theme-toggle" @click="toggleTheme" title="Toggle dark mode">
+            <svg v-if="isDarkMode" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+            </svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
+            </svg>
+        </button>
+        <h1>CSIDH Benchmarks</h1>
+        <div class="nav-links">
+            <a href="index.html">← Timeline</a>
+        </div>
+        <div class="benchmarks-container">
+            <div class="tabs">
+                <button class="tab" :class="{ active: activeTab === 'all' }" @click="activeTab = 'all'">All Benchmarks</button>
+                <button class="tab" :class="{ active: activeTab === 'per-paper' }" @click="activeTab = 'per-paper'">Per Paper</button>
+            </div>
+
+            <div class="view-toggle">
+                <button class="toggle-btn" @click="toggleDetailedView" :class="{ active: showDetailedView }">
+                    {{ showDetailedView ? 'Hide Details' : 'Show Details' }}
+                </button>
+            </div>
+
+            <div v-if="activeTab === 'per-paper'">
+                <div v-for="paper in papersWithTitles" :key="paper.id" class="paper-benchmarks">
+                    <h2 :id="paper.paper_id" class="clickable-title" @click="showPaperDetails(paper)">{{ paper.short }}</h2>
+                    <table class="benchmark-table">
+                        <thead>
+                            <tr>
+                                <th>Benchmark</th>
+                                <th @click="sortBy('size')" class="sortable-header" title="Click to sort by size">
+                                    Size (bytes)
+                                    <span class="sort-icon" v-if="sortKey === 'size'">
+                                        {{ sortDirection === 'asc' ? '▲' : '▼' }}
+                                    </span>
+                                </th>
+                                <th>Keyspace (bits)</th>
+                                <th v-if="showDetailedView">NIST Level</th>
+                                <th @click="sortBy('operations')" class="sortable-header" title="Click to sort by operations">
+                                    Operations (Fp)
+                                    <span class="sort-icon" v-if="sortKey === 'operations'">
+                                        {{ sortDirection === 'asc' ? '▲' : '▼' }}
+                                    </span>
+                                </th>
+                                <th @click="sortBy('cycles')" class="sortable-header" title="Click to sort by cycles">
+                                    Cycles
+                                    <span class="sort-icon" v-if="sortKey === 'cycles'">
+                                        {{ sortDirection === 'asc' ? '▲' : '▼' }}
+                                    </span>
+                                </th>
+                                <th v-if="showDetailedView">Constant-time</th>
+                                <th v-if="showDetailedView">Deterministic</th>
+                                <th v-if="showDetailedView">Dummy-free</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="benchmark in sortedBenchmarks(paper.benchmarks)" :key="benchmark.id">
+                                <td>{{ benchmark.name }}</td>
+                                <td>{{ benchmark.size }}</td>
+                                <td>{{ benchmark.keyspace }}</td>
+                                <td v-if="showDetailedView">{{ benchmark.nist_level }}</td>
+                                <td>
+                                    <div class="simplified-ops" :title="getDetailedOpsTooltip(benchmark.operations)">
+                                        {{ calculateWeightedSum(benchmark.operations) }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div v-for="cycle in benchmark.cycles" :key="cycle.platform" class="cycle-entry">
+                                        <span class="platform-badge">{{ cycle.platform }}</span>
+                                        <span class="cycle-value">{{ cycle.value.toLocaleString() }}</span>
+                                        <span class="cycle-unit">{{ cycle.unit }}</span>
+                                    </div>
+                                </td>
+                                <td v-if="showDetailedView">
+                                    <span class="feature-icon" :class="{ true: benchmark.constant_time, false: !benchmark.constant_time }"></span>
+                                </td>
+                                <td v-if="showDetailedView">
+                                    <span class="feature-icon" :class="{ true: benchmark.deterministic, false: !benchmark.deterministic }"></span>
+                                </td>
+                                <td v-if="showDetailedView">
+                                    <span class="feature-icon" :class="{ true: benchmark.dummy_free, false: !benchmark.dummy_free }"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div v-if="activeTab === 'all'">
+                <div class="filters-container">
+                    <div class="filters-header" @click="toggleFiltersVisible">
+                        <h3>Filters</h3>
+                        <button class="collapse-btn">
+                            {{ filtersVisible ? '▲' : '▼' }}
+                        </button>
+                    </div>
+                    
+                    <div v-if="filtersVisible" class="filters-content">
+                        <div class="filter-section weight-section">
+                            <div class="filter-header">
+                                <span class="filter-label">Weight Mode:</span>
+                            </div>
+                            <div class="filter-options">
+                                <div class="feature-filter">
+                                    <button 
+                                        class="filter-chip"
+                                        :class="{ active: !useAlternativeWeights }"
+                                        @click="updateWeightMode(false)"
+                                    >
+                                        (1,1,0)
+                                    </button>
+                                    <button 
+                                        class="filter-chip"
+                                        :class="{ active: useAlternativeWeights }"
+                                        @click="updateWeightMode(true)"
+                                    >
+                                        (1,0.85,0.15)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <div class="filter-header">
+                                <span class="filter-label">Size (bytes):</span>
+                                <button class="clear-filter" v-if="filters.size.length > 0" @click="filters.size = []">Clear</button>
+                            </div>
+                            <div class="filter-options">
+                                <button 
+                                    v-for="size in uniqueSizes" 
+                                    :key="'size-' + size" 
+                                    class="filter-chip"
+                                    :class="{ active: filters.size.includes(size) }"
+                                    @click="toggleFilter('size', size)"
+                                >
+                                    {{ size }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <div class="filter-header">
+                                <span class="filter-label">Keyspace (bits):</span>
+                                <button class="clear-filter" v-if="filters.keyspace.length > 0" @click="filters.keyspace = []">Clear</button>
+                            </div>
+                            <div class="filter-options">
+                                <button 
+                                    v-for="keyspace in uniqueKeyspaces" 
+                                    :key="'keyspace-' + keyspace" 
+                                    class="filter-chip"
+                                    :class="{ active: filters.keyspace.includes(keyspace) }"
+                                    @click="toggleFilter('keyspace', keyspace)"
+                                >
+                                    {{ keyspace }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <div class="filter-header">
+                                <span class="filter-label">NIST Level:</span>
+                                <button class="clear-filter" v-if="filters.nistLevel.length > 0" @click="filters.nistLevel = []">Clear</button>
+                            </div>
+                            <div class="filter-options">
+                                <button 
+                                    v-for="level in uniqueNistLevels" 
+                                    :key="'nist-' + level" 
+                                    class="filter-chip"
+                                    :class="{ active: filters.nistLevel.includes(level) }"
+                                    @click="toggleFilter('nistLevel', level)"
+                                >
+                                    {{ level }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <div class="filter-header">
+                                <span class="filter-label">Platform:</span>
+                                <button class="clear-filter" v-if="filters.platform.length > 0" @click="filters.platform = []">Clear</button>
+                            </div>
+                            <div class="filter-options">
+                                <button 
+                                    v-for="platform in uniquePlatforms" 
+                                    :key="'platform-' + platform" 
+                                    class="filter-chip"
+                                    :class="{ active: filters.platform.includes(platform) }"
+                                    @click="toggleFilter('platform', platform)"
+                                >
+                                    {{ platform }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <div class="filter-header">
+                                <span class="filter-label">Security Features:</span>
+                                <button class="clear-filter" v-if="filters.constantTime !== null || filters.deterministic !== null || filters.dummyFree !== null" @click="filters.constantTime = null; filters.deterministic = null; filters.dummyFree = null">Clear</button>
+                            </div>
+                            <div class="filter-options">
+                                <div class="feature-filter">
+                                    <span>Constant-time:</span>
+                                    <button 
+                                        class="filter-chip"
+                                        :class="{ active: filters.constantTime === true }"
+                                        @click="toggleFilter('constantTime', true)"
+                                    >
+                                        Yes
+                                    </button>
+                                    <button 
+                                        class="filter-chip"
+                                        :class="{ active: filters.constantTime === false }"
+                                        @click="toggleFilter('constantTime', false)"
+                                    >
+                                        No
+                                    </button>
+                                </div>
+                                
+                                <div class="feature-filter">
+                                    <span>Deterministic:</span>
+                                    <button 
+                                        class="filter-chip"
+                                        :class="{ active: filters.deterministic === true }"
+                                        @click="toggleFilter('deterministic', true)"
+                                    >
+                                        Yes
+                                    </button>
+                                    <button 
+                                        class="filter-chip"
+                                        :class="{ active: filters.deterministic === false }"
+                                        @click="toggleFilter('deterministic', false)"
+                                    >
+                                        No
+                                    </button>
+                                </div>
+                                
+                                <div class="feature-filter">
+                                    <span>Dummy-free:</span>
+                                    <button 
+                                        class="filter-chip"
+                                        :class="{ active: filters.dummyFree === true }"
+                                        @click="toggleFilter('dummyFree', true)"
+                                    >
+                                        Yes
+                                    </button>
+                                    <button 
+                                        class="filter-chip"
+                                        :class="{ active: filters.dummyFree === false }"
+                                        @click="toggleFilter('dummyFree', false)"
+                                    >
+                                        No
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-actions">
+                            <button class="clear-all-filters" @click="clearFilters">Clear All Filters</button>
+                            <div class="filter-count" v-if="Object.values(filters).some(f => Array.isArray(f) ? f.length > 0 : f !== null)">
+                                {{ allBenchmarks.length }} results
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th @click="sortBy('paper')" class="sortable-header" title="Click to sort by paper date">
+                                Paper (by date)
+                                <span class="sort-icon" v-if="sortKey === 'paper'">
+                                    {{ sortDirection === 'asc' ? '▲' : '▼' }}
+                                </span>
+                            </th>
+                            <th>Benchmark</th>
+                            <th @click="sortBy('size')" class="sortable-header" title="Click to sort by size">
+                                Size (Bytes)
+                                <span class="sort-icon" v-if="sortKey === 'size'">
+                                    {{ sortDirection === 'asc' ? '▲' : '▼' }}
+                                </span>
+                            </th>
+                            <th>Keyspace (bits)</th>
+                            <th v-if="showDetailedView">NIST Level</th>
+                            <th @click="sortBy('operations')" class="sortable-header" title="Click to sort by operations">
+                                Operations (Fp)
+                                <span class="sort-icon" v-if="sortKey === 'operations'">
+                                    {{ sortDirection === 'asc' ? '▲' : '▼' }}
+                                </span>
+                            </th>
+                            <th @click="sortBy('cycles')" class="sortable-header" title="Click to sort by cycles">
+                                Cycles
+                                <span class="sort-icon" v-if="sortKey === 'cycles'">
+                                    {{ sortDirection === 'asc' ? '▲' : '▼' }}
+                                </span>
+                            </th>
+                            <th v-if="showDetailedView">Constant-time</th>
+                            <th v-if="showDetailedView">Deterministic</th>
+                            <th v-if="showDetailedView">Dummy-free</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="benchmark in allBenchmarks" :key="benchmark.id">
+                            <td>
+                                <a class="clickable-title" @click="showPaperDetails(benchmark.paper)">{{ benchmark.paper.short }}</a>
+                            </td>
+                            <td>{{ benchmark.name }}</td>
+                            <td>{{ benchmark.size }}</td>
+                            <td>{{ benchmark.keyspace }}</td>
+                            <td v-if="showDetailedView">{{ benchmark.nist_level }}</td>
+                            <td>
+                                <div class="simplified-ops" :title="getDetailedOpsTooltip(benchmark.operations)">
+                                    {{ calculateWeightedSum(benchmark.operations) }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cycles-container">
+                                    <div v-for="cycle in benchmark.cycles" :key="cycle.platform" class="cycle-entry">
+                                        <span class="platform-badge">{{ cycle.platform }}</span>
+                                        <span class="cycle-value">{{ cycle.value.toLocaleString() }}</span>
+                                        <span class="cycle-unit">{{ cycle.unit }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td v-if="showDetailedView">
+                                <span class="feature-icon" :class="{ true: benchmark.constant_time, false: !benchmark.constant_time }"></span>
+                            </td>
+                            <td v-if="showDetailedView">
+                                <span class="feature-icon" :class="{ true: benchmark.deterministic, false: !benchmark.deterministic }"></span>
+                            </td>
+                            <td v-if="showDetailedView">
+                                <span class="feature-icon" :class="{ true: benchmark.dummy_free, false: !benchmark.dummy_free }"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Paper Details Modal -->
+        <div v-if="selectedPaper" class="modal-overlay" @click="closePaperDetails">
+            <div class="modal-content" @click.stop>
+                <button class="modal-close" @click="closePaperDetails">&times;</button>
+                <h2 class="modal-title">{{ selectedPaper.title }}</h2>
+                <p class="modal-paper-id">eprint: {{ selectedPaper.id }}</p>
+                <p class="modal-authors">{{ selectedPaper.authors }}</p>
+                <p class="modal-abstract">{{ selectedPaper.abstract || "Abstract not available" }}</p>
+                <div class="modal-links">
+                    <a :href="selectedPaper.eprint_link" target="_blank" class="modal-link">Read Paper</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    activeTab: 'all',
+                    papers: [],
+                    timelineData: [],
+                    selectedPaper: null,
+                    isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
+                    showDetailedView: false,
+                    useAlternativeWeights: false,
+                    weights: {
+                        standard: { M: 1, S: 1, a: 0 },
+                        alternative: { M: 1, S: 0.85, a: 0.15 }
+                    },
+                    sortKey: '',
+                    sortDirection: 'asc',
+                    // Filters for the All Benchmarks tab
+                    filters: {
+                        size: [],
+                        keyspace: [],
+                        nistLevel: [],
+                        platform: [],
+                        constantTime: null,
+                        deterministic: null,
+                        dummyFree: null
+                    },
+                    filtersVisible: true
+                }
+            },
+            computed: {
+                papersWithTitles() {
+                    const papersWithTitles = this.papers.map(paper => {
+                        const timelinePaper = this.timelineData.find(tp => tp.id === paper.paper_id);
+                        console.log('Matching paper:', paper.paper_id, 'Timeline paper:', timelinePaper);
+                        return {
+                            ...paper,
+                            ...timelinePaper
+                        };
+                    });
+                    
+                    console.log('Final papers with titles:', papersWithTitles);
+
+                    // Add paper reference to each benchmark for sorting
+                    papersWithTitles.forEach(paper => {
+                        paper.benchmarks.forEach(benchmark => {
+                            benchmark.paper = paper;
+                        });
+                    });
+                    
+                    return papersWithTitles;
+                },
+                allBenchmarks() {
+                    // Flatten all benchmarks from all papers into a single array
+                    // and add paper info to each benchmark for display
+                    const benchmarks = [];
+                    this.papersWithTitles.forEach(paper => {
+                        paper.benchmarks.forEach(benchmark => {
+                            benchmarks.push({
+                                ...benchmark,
+                                paper: paper
+                            });
+                        });
+                    });
+                    
+                    // Apply filters first
+                    let filtered = [...benchmarks];
+                    
+                    // Filter by size
+                    if (this.filters.size.length > 0) {
+                        filtered = filtered.filter(b => this.filters.size.includes(b.size));
+                    }
+                    
+                    // Filter by keyspace
+                    if (this.filters.keyspace.length > 0) {
+                        filtered = filtered.filter(b => this.filters.keyspace.includes(b.keyspace));
+                    }
+                    
+                    // Filter by NIST level
+                    if (this.filters.nistLevel.length > 0) {
+                        filtered = filtered.filter(b => this.filters.nistLevel.includes(b.nist_level));
+                    }
+                    
+                    // Filter by platform
+                    if (this.filters.platform.length > 0) {
+                        filtered = filtered.filter(b => 
+                            b.cycles && b.cycles.some(c => this.filters.platform.includes(c.platform))
+                        );
+                    }
+                    
+                    // Filter by constant-time property
+                    if (this.filters.constantTime !== null) {
+                        filtered = filtered.filter(b => b.constant_time === this.filters.constantTime);
+                    }
+                    
+                    // Filter by deterministic property
+                    if (this.filters.deterministic !== null) {
+                        filtered = filtered.filter(b => b.deterministic === this.filters.deterministic);
+                    }
+                    
+                    // Filter by dummy-free property
+                    if (this.filters.dummyFree !== null) {
+                        filtered = filtered.filter(b => b.dummy_free === this.filters.dummyFree);
+                    }
+                    
+                    // Then sort the filtered benchmarks
+                    return this.sortedBenchmarks(filtered);
+                },
+                // Computed properties for filter options based on available data
+                uniqueSizes() {
+                    const sizes = new Set();
+                    this.papersWithTitles.forEach(paper => {
+                        paper.benchmarks.forEach(benchmark => {
+                            if (benchmark.size) sizes.add(benchmark.size);
+                        });
+                    });
+                    return Array.from(sizes).sort((a, b) => a - b);
+                },
+                uniqueKeyspaces() {
+                    const keyspaces = new Set();
+                    this.papersWithTitles.forEach(paper => {
+                        paper.benchmarks.forEach(benchmark => {
+                            if (benchmark.keyspace) keyspaces.add(benchmark.keyspace);
+                        });
+                    });
+                    return Array.from(keyspaces).sort((a, b) => a - b);
+                },
+                uniqueNistLevels() {
+                    const levels = new Set();
+                    this.papersWithTitles.forEach(paper => {
+                        paper.benchmarks.forEach(benchmark => {
+                            if (benchmark.nist_level) levels.add(benchmark.nist_level);
+                        });
+                    });
+                    return Array.from(levels).sort((a, b) => a - b);
+                },
+                uniquePlatforms() {
+                    const platforms = new Set();
+                    this.papersWithTitles.forEach(paper => {
+                        paper.benchmarks.forEach(benchmark => {
+                            if (benchmark.cycles) {
+                                benchmark.cycles.forEach(cycle => {
+                                    platforms.add(cycle.platform);
+                                });
+                            }
+                        });
+                    });
+                    return Array.from(platforms).sort();
+                }
+            },
+            methods: {
+                showPaperDetails(paper) {
+                    this.selectedPaper = paper;
+                },
+                closePaperDetails() {
+                    this.selectedPaper = null;
+                },
+                toggleTheme() {
+                    this.isDarkMode = !this.isDarkMode;
+                    document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+                    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+                },
+                toggleDetailedView() {
+                    this.showDetailedView = !this.showDetailedView;
+                    localStorage.setItem('detailedView', this.showDetailedView);
+                },
+                calculateWeightedSum(operations) {
+                    const weights = this.useAlternativeWeights ? this.weights.alternative : this.weights.standard;
+                    const sum = operations.M * weights.M + 
+                                operations.S * weights.S + 
+                                operations.a * weights.a;
+                    
+                    // Format the sum with thousands separators and no decimal places
+                    return Math.round(sum).toLocaleString();
+                },
+                getDetailedOpsTooltip(operations) {
+                    const calculation = `${operations.M.toLocaleString()} M + ${operations.S.toLocaleString()} S + ${operations.a.toLocaleString()} a`;
+
+                    return `Cost:\n${calculation}`;
+                },
+                toggleFilter(filterType, value) {
+                    // Handle boolean filters (security features)
+                    if (['constantTime', 'deterministic', 'dummyFree'].includes(filterType)) {
+                        // If the value is already set to this value, clear it
+                        if (this.filters[filterType] === value) {
+                            this.filters[filterType] = null;
+                        } else {
+                            this.filters[filterType] = value;
+                        }
+                    } 
+                    // Handle array-based filters (size, keyspace, etc.)
+                    else {
+                        // If the value is already in the array, remove it
+                        const index = this.filters[filterType].indexOf(value);
+                        if (index !== -1) {
+                            this.filters[filterType].splice(index, 1);
+                        } else {
+                            this.filters[filterType].push(value);
+                        }
+                    }
+                    
+                    // Save filter state to localStorage
+                    localStorage.setItem('filters', JSON.stringify(this.filters));
+                },
+                clearFilters() {
+                    this.filters = {
+                        size: [],
+                        keyspace: [],
+                        nistLevel: [],
+                        platform: [],
+                        constantTime: null,
+                        deterministic: null,
+                        dummyFree: null
+                    };
+                    localStorage.setItem('filters', JSON.stringify(this.filters));
+                },
+                sortBy(key) {
+                    // If already sorting by this key, toggle direction
+                    if (this.sortKey === key) {
+                        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        this.sortKey = key;
+                        this.sortDirection = 'asc';
+                    }
+                    
+                    // Save sort preferences to localStorage
+                    localStorage.setItem('sortKey', this.sortKey);
+                    localStorage.setItem('sortDirection', this.sortDirection);
+                },
+                sortedBenchmarks(benchmarks) {
+                    // If no sort key is set, return unsorted benchmarks
+                    if (!this.sortKey) return benchmarks;
+                    
+                    // Create a copy to avoid modifying the original data
+                    const sorted = [...benchmarks];
+                    
+                    // Sort based on the current key and direction
+                    sorted.sort((a, b) => {
+                        let valueA, valueB;
+                        
+                        // Get values based on the sort key
+                        if (this.sortKey === 'paper') {
+                            // Sort by publication date
+                            valueA = a.paper?.date ? new Date(a.paper.date) : new Date(0);
+                            valueB = b.paper?.date ? new Date(b.paper.date) : new Date(0);
+                            
+                            // Compare the dates and apply sort direction
+                            if (this.sortDirection === 'asc') {
+                                return valueA - valueB;
+                            } else {
+                                return valueB - valueA;
+                            }
+                        } else if (this.sortKey === 'size') {
+                            valueA = a.size;
+                            valueB = b.size;
+                        } else if (this.sortKey === 'operations') {
+                            // Calculate weighted sum for comparison
+                            const weights = this.useAlternativeWeights ? this.weights.alternative : this.weights.standard;
+                            valueA = a.operations.M * weights.M + a.operations.S * weights.S + a.operations.a * weights.a;
+                            valueB = b.operations.M * weights.M + b.operations.S * weights.S + b.operations.a * weights.a;
+                        } else if (this.sortKey === 'cycles') {
+                            // Use the first cycle entry's value for sorting
+                            // This is a simplification - we could make this more sophisticated if needed
+                            valueA = a.cycles && a.cycles.length > 0 ? a.cycles[0].value : 0;
+                            valueB = b.cycles && b.cycles.length > 0 ? b.cycles[0].value : 0;
+                        } else {
+                            return 0;
+                        }
+                        
+                        // Apply sort direction
+                        if (this.sortKey === 'paper') {
+                            // Already handled above
+                            return 0;
+                        } else if (this.sortDirection === 'asc') {
+                            return valueA - valueB;
+                        } else {
+                            return valueB - valueA;
+                        }
+                    });
+                    
+                    return sorted;
+                },
+                toggleFiltersVisible() {
+                    this.filtersVisible = !this.filtersVisible;
+                    localStorage.setItem('filtersVisible', this.filtersVisible);
+                },
+                updateWeightMode(useAlternative) {
+                    // Set the weight mode based on the button clicked
+                    this.useAlternativeWeights = useAlternative;
+                    
+                    // Save the weight mode preference to localStorage
+                    localStorage.setItem('alternativeWeights', this.useAlternativeWeights);
+                    
+                    // If currently sorting by operations, we need to re-sort with new weights
+                    if (this.sortKey === 'operations') {
+                        // Trigger a re-sort by toggling the sort direction
+                        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+                        // Save to localStorage
+                        localStorage.setItem('sortDirection', this.sortDirection);
+                    }
+                }
+            },
+            async mounted() {
+                // Check for saved theme preference
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    this.isDarkMode = savedTheme === 'dark';
+                }
+                document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+
+                // Check for saved detailed view preference
+                const savedDetailedView = localStorage.getItem('detailedView');
+                if (savedDetailedView) {
+                    this.showDetailedView = savedDetailedView === 'true';
+                }
+
+                // Check for saved weight mode preference
+                const savedAlternativeWeights = localStorage.getItem('alternativeWeights');
+                if (savedAlternativeWeights) {
+                    this.useAlternativeWeights = savedAlternativeWeights === 'true';
+                }
+
+                // Check for saved sort preferences
+                const savedSortKey = localStorage.getItem('sortKey');
+                const savedSortDirection = localStorage.getItem('sortDirection');
+                if (savedSortKey) {
+                    this.sortKey = savedSortKey;
+                }
+                if (savedSortDirection) {
+                    this.sortDirection = savedSortDirection;
+                }
+
+                // Check for saved filter preferences
+                const savedFilters = localStorage.getItem('filters');
+                if (savedFilters) {
+                    try {
+                        this.filters = JSON.parse(savedFilters);
+                    } catch (e) {
+                        console.error('Error parsing saved filters:', e);
+                    }
+                }
+
+                // Check for saved filters visibility preference
+                const savedFiltersVisible = localStorage.getItem('filtersVisible');
+                if (savedFiltersVisible !== null) {
+                    this.filtersVisible = savedFiltersVisible === 'true';
+                }
+
+                // Listen for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!localStorage.getItem('theme')) {
+                        this.isDarkMode = e.matches;
+                        document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+                    }
+                });
+
+                try {
+                    const [benchmarksResponse, timelineResponse] = await Promise.all([
+                        fetch('benchmarks.json'),
+                        fetch('csidh_data.json')
+                    ]);
+                    this.papers = await benchmarksResponse.json();
+                    this.timelineData = await timelineResponse.json();
+                    
+                    console.log('Loaded papers:', this.papers);
+                    console.log('Loaded timeline data:', this.timelineData);
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html> 

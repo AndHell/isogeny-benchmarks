@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSIDH Timeline</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <button class="theme-toggle" @click="toggleTheme" title="Toggle dark mode">
+            <svg v-if="isDarkMode" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+            </svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
+            </svg>
+        </button>
+        <button class="direction-toggle" @click="toggleDirection" :title="isAscending ? 'Show newest first' : 'Show oldest first'">
+            <svg v-if="isAscending" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z"/>
+            </svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M7 14l5-5 5 5z"/>
+            </svg>
+        </button>
+        <h1>CSIDH Timeline</h1>
+        <div class="nav-links">
+            <a href="benchmarks.html">Benchmarks →</a>
+        </div>
+        <div class="filter-container">
+            <div class="filter-group">
+                <label>Filter by:</label>
+                <button 
+                    v-for="tag in availableTags" 
+                    :key="tag"
+                    :class="['filter-btn', { active: selectedTags.includes(tag) }]"
+                    @click="toggleTag(tag)">
+                    {{ tag }}
+                </button>
+            </div>
+        </div> 
+        <div class="timeline-container">
+            <div v-for="(entry, index) in filteredData" 
+                 :key="entry.id" 
+                 class="timeline-item"
+                 :id="'paper-' + entry.id">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">{{ formatDate(entry.date) }}</div>
+                <div class="timeline-content">
+                    <div class="timeline-card">
+                        <h3 class="timeline-title" @click="showModal(entry)">{{ entry.title }}</h3>
+                        <p class="timeline-authors">{{ entry.authors }}</p>
+                        <p class="timeline-summary">{{ entry.summary }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div v-if="selectedPaper" class="modal-overlay" @click="closeModal">
+            <div class="modal-content" @click.stop>
+                <button class="modal-close" @click="closeModal">&times;</button>
+                <h2 class="modal-title">{{ selectedPaper.title }}</h2>
+                <p class="modal-paper-id">eprint: {{ selectedPaper.id }}</p>
+                <p class="modal-authors">{{ selectedPaper.authors }}</p>
+                <p class="modal-abstract">{{ selectedPaper.abstract || "Abstract not available" }}</p>
+                <div class="modal-references" v-if="selectedPaper.based_on && selectedPaper.based_on.length > 0">
+                    <h3>References:</h3>
+                    <p v-for="ref in getReferences(selectedPaper.based_on)" :key="ref.id">
+                        <span class="reference-label">{{ getReferenceLabel(selectedPaper.based_on, ref.id) }}</span>
+                        <a class="reference-link" 
+                           :href="'#paper-' + ref.id"
+                           @click="jumpToReference(ref)">{{ ref.title }}</a>
+                    </p>
+                </div>
+                <div class="modal-links">
+                    <a :href="selectedPaper.eprint_link" target="_blank" class="modal-link">Read Paper</a>
+                    <a :href="'benchmarks.html#' + selectedPaper.id" class="modal-link">View Benchmarks</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    timelineData: [],
+                    selectedPaper: null,
+                    selectedTags: [],
+                    isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
+                    isAscending: localStorage.getItem('direction') !== 'desc'
+                }
+            },
+            computed: {
+                availableTags() {
+                    const tags = new Set()
+                    this.timelineData.forEach(paper => {
+                        if (paper.tags) {
+                            paper.tags.forEach(tag => tags.add(tag))
+                        }
+                    })
+                    return Array.from(tags).sort()
+                },
+                filteredData() {
+                    let data = [...this.timelineData]
+                    if (this.selectedTags.length > 0) {
+                        data = data.filter(paper => 
+                            paper.tags && paper.tags.some(tag => this.selectedTags.includes(tag))
+                        )
+                    }
+                    return data.sort((a, b) => {
+                        const dateA = new Date(a.date)
+                        const dateB = new Date(b.date)
+                        return this.isAscending ? dateA - dateB : dateB - dateA
+                    })
+                }
+            },
+            methods: {
+                formatDate(dateString) {
+                    const date = new Date(dateString)
+                    const month = date.toLocaleString('default', { month: 'short' })
+                    return `${month} ${date.getFullYear()}`
+                },
+                showModal(paper) {
+                    this.selectedPaper = paper
+                },
+                closeModal() {
+                    this.selectedPaper = null
+                },
+                getReferences(refIds) {
+                    return refIds.map(ref => this.timelineData.find(paper => paper.id === ref.id)).filter(Boolean)
+                },
+                getReferenceLabel(basedOn, refId) {
+                    const ref = basedOn.find(r => r.id === refId)
+                    return ref ? ref.label + ' ' : ''
+                },
+                jumpToReference(paper) {
+                    this.closeModal()
+                    setTimeout(() => {
+                        const element = document.getElementById('paper-' + paper.id)
+                        if (element) {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                            element.classList.add('highlight')
+                            setTimeout(() => element.classList.remove('highlight'), 2000)
+                        }
+                    }, 100)
+                },
+                async loadData() {
+                    try {
+                        const response = await fetch('csidh_data.json')
+                        this.timelineData = await response.json()
+                    } catch (error) {
+                        console.error('Error loading timeline data:', error)
+                    }
+                },
+                toggleTag(tag) {
+                    const index = this.selectedTags.indexOf(tag)
+                    if (index === -1) {
+                        this.selectedTags.push(tag)
+                    } else {
+                        this.selectedTags.splice(index, 1)
+                    }
+                },
+                toggleTheme() {
+                    this.isDarkMode = !this.isDarkMode
+                    document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light')
+                    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light')
+                },
+                toggleDirection() {
+                    this.isAscending = !this.isAscending
+                    localStorage.setItem('direction', this.isAscending ? 'asc' : 'desc')
+                }
+            },
+            mounted() {
+                // Check for saved theme preference
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    this.isDarkMode = savedTheme === 'dark';
+                }
+                document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+
+                // Listen for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!localStorage.getItem('theme')) {
+                        this.isDarkMode = e.matches;
+                        document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+                    }
+                });
+
+                this.loadData()
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html> 

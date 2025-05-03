@@ -1,0 +1,1072 @@
+[
+{
+  "paper_id": "2018/383",
+  "benchmarks": [
+    {
+      "name": "(not)original CSIDH",
+      "operations": {
+        "M": 280876,
+        "S": 103313,
+        "a": 0
+      },
+      "cycles": [
+        {
+          "platform": "Skylake",
+          "value": 0.0822,
+          "unit": "Gcyc"
+        }
+      ],
+      "constant_time": false,
+      "deterministic": false,
+      "dummy_free": false,
+      "size": 512,
+      "keyspace": 256,
+      "nist_level": "?"
+    }
+  ]
+},
+{
+  "paper_id": "2018/782",
+  "benchmarks": [
+    {
+      "name": "Faster CSIDH", 
+      "operations": {
+        "M": 0,
+        "S": 0,
+        "a": 0
+      },
+      "cycles": [
+        {
+          "platform": "Skylake",
+          "value": 0.128,
+          "unit": "Gcyc"
+        }
+      ],
+      "constant_time": false,
+      "deterministic": false,
+      "dummy_free": false,
+      "size": 512,
+      "keyspace": 256,
+      "nist_level": "?"
+    }
+  ]
+},
+  {
+    "paper_id": "2019/837",
+    "benchmarks": [
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 900552,
+          "S": 309680,
+          "a": 964670
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.320,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 657367,
+          "S": 209921,
+          "a": 691017
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.227,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 1320500,
+          "S": 423297,
+          "a": 1390398
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.460,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ]
+  },
+  {
+    "paper_id": "2020/1520",
+    "benchmarks": [
+      {
+        "name": "dummy free", 
+        "operations": {
+          "M": 857000,
+          "S": 231000,
+          "a": 1188000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.347,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR", 
+        "operations": {
+          "M": 579000,
+          "S": 163000,
+          "a": 816000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.242,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT", 
+        "operations": {
+          "M": 447000,
+          "S": 128000,
+          "a": 626000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.187,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free", 
+        "operations": {
+          "M": 793000,
+          "S": 190000,
+          "a": 1246000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.344,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR", 
+        "operations": {
+          "M": 536000,
+          "S": 132000,
+          "a": 854000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.948,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT", 
+        "operations": {
+          "M": 436000,
+          "S": 125000,
+          "a": 652000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.795,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free", 
+        "operations": {
+          "M": 851000,
+          "S": 214000,
+          "a": 1065000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 4.541,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 1792,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR", 
+        "operations": {
+          "M": 568000,
+          "S": 145000,
+          "a": 949000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 3.212,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1792,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT", 
+        "operations": {
+          "M": 523000,
+          "S": 155000,
+          "a": 927000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 2.951,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1792,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+      ,
+      {
+        "name": "dummy free", 
+        "operations": {
+          "M": 878000,
+          "S": 227000,
+          "a": 1439000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 6.229,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR", 
+        "operations": {
+          "M": 584000,
+          "S": 154000,
+          "a": 973000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 4.384,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT", 
+        "operations": {
+          "M": 530000,
+          "S": 118000,
+          "a": 938000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 3.954,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR", 
+        "operations": {
+          "M": 634000,
+          "S": 185000,
+          "a": 819000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 11.743,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 3072,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT", 
+        "operations": {
+          "M": 558000,
+          "S": 135000,
+          "a": 977000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 10.373,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 3072,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free", 
+        "operations": {
+          "M": 1234000,
+          "S": 233000,
+          "a": 2387000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 37.843,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR", 
+        "operations": {
+          "M": 813000,
+          "S": 154000,
+          "a": 1604000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 27.403,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT", 
+        "operations": {
+          "M": 583000,
+          "S": 152000,
+          "a": 1.006000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 22.677,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free", 
+        "operations": {
+          "M":  1263000,
+          "S": 246000,
+          "a": 2432000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 67.011,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 5120,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR", 
+        "operations": {
+          "M": 832000,
+          "S": 163000,
+          "a": 1633000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 49.194,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 5120,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT", 
+        "operations": {
+          "M": 612000,
+          "S": 166000,
+          "a": 1051000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 42.328,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 5120,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free", 
+        "operations": {
+          "M": 1427000,
+          "S": 284000,
+          "a": 2765000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 118.042,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 6144,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR", 
+        "operations": {
+          "M": 933000,
+          "S": 185000,
+          "a": 1838000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 85.860,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 6144,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT", 
+        "operations": {
+          "M": 706000,
+          "S": 194000,
+          "a": 9000000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 74.399,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 6144,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free", 
+        "operations": {
+          "M": 2655000,
+          "S": 468000,
+          "a": 5514000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 353.790,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 8192,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR", 
+        "operations": {
+          "M": 1744000,
+          "S": 304000,
+          "a": 3693000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 260.883,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 8192,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT", 
+        "operations": {
+          "M": 1270000,
+          "S": 302000,
+          "a": 2357000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 211.720,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 8192,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ]
+  },
+  {
+    "paper_id": "2020/341",
+    "benchmarks": [
+      {
+        "name": "CSIDH (velusqrt)",
+        "operations": {
+          "M": 437839,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.118,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "CSIDH (velusqrt)",
+        "operations": {
+          "M": 579917,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.707,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ]
+  },
+  {
+    "paper_id": "2021/633",
+    "benchmarks": [
+          {
+      "name": "CTIDH (aggressive)",
+      "operations": {
+        "M": 310841,
+        "S": 82119,
+        "a": 346715
+      },
+      "cycles": [
+        {
+          "platform": "Skylake",
+          "value": 0.089,
+          "unit": "Gcyc"
+        }
+      ],
+      "constant_time": true,
+      "deterministic": false,
+      "dummy_free": false,
+      "size": 512,
+      "keyspace": 221,
+      "nist_level": "?"
+    },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 437858,
+          "S": 116739,
+          "a": 482184
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.125,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 375731,
+          "S": 87964,
+          "a": 486802
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.470,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ]
+  },
+  {
+    "paper_id": "2023/793",
+    "benchmarks": [
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 1315203,
+          "S": 227501,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 7.039,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 286464,
+          "S": 83271,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.695,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 1744469,
+          "S": 293510,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 34.173,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 4096,
+        "keyspace": 262,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 405818,
+          "S": 127244,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 8.259,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 4096,
+        "keyspace": 262,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 1527366,
+          "S": 268326,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 29.528,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 5120,
+        "keyspace": 244,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 718638,
+          "S": 235047,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 34.322,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 5120,
+        "keyspace": 244,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 1757077,
+          "S": 305853,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 44.019,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 6144,
+        "keyspace": 262,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 470230,
+          "S": 167917,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 13.325,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 6144,
+        "keyspace": 262,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 2805650,
+          "S": 458065,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 119.583,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 8192,
+        "keyspace": 338,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 718638,
+          "S": 235047,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 34.322,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 8192,
+        "keyspace": 338,
+        "nist_level": "?"
+      }
+    ]
+  },
+  {
+    "paper_id": "2025/107",
+    "benchmarks": [
+      {
+        "name": "dCTIDH-205",
+        "operations": {
+          "M": 263545,
+          "S": 50825,
+          "a": 465224
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.430,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCTIDH-194",
+        "operations": {
+          "M": 266101,
+          "S": 51258,
+          "a": 469258
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.409,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCTIDH-226",
+        "operations": {
+          "M": 265192,
+          "S": 50572,
+          "a": 474336 
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.497,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      }
+    ]
+  }
+] 
