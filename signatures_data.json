@@ -1,0 +1,270 @@
+[
+  {
+    "id": "2020/1240",
+    "title": "SQIsign: compact post-quantum signatures from quaternions and isogenies",
+    "short": "SQIsign",
+    "authors": "Luca De Feo, David Kohel, Antonin Leroux, Christophe Petit, and Benjamin Wesolowski",
+    "date": "2020-11-25",
+    "eprint_link": "https://eprint.iacr.org/2020/1240",
+    "abstract": "We introduce a new signature scheme, SQIsign, from isogeny graphs of supersingular elliptic curves. The signature scheme is derived from a new one-round, high soundness, interactive identification protocol. Targeting NIST level 1 security, SQIsign signatures are 177 bytes long, and the public key is 64 bytes, making it the most compact post-quantum signature scheme to date.",
+    "summary": "Original SQIsign: compact post-quantum signatures from supersingular isogeny graphs via the quaternion algebra.",
+    "scheme": "SQIsign",
+    "based_on": [],
+    "tags": [
+      "signature",
+      "SQIsign",
+      "supersingular"
+    ],
+    "benchmarks": [
+      {
+        "name": "SQIsign NIST v1 (ref)",
+        "variant": "NIST v1",
+        "nist_level": 1,
+        "pk_size": 64,
+        "sk_size": 782,
+        "sig_size": 177,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 2.166,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 2.978,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.039,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      }
+    ]
+  },
+  {
+    "id": "2023/436",
+    "title": "SQIsign: Algorithm Specifications and Supporting Documentation (NIST v2)",
+    "short": "SQIsign v2",
+    "authors": "Luca De Feo, David Kohel, Antonin Leroux, Christophe Petit, and Benjamin Wesolowski",
+    "date": "2023-07-01",
+    "eprint_link": "https://sqisign.org",
+    "_note": "ID unconfirmed \u2014 this is the NIST v2 submission update, not a separate ePrint paper",
+    "abstract": "Updated NIST submission for SQIsign, incorporating significant algorithmic optimisations that reduce cycle counts by roughly 4\u20138\u00d7 compared to the original v1 submission across all security levels.",
+    "summary": "NIST v2 submission of SQIsign with major performance improvements over v1, using refined algorithms for ideal-to-isogeny translation.",
+    "scheme": "SQIsign",
+    "based_on": [
+      {
+        "id": "2020/1240",
+        "label": "updates"
+      }
+    ],
+    "tags": [
+      "signature",
+      "SQIsign",
+      "supersingular"
+    ],
+    "benchmarks": [
+      {
+        "name": "SQIsign NIST v2 lvl1",
+        "variant": "NIST v2",
+        "nist_level": 1,
+        "pk_size": 64,
+        "sk_size": 782,
+        "sig_size": 177,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.0561,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.1321,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0063,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "SQIsign NIST v2 (bench) lvl3",
+        "variant": "NIST v2",
+        "nist_level": 3,
+        "pk_size": 96,
+        "sk_size": 1228,
+        "sig_size": 263,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.1623,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.3791,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0204,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "SQIsign NIST v2 (bench) lvl5",
+        "variant": "NIST v2",
+        "nist_level": 5,
+        "pk_size": 128,
+        "sk_size": 2072,
+        "sig_size": 335,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.2534,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.6152,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0388,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      }
+    ]
+  },
+  {
+    "id": "2025/1604",
+    "title": "Qlapoti: Simple and Efficient Translation of Quaternion Ideals to Isogenies",
+    "short": "Qlapoti",
+    "authors": "Giacomo Borin, Maria Corte-Real Santos, Jonathan Komada Eriksen, Riccardo Invernizzi, Marzio Mula, Sina Schaeffler and Frederik Vercauteren",
+    "date": "2025-01-01",
+    "eprint_link": "https://eprint.iacr.org/2025/1604",
+    "abstract": "The main  building block in isogeny-based cryptography is an algorithmic version of the Deuring correspondence, called . This algorithm takes as input left ideals of the endomorphism ring of a supersingular elliptic curve and computes the associated isogeny. Building on ideas from , the framework by Page and Robert reduces this problem to solving a certain norm equation. The current state of the art is however unable to efficiently solve this equation, and resorts to a relaxed version of it instead. This impacts not only the efficiency of the  procedure, but also its success probability. The latter issue has to be mitigated with complex and memory-heavy rerandomization procedures, but still leaves a gap between the security analysis and the actual implementation of cryptographic schemes employing  as a subroutine. For instance, in  the failure probability is still  which  is not cryptographically negligible.<br><br> The main contribution of this paper is a very simple and efficient algorithm called  which approaches the norm equation from  directly, solving all the aforementioned problems at once. First, it makes the subroutine between  and  times faster. This signigicantly improves the speed of schemes using this subroutine, including notably  and prism. On top of that, has a cryptographically negligible failure probability. This eliminates the need for rerandomization, drastically reducing memory consumption, and allows for cleaner security reductions.",
+    "summary": "Fast group action evaluation for SQIsign using the Qlapoti framework, giving the fastest known cycle counts for SQIsign at all NIST security levels.",
+    "scheme": "SQIsign",
+    "based_on": [
+      {
+        "id": "2020/1240",
+        "label": "implements"
+      },
+      {
+        "id": "2023/1247",
+        "label": "builds on"
+      }
+    ],
+    "tags": [
+      "signature",
+      "SQIsign",
+      "supersingular"
+    ],
+    "benchmarks": [
+      {
+        "name": "Qlapoti lvl1",
+        "variant": "Qlapoti",
+        "nist_level": 1,
+        "pk_size": 64,
+        "sk_size": 782,
+        "sig_size": 177,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.03,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.0821,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0063,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "Qlapoti lvl3",
+        "variant": "Qlapoti",
+        "nist_level": 3,
+        "pk_size": 96,
+        "sk_size": 1228,
+        "sig_size": 263,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.1207,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.3384,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0205,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "Qlapoti lvl5",
+        "variant": "Qlapoti",
+        "nist_level": 5,
+        "pk_size": 128,
+        "sk_size": 2072,
+        "sig_size": 335,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.1626,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.4675,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.039,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,4 @@
+Benchmarking lvl3
+  sqisign_keypair     -> median: 34280589008, average: 34321413725 cycles
+  sqisign_sign        -> median: 62289559102, average: 62349120749 cycles
+  sqisign_verify      -> median: 1035457990, average: 1035458390 cycles

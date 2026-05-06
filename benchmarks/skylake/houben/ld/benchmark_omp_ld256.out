@@ -1,0 +1,132 @@
+Benchmark: OSIDH-LD | multithread
+Thread num: 4
+Testing...
+Secret key 1: 120,18,4,28,11,3,1,29,35,15,23,27,25,29,28,9,6,31,29,26,34,0,5,28,12,23,4,26,22,35,4,13,30,13,4,14,8,8,32,17,15,27,10,16,29,21,7,11,33
+Secret key 2: 76,34,6,47,3,7,29,1,19,10,16,12,35,1,31,14,10,14,13,18,23,22,8,6,8,23,28,1,21,34,19,35,9,3,22,15,18,33,6,14,29,1,22,1,29,18,26,34,22
+Agreement key 1: 0x3e3b15c0f308c03015259e5607975917576634fec2e4f2bcd9d83637c68c2222 + a*0x2016c6d43f7f455898bdc4e0be47fc55c12c8a25969802b307665f0ef3a02d7b
+Agreement key 2: 0x3e3b15c0f308c03015259e5607975917576634fec2e4f2bcd9d83637c68c2222 + a*0x2016c6d43f7f455898bdc4e0be47fc55c12c8a25969802b307665f0ef3a02d7b
+--------------------------------
+Benchmark 1:
+Public key 1: 1.087 seconds
+Public key 2: 1.088 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 2:
+Public key 1: 1.090 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 3:
+Public key 1: 1.087 seconds
+Public key 2: 1.090 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 4:
+Public key 1: 1.087 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.925 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 5:
+Public key 1: 1.087 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.926 seconds
+==================
+Benchmark 6:
+Public key 1: 1.088 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 7:
+Public key 1: 1.090 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 8:
+Public key 1: 1.087 seconds
+Public key 2: 1.090 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 9:
+Public key 1: 1.103 seconds
+Public key 2: 1.088 seconds
+Agreement key 1: 0.926 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 10:
+Public key 1: 1.087 seconds
+Public key 2: 1.088 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.926 seconds
+==================
+Benchmark 11:
+Public key 1: 1.087 seconds
+Public key 2: 1.088 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 12:
+Public key 1: 1.090 seconds
+Public key 2: 1.088 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 13:
+Public key 1: 1.088 seconds
+Public key 2: 1.090 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 14:
+Public key 1: 1.087 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.926 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 15:
+Public key 1: 1.087 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.926 seconds
+==================
+Benchmark 16:
+Public key 1: 1.087 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 17:
+Public key 1: 1.090 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.943 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 18:
+Public key 1: 1.087 seconds
+Public key 2: 1.090 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 19:
+Public key 1: 1.088 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.925 seconds
+Agreement key 2: 0.923 seconds
+==================
+Benchmark 20:
+Public key 1: 1.088 seconds
+Public key 2: 1.087 seconds
+Agreement key 1: 0.923 seconds
+Agreement key 2: 0.926 seconds
+==================
+OSIDH-LD | multithread:
+Thread num: 4
+Public Key Avg: 1.088 seconds
+Agreement Key Avg: 0.924 seconds

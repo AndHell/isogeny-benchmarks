@@ -1,0 +1,386 @@
+{
+  "_note": "IDs marked with _uncertain require verification.",
+  "tag_regions": {
+    "Odinary": {
+      "label": "Odinary",
+      "draw_order": 2,
+      "color": "#dc8add"
+    },
+    "Super": {
+      "label": "Supersingular",
+      "draw_order": 2,
+      "color": "#dc8add"
+    },
+    "restrict": {
+      "label": "Rescricted",
+      "draw_order": 3,
+      "color": "#99c1f1"
+    },
+    "unrest": {
+      "label": "Unrestricted",
+      "draw_order": 3,
+      "color": "#99c1f1"
+    },
+    "lc": {
+      "label": "Large Concuctor",
+      "draw_order": 1,
+      "color": "#2a8a8a"
+    },
+    "hd": {
+      "label": "HD",
+      "draw_order": 1,
+      "color": "#2a8a8a"
+    }
+  },
+  "nodes": [
+    {
+      "id": "2006/291",
+      "name": "Couveignes",
+      "eprint": "https://eprint.iacr.org/2006/291",
+      "tags": [
+        "Odinary",
+        "restrict"
+      ],
+      "depends_on": [],
+      "_pos": {
+        "x": 380,
+        "y": 60
+      }
+    },
+    {
+      "id": "2006/145",
+      "name": "Rostovtsev–Stolbunov",
+      "eprint": "https://eprint.iacr.org/2006/145",
+      "tags": [
+        "Odinary",
+        "restrict"
+      ],
+      "depends_on": [],
+      "_pos": {
+        "x": 540,
+        "y": 60
+      }
+    },
+    {
+      "id": "2018/485",
+      "name": "De Feo–Kieffer–Smith",
+      "eprint": "https://eprint.iacr.org/2018/485",
+      "tags": [
+        "Odinary",
+        "restrict"
+      ],
+      "depends_on": [
+        "noprint/couveignes",
+        "2006/145",
+        "2006/291"
+      ],
+      "_pos": {
+        "x": 470,
+        "y": 148
+      }
+    },
+    {
+      "id": "2018/383",
+      "name": "CSIDH",
+      "eprint": "https://eprint.iacr.org/2018/383",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2018/485"
+      ],
+      "_pos": {
+        "x": 650,
+        "y": 285
+      }
+    },
+    {
+      "id": "2019/498",
+      "name": "CSi-FiSH",
+      "eprint": "https://eprint.iacr.org/2019/498",
+      "tags": [
+        "Super",
+        "unrest"
+      ],
+      "depends_on": [
+        "2018/383"
+      ],
+      "_pos": {
+        "x": 998,
+        "y": 383
+      }
+    },
+    {
+      "id": "2019/1404",
+      "name": "CSURF",
+      "eprint": "https://eprint.iacr.org/2019/1404",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2018/383"
+      ],
+      "_pos": {
+        "x": 367,
+        "y": 346
+      }
+    },
+    {
+      "id": "2021/633",
+      "name": "CTIDH",
+      "eprint": "https://eprint.iacr.org/2021/633",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2018/383"
+      ],
+      "_pos": {
+        "x": 366,
+        "y": 433
+      }
+    },
+    {
+      "id": "2020/985",
+      "name": "OSIDH",
+      "eprint": "https://eprint.iacr.org/2020/985",
+      "tags": [
+        "Super",
+        "restrict",
+        "lc"
+      ],
+      "depends_on": [
+        "2018/383"
+      ],
+      "_pos": {
+        "x": 684,
+        "y": 500
+      }
+    },
+    {
+      "id": "2020/1520",
+      "name": "SQALE",
+      "eprint": "https://eprint.iacr.org/2020/1520",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2018/383",
+        "2021/633"
+      ],
+      "flavours": [
+        "dCSIDH",
+        "CTIDH"
+      ],
+      "_pos": {
+        "x": 474,
+        "y": 524
+      }
+    },
+    {
+      "id": "2023/793",
+      "name": "dCTIDH",
+      "eprint": "https://eprint.iacr.org/2023/793",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2021/633",
+        "2021/1019",
+        "2020/1520"
+      ],
+      "_pos": {
+        "x": 307,
+        "y": 639
+      }
+    },
+    {
+      "id": "2023/058",
+      "name": "SCALLOP",
+      "eprint": "https://eprint.iacr.org/2023/058",
+      "tags": [
+        "Super",
+        "unrest",
+        "lc"
+      ],
+      "depends_on": [
+        "2020/1280",
+        "2019/498",
+        "2020/985"
+      ],
+      "_pos": {
+        "x": 995,
+        "y": 505
+      }
+    },
+    {
+      "id": "2025/847",
+      "name": "Houben",
+      "eprint": "https://eprint.iacr.org/2025/847",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2021/1019",
+        "2020/1520"
+      ],
+      "_pos": {
+        "x": 474,
+        "y": 827
+      }
+    },
+    {
+      "id": "2024/1744",
+      "name": "PEARL-SCALLOP",
+      "eprint": "https://eprint.iacr.org/2024/1744",
+      "tags": [
+        "Super",
+        "unrest",
+        "lc"
+      ],
+      "depends_on": [
+        "2023/058"
+      ],
+      "_pos": {
+        "x": 1108,
+        "y": 606
+      }
+    },
+    {
+      "id": "2023/1766",
+      "name": "Clapoti(s)",
+      "eprint": "https://eprint.iacr.org/2023/1766",
+      "tags": [
+        "Super",
+        "unrest",
+        "hd"
+      ],
+      "depends_on": [],
+      "_pos": {
+        "x": 1321,
+        "y": 598
+      }
+    },
+    {
+      "id": "2023/1488",
+      "name": "SCALLOP-HD",
+      "eprint": "https://eprint.iacr.org/2023/1488",
+      "tags": [
+        "Super",
+        "unrest",
+        "lc",
+        "hd"
+      ],
+      "depends_on": [
+        "2023/1488",
+        "2023/058"
+      ],
+      "_pos": {
+        "x": 942,
+        "y": 630
+      }
+    },
+    {
+      "id": "2024/1844",
+      "name": "KLaPoTi",
+      "eprint": "https://eprint.iacr.org/2024/1844",
+      "tags": [
+        "Super",
+        "unrest",
+        "lc",
+        "hd"
+      ],
+      "depends_on": [
+        "2024/1174",
+        "2023/1247",
+        "2023/1488",
+        "2023/1766"
+      ],
+      "_pos": {
+        "x": 983,
+        "y": 712
+      }
+    },
+    {
+      "id": "2025/401",
+      "name": "PEGASIS",
+      "eprint": "https://eprint.iacr.org/2025/401",
+      "tags": [
+        "Super",
+        "unrest",
+        "hd"
+      ],
+      "depends_on": [
+        "2023/1247",
+        "2023/1766"
+      ],
+      "_pos": {
+        "x": 1305,
+        "y": 722
+      }
+    },
+    {
+      "id": "2025/1859",
+      "name": "qt-PEGASIS",
+      "eprint": "https://eprint.iacr.org/2025/1859",
+      "tags": [
+        "Super",
+        "unrest",
+        "hd"
+      ],
+      "depends_on": [
+        "2025/401"
+      ],
+      "_pos": {
+        "x": 1284,
+        "y": 853
+      }
+    },
+    {
+      "id": "2026/placeholder/coral",
+      "name": "CORAL",
+      "eprint": null,
+      "tags": [
+        "Super",
+        "restrict",
+        "hd"
+      ],
+      "depends_on": [
+        "2021/1019",
+        "2022/1469",
+        "2023/1662",
+        "2025/placeholder/",
+        "2023/1766",
+        "2020/1520"
+      ],
+      "_uncertain": true,
+      "_pos": {
+        "x": 678,
+        "y": 942
+      }
+    },
+    {
+      "id": "1025/1645",
+      "name": "hardened CTIDH",
+      "eprint": "https://eprint.iacr.org/2025/1645.pdf",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2023/793",
+        "2021/1019"
+      ],
+      "_pos": {
+        "x": 314,
+        "y": 743
+      }
+    }
+  ]
+}

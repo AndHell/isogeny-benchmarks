@@ -3,198 +3,654 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSIDH Timeline</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Isogeny Hub — Benchmarks</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.prod.min.js"
+            integrity="sha512-tltvjJD1pUnXVAp0L9id/mcR+zc0xsIKmPMJksEclJ6uEyI8D6eZWpR0jSVWUTXOKcmeBMyND+LQH4ECf/5WKg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <button class="theme-toggle" @click="toggleTheme" title="Toggle dark mode">
-            <svg v-if="isDarkMode" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
-            </svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
-            </svg>
-        </button>
-        <button class="direction-toggle" @click="toggleDirection" :title="isAscending ? 'Show newest first' : 'Show oldest first'">
-            <svg v-if="isAscending" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M7 10l5 5 5-5z"/>
-            </svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M7 14l5-5 5 5z"/>
-            </svg>
-        </button>
-        <h1>CSIDH Timeline</h1>
-        <div class="nav-links">
-            <a href="benchmarks.html">Benchmarks →</a>
+<div id="app">
+
+    <header>
+        <div class="header-inner">
+            <span class="logo">⬡ Isogeny Hub</span>
+            <button class="icon-btn" @click="toggleTheme" :title="isDark?'Light mode':'Dark mode'">
+                <svg v-if="isDark" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10A5 5 0 0 0 12 7zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41l-1.06-1.06zm1.06-12.37-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06a1 1 0 0 0-1.41-1.41zM7.05 18.36l-1.06 1.06a1 1 0 1 0 1.41 1.41l1.06-1.06a1 1 0 0 0-1.41-1.41z"/></svg>
+                <svg v-else viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8A9.028 9.028 0 0 0 12 3z"/></svg>
+            </button>
         </div>
-        <div class="filter-container">
-            <div class="filter-group">
-                <label>Filter by:</label>
-                <button 
-                    v-for="tag in availableTags" 
-                    :key="tag"
-                    :class="['filter-btn', { active: selectedTags.includes(tag) }]"
-                    @click="toggleTag(tag)">
-                    {{ tag }}
-                </button>
+    </header>
+
+    <nav class="scheme-tabbar">
+        <div class="scheme-tabbar-inner">
+            <button class="scheme-tab" :class="{active:schemeTab==='nike'}" @click="setSchemeTab('nike')">Key Exchange</button>
+            <button class="scheme-tab" :class="{active:schemeTab==='sig'}" @click="setSchemeTab('sig')">Signatures</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- ════════════════════════════════════
+             KEY EXCHANGE SECTION
+        ════════════════════════════════════ -->
+        <div v-if="schemeTab==='nike'">
+            <h1 class="page-title">Key Exchange</h1>
+            <p class="page-sub">Performance benchmarks for isogeny-based key exchange protocols (CSIDH, CTIDH, and related schemes). Click a paper name to view its abstract. <a href="landscape.html" style="color:var(--accent)">View the isogeny landscape →</a></p>
+
+            <!-- View tabs -->
+            <div class="tabs tabs--secondary">
+                <button class="tab-btn" :class="{active:nikeTab==='all'}"   @click="nikeTab='all'">All Benchmarks</button>
+                <button class="tab-btn" :class="{active:nikeTab==='paper'}" @click="nikeTab='paper'">Per Paper</button>
             </div>
-        </div> 
-        <div class="timeline-container">
-            <div v-for="(entry, index) in filteredData" 
-                 :key="entry.id" 
-                 class="timeline-item"
-                 :id="'paper-' + entry.id">
-                <div class="timeline-dot"></div>
-                <div class="timeline-date">{{ formatDate(entry.date) }}</div>
-                <div class="timeline-content">
-                    <div class="timeline-card">
-                        <h3 class="timeline-title" @click="showModal(entry)">{{ entry.title }}</h3>
-                        <p class="timeline-authors">{{ entry.authors }}</p>
-                        <p class="timeline-summary">{{ entry.summary }}</p>
+
+            <!-- ── NIKE: All tab ── -->
+            <div v-if="nikeTab==='all'">
+
+                <div class="filter-panel" :class="{open:nikeFiltersOpen}">
+                    <div class="fp-hd" @click="nikeFiltersOpen=!nikeFiltersOpen">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="opacity:.6"><path d="M10 18h4v-2h-4v2zm-7-8v2h18v-2H3zm3-6v2h12V4H6z"/></svg>
+                        Filters
+                        <span v-if="nikeActiveFilterCount" style="color:var(--accent);font-weight:700;"> ({{nikeActiveFilterCount}})</span>
+                        <span class="fp-arrow">▾</span>
+                    </div>
+                    <div class="fp-body" v-if="nikeFiltersOpen">
+                        <div class="fp-row">
+                            <span class="fp-lbl">Scheme</span>
+                            <div class="chips">
+                                <button v-for="s in nikeUniqueSchemes" :key="s" class="chip" :class="{active:nf.schemes.includes(s)}" @click="toggleArr(nf,'schemes',s)">{{s}}</button>
+                            </div>
+                            <span class="clear-lnk" v-if="nf.schemes.length" @click="nf.schemes=[]">Clear</span>
+                        </div>
+                        <div class="fp-row">
+                            <span class="fp-lbl">Operations</span>
+                            <div class="chips">
+                                <button class="chip" :class="{active:!altWeights}" @click="altWeights=false">(M,S,a)=(1,1,0)</button>
+                                <button class="chip" :class="{active:altWeights}"  @click="altWeights=true">(M,S,a)=(1,0.85,0.15)</button>
+                            </div>
+                        </div>
+                        <div class="fp-row">
+                            <span class="fp-lbl">Size (bytes)</span>
+                            <div class="chips">
+                                <button v-for="s in nikeUniqueSizes" :key="s" class="chip" :class="{active:nf.sizes.includes(s)}" @click="toggleArr(nf,'sizes',s)">{{s}}</button>
+                            </div>
+                            <span class="clear-lnk" v-if="nf.sizes.length" @click="nf.sizes=[]">Clear</span>
+                        </div>
+                        <div class="fp-row">
+                            <span class="fp-lbl">Keyspace</span>
+                            <div class="chips">
+                                <button v-for="k in nikeUniqueKeyspaces" :key="k" class="chip" :class="{active:nf.keyspaces.includes(k)}" @click="toggleArr(nf,'keyspaces',k)">{{k}}</button>
+                            </div>
+                            <span class="clear-lnk" v-if="nf.keyspaces.length" @click="nf.keyspaces=[]">Clear</span>
+                        </div>
+                        <div class="fp-row">
+                            <span class="fp-lbl">Platform</span>
+                            <div class="chips">
+                                <button v-for="p in nikeUniquePlatforms" :key="p" class="chip" :class="{active:nf.platforms.includes(p)}" @click="toggleArr(nf,'platforms',p)">{{p}}</button>
+                            </div>
+                            <span class="clear-lnk" v-if="nf.platforms.length" @click="nf.platforms=[]">Clear</span>
+                        </div>
+                        <div class="fp-row">
+                            <span class="fp-lbl">Security</span>
+                            <div class="chips">
+                                <button class="chip" :class="{active:nf.constantTime===true}"  @click="toggleBool(nf,'constantTime',true)">Constant-time</button>
+                                <button class="chip" :class="{active:nf.deterministic===true}" @click="toggleBool(nf,'deterministic',true)">Deterministic</button>
+                                <button class="chip" :class="{active:nf.dummyFree===true}"     @click="toggleBool(nf,'dummyFree',true)">Dummy-free</button>
+                            </div>
+                            <span class="clear-lnk" v-if="nf.constantTime!==null||nf.deterministic!==null||nf.dummyFree!==null" @click="nf.constantTime=null;nf.deterministic=null;nf.dummyFree=null">Clear</span>
+                        </div>
+                        <div class="fp-footer"><button class="btn-sm" @click="clearNikeFilters">Clear all</button></div>
+                    </div>
+                </div>
+
+                <div class="toolbar">
+                    <span class="toolbar-lbl">Sort:</span>
+                    <button class="btn-sm" :class="{active:nikeSortKey==='paper'}"  @click="setNikeSort('paper')">Date {{nikeSortKey==='paper'?(nikeSortDir==='asc'?'↑':'↓'):''}}</button>
+                    <button class="btn-sm" :class="{active:nikeSortKey==='size'}"   @click="setNikeSort('size')">Size {{nikeSortKey==='size'?(nikeSortDir==='asc'?'↑':'↓'):''}}</button>
+                    <button class="btn-sm" :class="{active:nikeSortKey==='ops'}"    @click="setNikeSort('ops')">Ops {{nikeSortKey==='ops'?(nikeSortDir==='asc'?'↑':'↓'):''}}</button>
+                    <button class="btn-sm" :class="{active:nikeSortKey==='cycles'}" @click="setNikeSort('cycles')">Cycles {{nikeSortKey==='cycles'?(nikeSortDir==='asc'?'↑':'↓'):''}}</button>
+                    <div style="flex:1"></div>
+                    <button class="btn-sm" :class="{active:showDetails}" @click="showDetails=!showDetails">{{showDetails?'Hide':'Show'}} details</button>
+                </div>
+
+                <p class="result-meta">{{filteredNikeBenchmarks.length}} result{{filteredNikeBenchmarks.length!==1?'s':''}}</p>
+
+                <div class="table-wrap" v-if="filteredNikeBenchmarks.length">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Paper</th>
+                                <th>Implementation</th>
+                                <th class="sortable" :class="{sorted:nikeSortKey==='size'}" @click="setNikeSort('size')">Size (bytes)<span class="sa">{{nikeSortKey==='size'?(nikeSortDir==='asc'?'▲':'▼'):'⇅'}}</span></th>
+                                <th>Keyspace (bits)</th>
+                                <th v-if="showDetails">NIST</th>
+                                <th class="sortable" :class="{sorted:nikeSortKey==='ops'}" @click="setNikeSort('ops')">Ops (Fp)<span class="sa">{{nikeSortKey==='ops'?(nikeSortDir==='asc'?'▲':'▼'):'⇅'}}</span></th>
+                                <th class="sortable" :class="{sorted:nikeSortKey==='cycles'}" @click="setNikeSort('cycles')">Cycles<span class="sa">{{nikeSortKey==='cycles'?(nikeSortDir==='asc'?'▲':'▼'):'⇅'}}</span></th>
+                                <th v-if="showDetails">CT</th>
+                                <th v-if="showDetails">Det</th>
+                                <th v-if="showDetails">DF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="b in filteredNikeBenchmarks" :key="b._uid" :class="{details:showDetails}">
+                                <td data-label="Paper"><span class="paper-link" @click="openModal(b.paper)">{{b.paper.short}}</span></td>
+                                <td data-label="Implementation"><span class="impl-name">{{b.name}}</span></td>
+                                <td data-label="Size"><span class="mono-num">{{b.size}}</span></td>
+                                <td data-label="Keyspace"><span class="mono-num">{{b.keyspace}}</span></td>
+                                <td data-label="NIST" v-if="showDetails"><span class="mono-num">{{b.nist_level}}</span></td>
+                                <td data-label="Ops (Fp)"><span class="ops-val" :title="opsTooltip(b.operations)">{{weightedOps(b.operations)}}</span></td>
+                                <td data-label="Cycles">
+                                    <div v-for="c in b.cycles" :key="c.platform" class="cycle-entry">
+                                        <span class="platform-tag">{{c.platform}}</span>
+                                        <span class="mono-num">{{c.value.toLocaleString()}} {{c.unit}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="CT"  v-if="showDetails" class="desktop-only"><span class="feat" :class="b.constant_time?'y':'n'">{{b.constant_time?'✓':'✗'}}</span></td>
+                                <td data-label="Det" v-if="showDetails" class="desktop-only"><span class="feat" :class="b.deterministic?'y':'n'">{{b.deterministic?'✓':'✗'}}</span></td>
+                                <td data-label="DF"  v-if="showDetails" class="desktop-only"><span class="feat" :class="b.dummy_free?'y':'n'">{{b.dummy_free?'✓':'✗'}}</span></td>
+                                <td data-label="CT-Det-DF" v-if="showDetails">
+                                    <div class="flags-row">
+                                        <span class="flag-item"><span class="flag-lbl">CT</span>  <span class="feat" :class="b.constant_time?'y':'n'">{{b.constant_time?'✓':'✗'}}</span></span>
+                                        <span class="flag-item"><span class="flag-lbl">Det</span> <span class="feat" :class="b.deterministic?'y':'n'">{{b.deterministic?'✓':'✗'}}</span></span>
+                                        <span class="flag-item"><span class="flag-lbl">DF</span>  <span class="feat" :class="b.dummy_free?'y':'n'">{{b.dummy_free?'✓':'✗'}}</span></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="empty" v-else>No benchmarks match the selected filters.</div>
+            </div>
+
+            <!-- ── NIKE: Per Paper tab ── -->
+            <div v-if="nikeTab==='paper'">
+                <div class="toolbar" style="margin-bottom:12px;">
+                    <div style="flex:1"></div>
+                    <button class="btn-sm" :class="{active:showDetails}" @click="showDetails=!showDetails">{{showDetails?'Hide':'Show'}} details</button>
+                </div>
+                <div class="paper-section" v-for="paper in nikePapersWithBenchmarks" :key="paper.id">
+                    <div class="ps-hd">
+                        <span class="ps-short" @click="openModal(paper)">{{paper.short}}</span>
+                        <span class="ps-scheme-tag">{{paper.scheme}}</span>
+                        <span class="ps-date">{{fmtDate(paper.date)}}</span>
+                        <span class="ps-auth">{{firstAuthor(paper.authors)}}</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Implementation</th>
+                                    <th>Size (bytes)</th>
+                                    <th>Keyspace (bits)</th>
+                                    <th v-if="showDetails">NIST</th>
+                                    <th>Ops (Fp)</th>
+                                    <th>Cycles</th>
+                                    <th v-if="showDetails">CT</th>
+                                    <th v-if="showDetails">Det</th>
+                                    <th v-if="showDetails">DF</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="b in paper.benchmarks" :key="b.name+b.size" :class="{details:showDetails}">
+                                    <td data-label="Implementation"><span class="impl-name">{{b.name}}</span></td>
+                                    <td data-label="Size"><span class="mono-num">{{b.size}}</span></td>
+                                    <td data-label="Keyspace"><span class="mono-num">{{b.keyspace}}</span></td>
+                                    <td data-label="NIST" v-if="showDetails"><span class="mono-num">{{b.nist_level}}</span></td>
+                                    <td data-label="Ops (Fp)"><span class="ops-val" :title="opsTooltip(b.operations)">{{weightedOps(b.operations)}}</span></td>
+                                    <td data-label="Cycles">
+                                        <div v-for="c in b.cycles" :key="c.platform" class="cycle-entry">
+                                            <span class="platform-tag">{{c.platform}}</span>
+                                            <span class="mono-num">{{c.value.toLocaleString()}} {{c.unit}}</span>
+                                        </div>
+                                    </td>
+                                    <td data-label="CT"  v-if="showDetails" class="desktop-only"><span class="feat" :class="b.constant_time?'y':'n'">{{b.constant_time?'✓':'✗'}}</span></td>
+                                    <td data-label="Det" v-if="showDetails" class="desktop-only"><span class="feat" :class="b.deterministic?'y':'n'">{{b.deterministic?'✓':'✗'}}</span></td>
+                                    <td data-label="DF"  v-if="showDetails" class="desktop-only"><span class="feat" :class="b.dummy_free?'y':'n'">{{b.dummy_free?'✓':'✗'}}</span></td>
+                                    <td data-label="CT-Det-DF" v-if="showDetails">
+                                        <div class="flags-row">
+                                            <span class="flag-item"><span class="flag-lbl">CT</span>  <span class="feat" :class="b.constant_time?'y':'n'">{{b.constant_time?'✓':'✗'}}</span></span>
+                                            <span class="flag-item"><span class="flag-lbl">Det</span> <span class="feat" :class="b.deterministic?'y':'n'">{{b.deterministic?'✓':'✗'}}</span></span>
+                                            <span class="flag-item"><span class="flag-lbl">DF</span>  <span class="feat" :class="b.dummy_free?'y':'n'">{{b.dummy_free?'✓':'✗'}}</span></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal -->
-        <div v-if="selectedPaper" class="modal-overlay" @click="closeModal">
-            <div class="modal-content" @click.stop>
-                <button class="modal-close" @click="closeModal">&times;</button>
-                <h2 class="modal-title">{{ selectedPaper.title }}</h2>
-                <p class="modal-paper-id">eprint: {{ selectedPaper.id }}</p>
-                <p class="modal-authors">{{ selectedPaper.authors }}</p>
-                <p class="modal-abstract">{{ selectedPaper.abstract || "Abstract not available" }}</p>
-                <div class="modal-references" v-if="selectedPaper.based_on && selectedPaper.based_on.length > 0">
-                    <h3>References:</h3>
-                    <p v-for="ref in getReferences(selectedPaper.based_on)" :key="ref.id">
-                        <span class="reference-label">{{ getReferenceLabel(selectedPaper.based_on, ref.id) }}</span>
-                        <a class="reference-link" 
-                           :href="'#paper-' + ref.id"
-                           @click="jumpToReference(ref)">{{ ref.title }}</a>
-                    </p>
+        <!-- ════════════════════════════════════
+             SIGNATURES SECTION
+        ════════════════════════════════════ -->
+        <div v-if="schemeTab==='sig'">
+            <h1 class="page-title">Signatures</h1>
+            <p class="page-sub">Performance benchmarks for isogeny-based signature schemes (SQIsign and variants). Click a paper name to view its abstract.</p>
+
+            <!-- View tabs -->
+            <div class="tabs tabs--secondary">
+                <button class="tab-btn" :class="{active:sigTab==='all'}"   @click="sigTab='all'">All Benchmarks</button>
+                <button class="tab-btn" :class="{active:sigTab==='paper'}" @click="sigTab='paper'">Per Paper</button>
+            </div>
+
+            <!-- ── Sig: All tab ── -->
+            <div v-if="sigTab==='all'">
+
+                <div class="filter-panel" :class="{open:sigFiltersOpen}">
+                    <div class="fp-hd" @click="sigFiltersOpen=!sigFiltersOpen">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="opacity:.6"><path d="M10 18h4v-2h-4v2zm-7-8v2h18v-2H3zm3-6v2h12V4H6z"/></svg>
+                        Filters
+                        <span v-if="sigActiveFilterCount" style="color:var(--accent);font-weight:700;"> ({{sigActiveFilterCount}})</span>
+                        <span class="fp-arrow">▾</span>
+                    </div>
+                    <div class="fp-body" v-if="sigFiltersOpen">
+                        <div class="fp-row">
+                            <span class="fp-lbl">Scheme</span>
+                            <div class="chips">
+                                <button v-for="s in sigUniqueSchemes" :key="s" class="chip" :class="{active:sf.schemes.includes(s)}" @click="toggleArr(sf,'schemes',s)">{{s}}</button>
+                            </div>
+                            <span class="clear-lnk" v-if="sf.schemes.length" @click="sf.schemes=[]">Clear</span>
+                        </div>
+                        <div class="fp-row">
+                            <span class="fp-lbl">NIST Level</span>
+                            <div class="chips">
+                                <button v-for="l in sigUniqueNistLevels" :key="l" class="chip" :class="{active:sf.nistLevels.includes(l)}" @click="toggleArr(sf,'nistLevels',l)">{{l}}</button>
+                            </div>
+                            <span class="clear-lnk" v-if="sf.nistLevels.length" @click="sf.nistLevels=[]">Clear</span>
+                        </div>
+                        <div class="fp-row">
+                            <span class="fp-lbl">Platform</span>
+                            <div class="chips">
+                                <button v-for="p in sigUniquePlatforms" :key="p" class="chip" :class="{active:sf.platforms.includes(p)}" @click="toggleArr(sf,'platforms',p)">{{p}}</button>
+                            </div>
+                            <span class="clear-lnk" v-if="sf.platforms.length" @click="sf.platforms=[]">Clear</span>
+                        </div>
+                        <div class="fp-row">
+                            <span class="fp-lbl">Security</span>
+                            <div class="chips">
+                                <button class="chip" :class="{active:sf.constantTime===true}"  @click="toggleBool(sf,'constantTime',true)">Constant-time</button>
+                                <button class="chip" :class="{active:sf.deterministic===true}" @click="toggleBool(sf,'deterministic',true)">Deterministic</button>
+                                <button class="chip" :class="{active:sf.dummyFree===true}"     @click="toggleBool(sf,'dummyFree',true)">Dummy-free</button>
+                            </div>
+                            <span class="clear-lnk" v-if="sf.constantTime!==null||sf.deterministic!==null||sf.dummyFree!==null" @click="sf.constantTime=null;sf.deterministic=null;sf.dummyFree=null">Clear</span>
+                        </div>
+                        <div class="fp-footer"><button class="btn-sm" @click="clearSigFilters">Clear all</button></div>
+                    </div>
                 </div>
-                <div class="modal-links">
-                    <a :href="selectedPaper.eprint_link" target="_blank" class="modal-link">Read Paper</a>
-                    <a :href="'benchmarks.html#' + selectedPaper.id" class="modal-link">View Benchmarks</a>
+
+                <div class="toolbar">
+                    <span class="toolbar-lbl">Sort:</span>
+                    <button class="btn-sm" :class="{active:sigSortKey==='paper'}"   @click="setSigSort('paper')">Date {{sigSortKey==='paper'?(sigSortDir==='asc'?'↑':'↓'):''}}</button>
+                    <button class="btn-sm" :class="{active:sigSortKey==='sig'}"     @click="setSigSort('sig')">Sig size {{sigSortKey==='sig'?(sigSortDir==='asc'?'↑':'↓'):''}}</button>
+                    <button class="btn-sm" :class="{active:sigSortKey==='keygen'}"  @click="setSigSort('keygen')">KeyGen {{sigSortKey==='keygen'?(sigSortDir==='asc'?'↑':'↓'):''}}</button>
+                    <button class="btn-sm" :class="{active:sigSortKey==='sign'}"    @click="setSigSort('sign')">Sign {{sigSortKey==='sign'?(sigSortDir==='asc'?'↑':'↓'):''}}</button>
+                    <button class="btn-sm" :class="{active:sigSortKey==='verify'}"  @click="setSigSort('verify')">Verify {{sigSortKey==='verify'?(sigSortDir==='asc'?'↑':'↓'):''}}</button>
+                    <div style="flex:1"></div>
+                    <button class="btn-sm" :class="{active:showDetails}" @click="showDetails=!showDetails">{{showDetails?'Hide':'Show'}} details</button>
+                </div>
+
+                <p class="result-meta">{{filteredSigBenchmarks.length}} result{{filteredSigBenchmarks.length!==1?'s':''}}</p>
+
+                <div class="table-wrap" v-if="filteredSigBenchmarks.length">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Paper</th>
+                                <th>Variant</th>
+                                <th>NIST</th>
+                                <th class="sortable" :class="{sorted:sigSortKey==='pk'}" @click="setSigSort('pk')">PK<span class="sa">{{sigSortKey==='pk'?(sigSortDir==='asc'?'▲':'▼'):'⇅'}}</span></th>
+                                <th class="sortable" :class="{sorted:sigSortKey==='sk'}" @click="setSigSort('sk')">SK<span class="sa">{{sigSortKey==='sk'?(sigSortDir==='asc'?'▲':'▼'):'⇅'}}</span></th>
+                                <th class="sortable" :class="{sorted:sigSortKey==='sig'}" @click="setSigSort('sig')">Sig<span class="sa">{{sigSortKey==='sig'?(sigSortDir==='asc'?'▲':'▼'):'⇅'}}</span></th>
+                                <th class="sortable" :class="{sorted:sigSortKey==='keygen'}" @click="setSigSort('keygen')">KeyGen<span class="sa">{{sigSortKey==='keygen'?(sigSortDir==='asc'?'▲':'▼'):'⇅'}}</span></th>
+                                <th class="sortable" :class="{sorted:sigSortKey==='sign'}" @click="setSigSort('sign')">Sign<span class="sa">{{sigSortKey==='sign'?(sigSortDir==='asc'?'▲':'▼'):'⇅'}}</span></th>
+                                <th class="sortable" :class="{sorted:sigSortKey==='verify'}" @click="setSigSort('verify')">Verify<span class="sa">{{sigSortKey==='verify'?(sigSortDir==='asc'?'▲':'▼'):'⇅'}}</span></th>
+                                <th v-if="showDetails">CT</th>
+                                <th v-if="showDetails">Det</th>
+                                <th v-if="showDetails">DF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="b in filteredSigBenchmarks" :key="b._uid" :class="{details:showDetails}">
+                                <td data-label="Paper"><span class="paper-link" @click="openModal(b.paper)">{{b.paper.short}}</span></td>
+                                <td data-label="Variant"><span class="impl-name">{{b.variant||b.name}}</span></td>
+                                <td data-label="NIST"><span class="mono-num">{{b.nist_level}}</span></td>
+                                <td data-label="PK (bytes)"><span class="mono-num">{{b.pk_size}}</span></td>
+                                <td data-label="SK (bytes)"><span class="mono-num">{{b.sk_size}}</span></td>
+                                <td data-label="Sig (bytes)"><span class="mono-num">{{b.sig_size}}</span></td>
+                                <td data-label="KeyGen">
+                                    <div v-for="c in b.cycles" :key="c.platform" class="cycle-entry">
+                                        <span class="platform-tag">{{c.platform}}</span>
+                                        <span class="mono-num">{{c.keygen.value.toLocaleString()}} {{c.keygen.unit}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="Sign">
+                                    <div v-for="c in b.cycles" :key="c.platform" class="cycle-entry">
+                                        <span class="platform-tag">{{c.platform}}</span>
+                                        <span class="mono-num">{{c.sign.value.toLocaleString()}} {{c.sign.unit}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="Verify">
+                                    <div v-for="c in b.cycles" :key="c.platform" class="cycle-entry">
+                                        <span class="platform-tag">{{c.platform}}</span>
+                                        <span class="mono-num">{{c.verify.value.toLocaleString()}} {{c.verify.unit}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="CT"  v-if="showDetails" class="desktop-only"><span class="feat" :class="b.constant_time?'y':'n'">{{b.constant_time?'✓':'✗'}}</span></td>
+                                <td data-label="Det" v-if="showDetails" class="desktop-only"><span class="feat" :class="b.deterministic?'y':'n'">{{b.deterministic?'✓':'✗'}}</span></td>
+                                <td data-label="DF"  v-if="showDetails" class="desktop-only"><span class="feat" :class="b.dummy_free?'y':'n'">{{b.dummy_free?'✓':'✗'}}</span></td>
+                                <td data-label="CT-Det-DF" v-if="showDetails">
+                                    <div class="flags-row">
+                                        <span class="flag-item"><span class="flag-lbl">CT</span>  <span class="feat" :class="b.constant_time?'y':'n'">{{b.constant_time?'✓':'✗'}}</span></span>
+                                        <span class="flag-item"><span class="flag-lbl">Det</span> <span class="feat" :class="b.deterministic?'y':'n'">{{b.deterministic?'✓':'✗'}}</span></span>
+                                        <span class="flag-item"><span class="flag-lbl">DF</span>  <span class="feat" :class="b.dummy_free?'y':'n'">{{b.dummy_free?'✓':'✗'}}</span></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="empty" v-else>No benchmarks match the selected filters.</div>
+            </div>
+
+            <!-- ── Sig: Per Paper tab ── -->
+            <div v-if="sigTab==='paper'">
+                <div class="toolbar" style="margin-bottom:12px;">
+                    <div style="flex:1"></div>
+                    <button class="btn-sm" :class="{active:showDetails}" @click="showDetails=!showDetails">{{showDetails?'Hide':'Show'}} details</button>
+                </div>
+                <div class="paper-section" v-for="paper in sigPapersWithBenchmarks" :key="paper.id">
+                    <div class="ps-hd">
+                        <span class="ps-short" @click="openModal(paper)">{{paper.short}}</span>
+                        <span class="ps-scheme-tag">{{paper.scheme}}</span>
+                        <span class="ps-date">{{fmtDate(paper.date)}}</span>
+                        <span class="ps-auth">{{firstAuthor(paper.authors)}}</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Variant</th>
+                                    <th>NIST</th>
+                                    <th>PK (bytes)</th>
+                                    <th>SK (bytes)</th>
+                                    <th>Sig (bytes)</th>
+                                    <th>KeyGen</th>
+                                    <th>Sign</th>
+                                    <th>Verify</th>
+                                    <th v-if="showDetails">CT</th>
+                                    <th v-if="showDetails">Det</th>
+                                    <th v-if="showDetails">DF</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="b in paper.benchmarks" :key="b.name+b.nist_level" :class="{details:showDetails}">
+                                    <td data-label="Variant"><span class="impl-name">{{b.variant||b.name}}</span></td>
+                                    <td data-label="NIST"><span class="mono-num">{{b.nist_level}}</span></td>
+                                    <td data-label="PK (bytes)"><span class="mono-num">{{b.pk_size}}</span></td>
+                                    <td data-label="SK (bytes)"><span class="mono-num">{{b.sk_size}}</span></td>
+                                    <td data-label="Sig (bytes)"><span class="mono-num">{{b.sig_size}}</span></td>
+                                    <td data-label="KeyGen">
+                                        <div v-for="c in b.cycles" :key="c.platform" class="cycle-entry">
+                                            <span class="platform-tag">{{c.platform}}</span>
+                                            <span class="mono-num">{{c.keygen.value.toLocaleString()}} {{c.keygen.unit}}</span>
+                                        </div>
+                                    </td>
+                                    <td data-label="Sign">
+                                        <div v-for="c in b.cycles" :key="c.platform" class="cycle-entry">
+                                            <span class="platform-tag">{{c.platform}}</span>
+                                            <span class="mono-num">{{c.sign.value.toLocaleString()}} {{c.sign.unit}}</span>
+                                        </div>
+                                    </td>
+                                    <td data-label="Verify">
+                                        <div v-for="c in b.cycles" :key="c.platform" class="cycle-entry">
+                                            <span class="platform-tag">{{c.platform}}</span>
+                                            <span class="mono-num">{{c.verify.value.toLocaleString()}} {{c.verify.unit}}</span>
+                                        </div>
+                                    </td>
+                                    <td data-label="CT"  v-if="showDetails" class="desktop-only"><span class="feat" :class="b.constant_time?'y':'n'">{{b.constant_time?'✓':'✗'}}</span></td>
+                                    <td data-label="Det" v-if="showDetails" class="desktop-only"><span class="feat" :class="b.deterministic?'y':'n'">{{b.deterministic?'✓':'✗'}}</span></td>
+                                    <td data-label="DF"  v-if="showDetails" class="desktop-only"><span class="feat" :class="b.dummy_free?'y':'n'">{{b.dummy_free?'✓':'✗'}}</span></td>
+                                    <td data-label="CT-Det-DF" v-if="showDetails">
+                                        <div class="flags-row">
+                                            <span class="flag-item"><span class="flag-lbl">CT</span>  <span class="feat" :class="b.constant_time?'y':'n'">{{b.constant_time?'✓':'✗'}}</span></span>
+                                            <span class="flag-item"><span class="flag-lbl">Det</span> <span class="feat" :class="b.deterministic?'y':'n'">{{b.deterministic?'✓':'✗'}}</span></span>
+                                            <span class="flag-item"><span class="flag-lbl">DF</span>  <span class="feat" :class="b.dummy_free?'y':'n'">{{b.dummy_free?'✓':'✗'}}</span></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        const { createApp } = Vue
+    </main>
 
-        createApp({
-            data() {
-                return {
-                    timelineData: [],
-                    selectedPaper: null,
-                    selectedTags: [],
-                    isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
-                    isAscending: localStorage.getItem('direction') !== 'desc'
-                }
-            },
-            computed: {
-                availableTags() {
-                    const tags = new Set()
-                    this.timelineData.forEach(paper => {
-                        if (paper.tags) {
-                            paper.tags.forEach(tag => tags.add(tag))
-                        }
-                    })
-                    return Array.from(tags).sort()
-                },
-                filteredData() {
-                    let data = [...this.timelineData]
-                    if (this.selectedTags.length > 0) {
-                        data = data.filter(paper => 
-                            paper.tags && paper.tags.some(tag => this.selectedTags.includes(tag))
-                        )
-                    }
-                    return data.sort((a, b) => {
-                        const dateA = new Date(a.date)
-                        const dateB = new Date(b.date)
-                        return this.isAscending ? dateA - dateB : dateB - dateA
-                    })
-                }
-            },
-            methods: {
-                formatDate(dateString) {
-                    const date = new Date(dateString)
-                    const month = date.toLocaleString('default', { month: 'short' })
-                    return `${month} ${date.getFullYear()}`
-                },
-                showModal(paper) {
-                    this.selectedPaper = paper
-                },
-                closeModal() {
-                    this.selectedPaper = null
-                },
-                getReferences(refIds) {
-                    return refIds.map(ref => this.timelineData.find(paper => paper.id === ref.id)).filter(Boolean)
-                },
-                getReferenceLabel(basedOn, refId) {
-                    const ref = basedOn.find(r => r.id === refId)
-                    return ref ? ref.label + ' ' : ''
-                },
-                jumpToReference(paper) {
-                    this.closeModal()
-                    setTimeout(() => {
-                        const element = document.getElementById('paper-' + paper.id)
-                        if (element) {
-                            element.scrollIntoView({ behavior: 'smooth', block: 'center' })
-                            element.classList.add('highlight')
-                            setTimeout(() => element.classList.remove('highlight'), 2000)
-                        }
-                    }, 100)
-                },
-                async loadData() {
-                    try {
-                        const response = await fetch('csidh_data.json')
-                        this.timelineData = await response.json()
-                    } catch (error) {
-                        console.error('Error loading timeline data:', error)
-                    }
-                },
-                toggleTag(tag) {
-                    const index = this.selectedTags.indexOf(tag)
-                    if (index === -1) {
-                        this.selectedTags.push(tag)
-                    } else {
-                        this.selectedTags.splice(index, 1)
-                    }
-                },
-                toggleTheme() {
-                    this.isDarkMode = !this.isDarkMode
-                    document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light')
-                    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light')
-                },
-                toggleDirection() {
-                    this.isAscending = !this.isAscending
-                    localStorage.setItem('direction', this.isAscending ? 'asc' : 'desc')
-                }
-            },
-            mounted() {
-                // Check for saved theme preference
-                const savedTheme = localStorage.getItem('theme');
-                if (savedTheme) {
-                    this.isDarkMode = savedTheme === 'dark';
-                }
-                document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+    <!-- ══ MODAL ══ -->
+    <Transition name="fade">
+        <div class="overlay" v-if="modal" @click.self="modal=null">
+            <div class="modal">
+                <button class="modal-close" @click="modal=null">✕</button>
+                <div class="modal-inner">
+                    <div class="modal-eprint">ePrint {{modal.id}}</div>
+                    <h2 class="modal-title">{{modal.title}}</h2>
+                    <div class="modal-authors">{{modal.authors}}</div>
+                    <div class="modal-abs-lbl">Abstract</div>
+                    <p class="modal-abstract" v-html="modal.abstract||'Abstract not available.'"></p>
+                    <a class="btn-primary" :href="modal.eprint_link" target="_blank" rel="noopener">Read paper ↗</a>
+                </div>
+            </div>
+        </div>
+    </Transition>
 
-                // Listen for system theme changes
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                    if (!localStorage.getItem('theme')) {
-                        this.isDarkMode = e.matches;
-                        document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
-                    }
-                });
+</div>
 
-                this.loadData()
-            }
-        }).mount('#app')
-    </script>
+<script>
+const { createApp, ref, computed, onMounted } = Vue
+
+createApp({
+    setup() {
+        // ── Data ──
+        const nikeData = ref([])
+        const sigData = ref([])
+
+        // ── UI state ──
+        const schemeTab    = ref('nike')
+        const nikeTab       = ref('all')
+        const sigTab       = ref('all')
+        const isDark       = ref(false)
+        const showDetails  = ref(false)
+        const altWeights   = ref(false)
+        const modal        = ref(null)
+
+        const nikeFiltersOpen = ref(true)
+        const sigFiltersOpen = ref(true)
+
+        const nikeSortKey = ref('paper')
+        const nikeSortDir = ref('asc')
+        const sigSortKey = ref('paper')
+        const sigSortDir = ref('asc')
+
+        // ── Filter state ──
+        const nf = ref({ schemes:[], sizes:[], keyspaces:[], platforms:[], constantTime:null, deterministic:null, dummyFree:null })
+        const sf = ref({ schemes:[], nistLevels:[], platforms:[], constantTime:null, deterministic:null, dummyFree:null })
+
+        // ══ NIKE computed ══
+        const nikePapersWithBenchmarks = computed(() =>
+            nikeData.value.filter(p => p.benchmarks?.length).sort((a,b) => new Date(a.date)-new Date(b.date))
+        )
+
+        const allNikeBenchmarks = computed(() => {
+            const list = []
+            nikePapersWithBenchmarks.value.forEach((paper,pi) =>
+                paper.benchmarks.forEach((b,bi) => list.push({...b, paper, _uid:`k-${pi}-${bi}`}))
+            )
+            return list
+        })
+
+        const nikeUniqueSchemes   = computed(() => [...new Set(nikeData.value.map(p=>p.scheme).filter(Boolean))].sort())
+        const nikeUniqueSizes     = computed(() => [...new Set(allNikeBenchmarks.value.map(b=>b.size))].sort((a,b)=>a-b))
+        const nikeUniqueKeyspaces = computed(() => [...new Set(allNikeBenchmarks.value.map(b=>b.keyspace))].sort((a,b)=>a-b))
+        const nikeUniquePlatforms = computed(() => [...new Set(allNikeBenchmarks.value.flatMap(b=>(b.cycles||[]).map(c=>c.platform)))].sort())
+
+        const nikeActiveFilterCount = computed(() => {
+            let n = nf.value.schemes.length + nf.value.sizes.length + nf.value.keyspaces.length + nf.value.platforms.length
+            if (nf.value.constantTime!==null)  n++
+            if (nf.value.deterministic!==null) n++
+            if (nf.value.dummyFree!==null)     n++
+            return n
+        })
+
+        function wt()       { return altWeights.value ? {M:1,S:.85,a:.15} : {M:1,S:1,a:0} }
+        function rawOps(b)  { const o=b.operations; if(!o) return 0; const w=wt(); return o.M*w.M+o.S*w.S+o.a*w.a }
+        function weightedOps(ops) { if(!ops) return '—'; const w=wt(); return Math.round(ops.M*w.M+ops.S*w.S+ops.a*w.a).toLocaleString() }
+        function opsTooltip(ops)  { if(!ops) return ''; return `M=${ops.M.toLocaleString()}, S=${ops.S.toLocaleString()}, a=${ops.a.toLocaleString()}` }
+
+        const filteredNikeBenchmarks = computed(() => {
+            let list = allNikeBenchmarks.value
+            if (nf.value.schemes.length)    list = list.filter(b => nf.value.schemes.includes(b.paper.scheme))
+            if (nf.value.sizes.length)      list = list.filter(b => nf.value.sizes.includes(b.size))
+            if (nf.value.keyspaces.length)  list = list.filter(b => nf.value.keyspaces.includes(b.keyspace))
+            if (nf.value.platforms.length)  list = list.filter(b => b.cycles?.some(c => nf.value.platforms.includes(c.platform)))
+            if (nf.value.constantTime!==null)  list = list.filter(b => b.constant_time===nf.value.constantTime)
+            if (nf.value.deterministic!==null) list = list.filter(b => b.deterministic===nf.value.deterministic)
+            if (nf.value.dummyFree!==null)     list = list.filter(b => b.dummy_free===nf.value.dummyFree)
+            return [...list].sort((a,b) => {
+                let va, vb
+                if      (nikeSortKey.value==='paper')  { va=new Date(a.paper.date); vb=new Date(b.paper.date) }
+                else if (nikeSortKey.value==='size')   { va=a.size;    vb=b.size }
+                else if (nikeSortKey.value==='ops')    { va=rawOps(a); vb=rawOps(b) }
+                else if (nikeSortKey.value==='cycles') { va=a.cycles?.[0]?.value??0; vb=b.cycles?.[0]?.value??0 }
+                else return 0
+                return nikeSortDir.value==='asc' ? (va>vb?1:va<vb?-1:0) : (va<vb?1:va>vb?-1:0)
+            })
+        })
+
+        // ══ Signature computed ══
+        const sigPapersWithBenchmarks = computed(() =>
+            sigData.value.filter(p => p.benchmarks?.length).sort((a,b) => new Date(a.date)-new Date(b.date))
+        )
+
+        const allSigBenchmarks = computed(() => {
+            const list = []
+            sigPapersWithBenchmarks.value.forEach((paper,pi) =>
+                paper.benchmarks.forEach((b,bi) => list.push({...b, paper, _uid:`s-${pi}-${bi}`}))
+            )
+            return list
+        })
+
+        const sigUniqueSchemes    = computed(() => [...new Set(sigData.value.map(p=>p.scheme).filter(Boolean))].sort())
+        const sigUniqueNistLevels = computed(() => [...new Set(allSigBenchmarks.value.map(b=>b.nist_level))].sort((a,b)=>a-b))
+        const sigUniquePlatforms  = computed(() => [...new Set(allSigBenchmarks.value.flatMap(b=>(b.cycles||[]).map(c=>c.platform)))].sort())
+
+        const sigActiveFilterCount = computed(() => {
+            let n = sf.value.schemes.length + sf.value.nistLevels.length + sf.value.platforms.length
+            if (sf.value.constantTime!==null)  n++
+            if (sf.value.deterministic!==null) n++
+            if (sf.value.dummyFree!==null)     n++
+            return n
+        })
+
+        function sigCycleVal(b, op) {
+            const c = b.cycles?.[0]
+            return c?.[op]?.value ?? 0
+        }
+
+        const filteredSigBenchmarks = computed(() => {
+            let list = allSigBenchmarks.value
+            if (sf.value.schemes.length)     list = list.filter(b => sf.value.schemes.includes(b.paper.scheme))
+            if (sf.value.nistLevels.length)  list = list.filter(b => sf.value.nistLevels.includes(b.nist_level))
+            if (sf.value.platforms.length)   list = list.filter(b => b.cycles?.some(c => sf.value.platforms.includes(c.platform)))
+            if (sf.value.constantTime!==null)  list = list.filter(b => b.constant_time===sf.value.constantTime)
+            if (sf.value.deterministic!==null) list = list.filter(b => b.deterministic===sf.value.deterministic)
+            if (sf.value.dummyFree!==null)     list = list.filter(b => b.dummy_free===sf.value.dummyFree)
+            return [...list].sort((a,b) => {
+                let va, vb
+                if      (sigSortKey.value==='paper')  { va=new Date(a.paper.date); vb=new Date(b.paper.date) }
+                else if (sigSortKey.value==='sig')    { va=a.sig_size;  vb=b.sig_size }
+                else if (sigSortKey.value==='pk')     { va=a.pk_size;   vb=b.pk_size }
+                else if (sigSortKey.value==='sk')     { va=a.sk_size;   vb=b.sk_size }
+                else if (sigSortKey.value==='keygen') { va=sigCycleVal(a,'keygen'); vb=sigCycleVal(b,'keygen') }
+                else if (sigSortKey.value==='sign')   { va=sigCycleVal(a,'sign');   vb=sigCycleVal(b,'sign') }
+                else if (sigSortKey.value==='verify') { va=sigCycleVal(a,'verify'); vb=sigCycleVal(b,'verify') }
+                else return 0
+                return sigSortDir.value==='asc' ? (va>vb?1:va<vb?-1:0) : (va<vb?1:va>vb?-1:0)
+            })
+        })
+
+        // ══ Actions ══
+        function setNikeSort(key) {
+            nikeSortDir.value = nikeSortKey.value===key ? (nikeSortDir.value==='asc'?'desc':'asc') : 'asc'
+            nikeSortKey.value = key
+        }
+        function setSigSort(key) {
+            sigSortDir.value = sigSortKey.value===key ? (sigSortDir.value==='asc'?'desc':'asc') : 'asc'
+            sigSortKey.value = key
+        }
+        function toggleArr(obj, field, val) {
+            const i = obj[field].indexOf(val)
+            i===-1 ? obj[field].push(val) : obj[field].splice(i,1)
+        }
+        function toggleBool(obj, field, val) { obj[field] = obj[field]===val ? null : val }
+        function clearNikeFilters() { nf.value = {schemes:[],sizes:[],keyspaces:[],platforms:[],constantTime:null,deterministic:null,dummyFree:null} }
+        function clearSigFilters() { sf.value = {schemes:[],nistLevels:[],platforms:[],constantTime:null,deterministic:null,dummyFree:null} }
+
+        function setSchemeTab(tab) {
+            schemeTab.value = tab
+            window.location.hash = tab
+        }
+
+        function toggleTheme() {
+            isDark.value = !isDark.value
+            document.documentElement.setAttribute('data-theme', isDark.value?'dark':'light')
+            localStorage.setItem('theme', isDark.value?'dark':'light')
+        }
+        function openModal(paper) { modal.value = paper }
+        function fmtDate(d)       { return d ? new Date(d).toLocaleString('default',{month:'short',year:'numeric'}) : '' }
+        function firstAuthor(s)   { if(!s) return ''; const p=s.split(','); return p[0].trim()+(p.length>1?' et al.':'') }
+
+        onMounted(async () => {
+            const saved = localStorage.getItem('theme')
+            isDark.value = saved ? saved==='dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
+            document.documentElement.setAttribute('data-theme', isDark.value?'dark':'light')
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    isDark.value = e.matches
+                    document.documentElement.setAttribute('data-theme', isDark.value?'dark':'light')
+                }
+            })
+
+            // Read tab from URL hash on load
+            const hash = window.location.hash.replace('#', '')
+            if (hash === 'sig' || hash === 'nike') schemeTab.value = hash
+
+            // Keep tab in sync with browser back/forward
+            window.addEventListener('hashchange', () => {
+                const h = window.location.hash.replace('#', '')
+                if (h === 'sig' || h === 'nike') schemeTab.value = h
+            })
+            try { const r = await fetch('isogeny_data.json');    nikeData.value = await r.json() } catch(e) { console.error('NIKE data failed:', e) }
+            try { const r = await fetch('signatures_data.json'); sigData.value = await r.json() } catch(e) { console.error('Sig data failed:', e) }
+        })
+
+        return {
+            schemeTab, nikeTab, sigTab, isDark, showDetails, altWeights, modal,
+            nikeFiltersOpen, sigFiltersOpen,
+            nikeSortKey, nikeSortDir, sigSortKey, sigSortDir,
+            nf, sf,
+            nikePapersWithBenchmarks, sigPapersWithBenchmarks,
+            filteredNikeBenchmarks, filteredSigBenchmarks,
+            nikeUniqueSchemes, nikeUniqueSizes, nikeUniqueKeyspaces, nikeUniquePlatforms, nikeActiveFilterCount,
+            sigUniqueSchemes, sigUniqueNistLevels, sigUniquePlatforms, sigActiveFilterCount,
+            weightedOps, opsTooltip,
+            setNikeSort, setSigSort, toggleArr, toggleBool,
+            clearNikeFilters, clearSigFilters,
+            setSchemeTab, toggleTheme, openModal, fmtDate, firstAuthor
+        }
+    }
+}).mount('#app')
+</script>
 </body>
-</html> 
+</html>

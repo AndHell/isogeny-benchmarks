@@ -1,0 +1,5 @@
+Random seed: "--seed={ 0x1aa2ca16, 0xf05ab9bf, 0xa84afe54, 0x33e81d5a, 0x591b4606, 0xfc7ac443, 0x99dd13b7, 0xd8292819, 0xb2ac7449, 0xc4379156, 0x77c107d2, 0xcace8d91 }"
+SQIsign_lvl5 (1000 iterations)
+  keypair    | average   419.507 | stddev    48.387 | median   410.779 | min   348.483 | max   714.749  (megacycles)
+  sign       | average   964.335 | stddev   106.620 | median   941.542 | min   786.810 | max  1822.977  (megacycles)
+  verify     | average    72.069 | stddev     0.320 | median    71.972 | min    70.685 | max    72.663  (megacycles)

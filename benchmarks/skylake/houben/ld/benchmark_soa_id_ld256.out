@@ -1,0 +1,130 @@
+Benchmark: OSIDH-LD | use invariant differential | not use strategy | use SoA
+Testing...
+Secret key 1: 120,18,4,28,11,3,1,29,35,15,23,27,25,29,28,9,6,31,29,26,34,0,5,28,12,23,4,26,22,35,4,13,30,13,4,14,8,8,32,17,15,27,10,16,29,21,7,11,33
+Secret key 2: 76,34,6,47,3,7,29,1,19,10,16,12,35,1,31,14,10,14,13,18,23,22,8,6,8,23,28,1,21,34,19,35,9,3,22,15,18,33,6,14,29,1,22,1,29,18,26,34,22
+Agreement key 1: 0x3e3b15c0f308c03015259e5607975917576634fec2e4f2bcd9d83637c68c2222 + a*0x2016c6d43f7f455898bdc4e0be47fc55c12c8a25969802b307665f0ef3a02d7b
+Agreement key 2: 0x3e3b15c0f308c03015259e5607975917576634fec2e4f2bcd9d83637c68c2222 + a*0x2016c6d43f7f455898bdc4e0be47fc55c12c8a25969802b307665f0ef3a02d7b
+--------------------------------
+Benchmark 1:
+Public key 1: 21177168054 cycles, 6.214 seconds
+Public key 2: 21177302986 cycles, 6.214 seconds
+Agreement key 1: 17031815640 cycles, 4.998 seconds
+Agreement key 2: 17031909094 cycles, 4.998 seconds
+==================
+Benchmark 2:
+Public key 1: 21178983326 cycles, 6.214 seconds
+Public key 2: 21177455564 cycles, 6.214 seconds
+Agreement key 1: 17032653402 cycles, 4.998 seconds
+Agreement key 2: 17032213866 cycles, 4.998 seconds
+==================
+Benchmark 3:
+Public key 1: 21177615352 cycles, 6.214 seconds
+Public key 2: 21177290508 cycles, 6.214 seconds
+Agreement key 1: 17031525888 cycles, 4.998 seconds
+Agreement key 2: 17032794296 cycles, 4.998 seconds
+==================
+Benchmark 4:
+Public key 1: 21176944436 cycles, 6.214 seconds
+Public key 2: 21177427862 cycles, 6.214 seconds
+Agreement key 1: 17031785544 cycles, 4.998 seconds
+Agreement key 2: 17033279564 cycles, 4.998 seconds
+==================
+Benchmark 5:
+Public key 1: 21177377352 cycles, 6.214 seconds
+Public key 2: 21178317446 cycles, 6.214 seconds
+Agreement key 1: 17032730222 cycles, 4.998 seconds
+Agreement key 2: 17032688248 cycles, 4.998 seconds
+==================
+Benchmark 6:
+Public key 1: 21177522118 cycles, 6.214 seconds
+Public key 2: 21177293150 cycles, 6.214 seconds
+Agreement key 1: 17031891352 cycles, 4.998 seconds
+Agreement key 2: 17032103818 cycles, 4.998 seconds
+==================
+Benchmark 7:
+Public key 1: 21177784956 cycles, 6.214 seconds
+Public key 2: 21177192918 cycles, 6.214 seconds
+Agreement key 1: 17033646186 cycles, 4.998 seconds
+Agreement key 2: 17031591850 cycles, 4.998 seconds
+==================
+Benchmark 8:
+Public key 1: 21178197406 cycles, 6.214 seconds
+Public key 2: 21176844048 cycles, 6.214 seconds
+Agreement key 1: 17032799396 cycles, 4.998 seconds
+Agreement key 2: 17031562520 cycles, 4.998 seconds
+==================
+Benchmark 9:
+Public key 1: 21176933454 cycles, 6.214 seconds
+Public key 2: 21176790832 cycles, 6.214 seconds
+Agreement key 1: 17031422082 cycles, 4.997 seconds
+Agreement key 2: 17031950782 cycles, 4.998 seconds
+==================
+Benchmark 10:
+Public key 1: 21179132770 cycles, 6.215 seconds
+Public key 2: 21178021488 cycles, 6.214 seconds
+Agreement key 1: 17031175416 cycles, 4.997 seconds
+Agreement key 2: 17033601570 cycles, 4.998 seconds
+==================
+Benchmark 11:
+Public key 1: 21177230054 cycles, 6.214 seconds
+Public key 2: 21176995480 cycles, 6.214 seconds
+Agreement key 1: 17033313350 cycles, 4.998 seconds
+Agreement key 2: 17031661178 cycles, 4.998 seconds
+==================
+Benchmark 12:
+Public key 1: 21176866484 cycles, 6.214 seconds
+Public key 2: 21177667352 cycles, 6.214 seconds
+Agreement key 1: 17031746698 cycles, 4.998 seconds
+Agreement key 2: 17033480460 cycles, 4.998 seconds
+==================
+Benchmark 13:
+Public key 1: 21177410214 cycles, 6.214 seconds
+Public key 2: 21178357980 cycles, 6.214 seconds
+Agreement key 1: 17031418046 cycles, 4.997 seconds
+Agreement key 2: 17032395774 cycles, 4.998 seconds
+==================
+Benchmark 14:
+Public key 1: 21177599448 cycles, 6.214 seconds
+Public key 2: 21176830718 cycles, 6.214 seconds
+Agreement key 1: 17033222540 cycles, 4.998 seconds
+Agreement key 2: 17031963634 cycles, 4.998 seconds
+==================
+Benchmark 15:
+Public key 1: 21177352354 cycles, 6.214 seconds
+Public key 2: 21177210484 cycles, 6.214 seconds
+Agreement key 1: 17033096886 cycles, 4.998 seconds
+Agreement key 2: 17032139698 cycles, 4.998 seconds
+==================
+Benchmark 16:
+Public key 1: 21178896218 cycles, 6.214 seconds
+Public key 2: 21177344356 cycles, 6.214 seconds
+Agreement key 1: 17031898880 cycles, 4.998 seconds
+Agreement key 2: 17031512770 cycles, 4.998 seconds
+==================
+Benchmark 17:
+Public key 1: 21177192524 cycles, 6.214 seconds
+Public key 2: 21177805050 cycles, 6.214 seconds
+Agreement key 1: 17031798164 cycles, 4.998 seconds
+Agreement key 2: 17032278556 cycles, 4.998 seconds
+==================
+Benchmark 18:
+Public key 1: 21177525438 cycles, 6.214 seconds
+Public key 2: 21179066586 cycles, 6.215 seconds
+Agreement key 1: 17031162418 cycles, 4.997 seconds
+Agreement key 2: 17032223646 cycles, 4.998 seconds
+==================
+Benchmark 19:
+Public key 1: 21177321242 cycles, 6.214 seconds
+Public key 2: 21177460790 cycles, 6.214 seconds
+Agreement key 1: 17032483188 cycles, 4.998 seconds
+Agreement key 2: 17031843320 cycles, 4.998 seconds
+==================
+Benchmark 20:
+Public key 1: 21177417078 cycles, 6.214 seconds
+Public key 2: 21178549666 cycles, 6.214 seconds
+Agreement key 1: 17032097394 cycles, 4.998 seconds
+Agreement key 2: 17033140798 cycles, 4.998 seconds
+==================
+OSIDH-LD | use invariant differential | not use strategy | use SoA:
+Public Key Avg: 21177592388 cycles, 6.214 seconds
+Agreement Key Avg: 17032250453 cycles, 4.998 seconds

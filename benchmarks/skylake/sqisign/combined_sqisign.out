@@ -1,0 +1,92 @@
+===== ./qlapoti/ref_ql_lvl1.out =====
+Random seed: "--seed={ 0x38061919, 0x6b6321f1, 0x301dedb0, 0xf0a83b98, 0x15ee7902, 0x7a878c07, 0x908b31de, 0xe939c2ae, 0xa2381725, 0x40365d8f, 0x2287a4f6, 0xddd63d14 }"
+SQIsign_lvl1 (1000 iterations)
+  keypair    | average    60.917 | stddev    11.102 | median    58.392 | min    45.325 | max   112.444  (megacycles)
+  sign       | average   148.632 | stddev    20.660 | median   144.283 | min   111.248 | max   264.643  (megacycles)
+  verify     | average    14.579 | stddev     0.095 | median    14.585 | min    14.101 | max    15.859  (megacycles)
+===== ./qlapoti/opt_lvl1.out =====
+Random seed: "--seed={ 0x9678e164, 0xd474fca2, 0x12f48e51, 0xa57d4934, 0xf234963b, 0x55328907, 0xd64abeee, 0x87813e27, 0xa6606e2e, 0x5a9d4120, 0x2c73a368, 0x442f9ad0 }"
+SQIsign_lvl1 (10000 iterations)
+  keypair    | average    32.996 | stddev     9.738 | median    30.000 | min    22.291 | max   107.274  (megacycles)
+  sign       | average    85.380 | stddev    15.996 | median    82.125 | min    58.433 | max   212.263  (megacycles)
+  verify     | average     6.327 | stddev     0.040 | median     6.330 | min     6.063 | max     7.493  (megacycles)
+===== ./qlapoti/opt_lvl5.out =====
+Random seed: "--seed={ 0xdc97b583, 0xb048bbc9, 0xaeefe2b7, 0x22650cce, 0x8930e65b, 0x8d7cf3a4, 0xda935e7f, 0x8a2ef79d, 0x4cb0bbf1, 0xffee4fd7, 0x5d927e99, 0x19c963e2 }"
+SQIsign_lvl5 (10000 iterations)
+  keypair    | average   194.604 | stddev    41.279 | median   162.605 | min   114.025 | max  1214.477  (megacycles)
+  sign       | average   504.641 | stddev    18.208 | median   467.510 | min   283.830 | max  1785.676  (megacycles)
+  verify     | average    39.031 | stddev     0.175 | median    38.970 | min    38.110 | max    40.083  (megacycles)
+===== ./qlapoti/ref_ql_lvl3.out =====
+Random seed: "--seed={ 0xc6d10993, 0x9bcec38b, 0xebea9690, 0xf24b45ef, 0x64db4b9a, 0x2aec028f, 0x0e9242f2, 0x489c2b73, 0x29154885, 0x2f42a4e3, 0xe123ce54, 0x30c3976e }"
+SQIsign_lvl3 (1000 iterations)
+  keypair    | average   217.179 | stddev    31.117 | median   175.635 | min   107.748 | max  1321.302  (megacycles)
+  sign       | average   513.766 | stddev    52.064 | median   461.646 | min   271.526 | max  1725.174  (megacycles)
+  verify     | average    37.093 | stddev     0.179 | median    37.072 | min    36.141 | max    37.433  (megacycles)
+===== ./qlapoti/opt_lvl3.out =====
+Random seed: "--seed={ 0x807732c5, 0x9ed35450, 0x9e2735be, 0xc8f365e2, 0xce769a62, 0x66d68d7d, 0x7f564481, 0xb95311ea, 0x899566e2, 0x17c66869, 0x7469c8c5, 0x612669f8 }"
+SQIsign_lvl3 (10000 iterations)
+  keypair    | average   171.976 | stddev    15.198 | median   120.654 | min    62.212 | max  1870.252  (megacycles)
+  sign       | average   400.694 | stddev    42.479 | median   338.398 | min   160.278 | max  2218.814  (megacycles)
+  verify     | average    20.542 | stddev     0.101 | median    20.525 | min    19.994 | max    21.733  (megacycles)
+===== ./qlapoti/ref_ql_lvl5.out =====
+Random seed: "--seed={ 0xefa62382, 0xe2244e12, 0xfb9f1e42, 0x8a615c9d, 0xca7ea04b, 0x20bab8b1, 0x33a67dff, 0x905c9c7a, 0xc29cf021, 0xd682ba2a, 0x588775c6, 0xc1a566bb }"
+SQIsign_lvl5 (1000 iterations)
+  keypair    | average   296.613 | stddev    96.733 | median   265.678 | min   205.205 | max   910.200  (megacycles)
+  sign       | average   724.046 | stddev    92.676 | median   685.548 | min   501.433 | max  2099.323  (megacycles)
+  verify     | average    72.311 | stddev     0.315 | median    72.216 | min    70.898 | max    72.925  (megacycles)
+===== ./nist_v2/ref_v2_lvl5.out =====
+Random seed: "--seed={ 0x1aa2ca16, 0xf05ab9bf, 0xa84afe54, 0x33e81d5a, 0x591b4606, 0xfc7ac443, 0x99dd13b7, 0xd8292819, 0xb2ac7449, 0xc4379156, 0x77c107d2, 0xcace8d91 }"
+SQIsign_lvl5 (1000 iterations)
+  keypair    | average   419.507 | stddev    48.387 | median   410.779 | min   348.483 | max   714.749  (megacycles)
+  sign       | average   964.335 | stddev   106.620 | median   941.542 | min   786.810 | max  1822.977  (megacycles)
+  verify     | average    72.069 | stddev     0.320 | median    71.972 | min    70.685 | max    72.663  (megacycles)
+===== ./nist_v2/opt_lvl1.out =====
+Random seed: "--seed={ 0x028fc0ad, 0x659a46a4, 0x95a413c6, 0xbdb44f2f, 0x37d53ded, 0x0c266e14, 0x1ff45b5e, 0x98a75a3d, 0x2e303cb0, 0x62104b02, 0xed4f57c5, 0xfd81879b }"
+SQIsign_lvl1 (10000 iterations)
+  keypair    | average    57.388 | stddev     6.104 | median    56.109 | min    48.183 | max   124.396  (megacycles)
+  sign       | average   133.935 | stddev    11.525 | median   132.147 | min   108.729 | max   242.557  (megacycles)
+  verify     | average     6.330 | stddev     0.038 | median     6.333 | min     6.067 | max     6.496  (megacycles)
+===== ./nist_v2/ref_v2_lvl3.out =====
+Random seed: "--seed={ 0x2f52629c, 0xc74ec93f, 0xb77cc4c9, 0x1b90ead2, 0x985e6969, 0xeb30cb40, 0x906716b2, 0x82683342, 0x59292567, 0x8d1c04ff, 0x7f7a86f8, 0x6cb1cf5d }"
+SQIsign_lvl3 (1000 iterations)
+  keypair    | average   254.188 | stddev    38.603 | median   247.109 | min   207.549 | max   914.565  (megacycles)
+  sign       | average   574.943 | stddev    60.760 | median   562.369 | min   473.048 | max  1084.914  (megacycles)
+  verify     | average    37.161 | stddev     0.178 | median    37.141 | min    36.193 | max    37.509  (megacycles)
+===== ./nist_v2/opt_lvl5.out =====
+Random seed: "--seed={ 0x5b08d7d4, 0x88a81dfc, 0x795c7cc0, 0xe6dedbec, 0xe86f4afb, 0xd53b8e80, 0x83f2c742, 0x4dd38b95, 0xf7a232e6, 0x60b17f48, 0x9188f55d, 0x629cf36f }"
+SQIsign_lvl5 (10000 iterations)
+  keypair    | average   261.688 | stddev    36.287 | median   253.384 | min   210.037 | max   858.254  (megacycles)
+  sign       | average   630.716 | stddev    35.390 | median   615.206 | min   476.536 | max  1532.262  (megacycles)
+  verify     | average    38.916 | stddev     0.804 | median    38.844 | min    38.072 | max    97.367  (megacycles)
+===== ./nist_v2/ref_v2_lvl1.out =====
+Random seed: "--seed={ 0xd1883cab, 0x6cb2ff7c, 0xc539ea3b, 0x16ad953a, 0x9d37277c, 0x714e9cf7, 0xe6e9f69f, 0x6983d0eb, 0xc615c8c3, 0x1891a083, 0x8bf0ae7e, 0xa628c616 }"
+SQIsign_lvl1 (5000 iterations)
+  keypair    | average   104.641 | stddev    12.837 | median   102.256 | min    83.880 | max   184.915  (megacycles)
+  sign       | average   236.212 | stddev    21.930 | median   232.680 | min   188.644 | max   333.638  (megacycles)
+  verify     | average    14.761 | stddev     0.091 | median    14.768 | min    14.224 | max    14.994  (megacycles)
+===== ./nist_v2/opt_lvl3.out =====
+Random seed: "--seed={ 0x078148f7, 0x0aae212f, 0x40ed2d2e, 0xc45c02c2, 0x8b020d0b, 0x9dfd64cd, 0xaeb46a02, 0x69b4ae44, 0xccff6037, 0x85d2db64, 0xeca78106, 0xa44e8043 }"
+SQIsign_lvl3 (10000 iterations)
+  keypair    | average   167.840 | stddev    25.040 | median   162.268 | min   138.657 | max   441.706  (megacycles)
+  sign       | average   388.314 | stddev    16.241 | median   379.109 | min   315.245 | max  1188.323  (megacycles)
+  verify     | average    20.438 | stddev     0.100 | median    20.418 | min    19.932 | max    21.775  (megacycles)
+===== ./nist_v1/opt_lvl1.out =====
+Benchmarking lvl1
+  sqisign_keypair     -> median: 2166226558, average: 2203618874 cycles
+  sqisign_sign        -> median: 2977755568, average: 3012698108 cycles
+  sqisign_verify      -> median: 39149988, average: 39148906 cycles
+===== ./nist_v1/ref_v1_lvl1.out =====
+Benchmarking lvl1
+  sqisign_keypair     -> median: 5071866688, average: 5043782935 cycles
+  sqisign_sign        -> median: 8042961610, average: 8135872112 cycles
+  sqisign_verify      -> median: 192990766, average: 192992504 cycles
+===== ./nist_v1/ref_v1_lvl3.out =====
+Benchmarking lvl3
+  sqisign_keypair     -> median: 34280589008, average: 34321413725 cycles
+  sqisign_sign        -> median: 62289559102, average: 62349120749 cycles
+  sqisign_verify      -> median: 1035457990, average: 1035458390 cycles
+===== ./nist_v1/ref_v1_lvl5.out =====
+Benchmarking lvl5
+  sqisign_keypair     -> median: 132701622526, average: 131999380365 cycles
+  sqisign_sign        -> median: 237041275050, average: 238377146065 cycles
+  sqisign_verify      -> median: 3383644808, average: 3383622133 cycles

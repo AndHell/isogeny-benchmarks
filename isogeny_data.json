@@ -1,0 +1,1398 @@
+[
+  {
+    "id": "2018/383",
+    "title": "CSIDH: An Efficient Post-Quantum Commutative Group Action",
+    "short": "CSIDH",
+    "authors": "Wouter Castryck, Tanja Lange, Chloe Martindale, Lorenz Panny, and Joost Renes",
+    "date": "2018-04-30",
+    "eprint_link": "https://eprint.iacr.org/2018/383",
+    "abstract": "We propose an efficient commutative group action suitable for non-interactive key exchange in a post-quantum setting. Our construction follows the layout of the Couveignes-Rostovtsev-Stolbunov cryptosystem, but we apply it to supersingular elliptic curves defined over a large prime field $\\mathbb{F}_p$ rather than to ordinary elliptic curves. The Diffie-Hellman scheme resulting from the group action allows for public-key validation at very little cost, runs reasonably fast in practice, and has public keys of only 64 bytes at a conjectured AES-128 security level, matching NIST's post-quantum security category I.",
+    "summary": "Introduction of CSIDH, a post-quantum key exchange protocol based on supersingular elliptic curve isogenies, offering small key sizes and efficient performance.",
+    "based_on": [],
+    "tags": [
+      "algorithm"
+    ],
+    "benchmarks": [
+      {
+        "name": "(not)original CSIDH",
+        "operations": {
+          "M": 280876,
+          "S": 103313,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.0822,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2019/1404",
+    "title": "CSIDH on the surface",
+    "short": "CSURF",
+    "authors": "Wouter Castryck and Thomas Decru",
+    "date": "2019-12-05",
+    "eprint_link": "https://eprint.iacr.org/2019/1404",
+    "abstract": "TODO",
+    "summary": "Extension of CSIDH to surface-based cryptography, exploring new mathematical foundations for the protocol.",
+    "based_on": [
+      {
+        "id": "2018/383",
+        "label": "based on"
+      }
+    ],
+    "tags": [
+      "algorithm"
+    ],
+    "benchmarks": [],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2020/1108",
+    "title": "Radical isogenies",
+    "short": "Radical",
+    "authors": "Wouter Castryck, Thomas Decru, and Frederik Vercauteren ",
+    "date": "2020-09-15",
+    "eprint_link": "https://eprint.iacr.org/2020/1108",
+    "abstract": "TODO",
+    "summary": "Introduction of radical isogenies, a new approach to computing isogenies in CSIDH with improved efficiency.",
+    "based_on": [
+      {
+        "id": "2019/1404",
+        "label": "improves"
+      }
+    ],
+    "tags": [
+      "algorithm"
+    ],
+    "benchmarks": [],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2024/878",
+    "title": "Radical V\u00e9lu Isogeny Formulae",
+    "short": "Radical V\u00e9lu",
+    "authors": "Thomas Decru",
+    "date": "2024-06-02",
+    "eprint_link": "https://eprint.iacr.org/2024/878",
+    "abstract": "TODO",
+    "summary": "Development of new V\u00e9lu formulas for radical isogenies, providing more efficient computation methods.",
+    "based_on": [
+      {
+        "id": "2020/1108",
+        "label": "improves"
+      }
+    ],
+    "tags": [
+      "algorithm"
+    ],
+    "benchmarks": [],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2018/782",
+    "title": "A faster way to the CSIDH",
+    "short": "MR",
+    "authors": "Michael Meyer and Steffen Reith",
+    "date": "2018-09-01",
+    "eprint_link": "https://eprint.iacr.org/2018/782",
+    "abstract": "Recently Castryck, Lange, Martindale, Panny, and Renes published CSIDH, a new key exchange scheme using supersingular elliptic curve isogenies. Due to its small key sizes, and the possibility of a non-interactive and a static-static key exchange, CSIDH seems very interesting for practical applications. However, the performance is rather slow. Therefore, we employ some techniques to speed up the algorithms, mainly by restructuring the elliptic curve point multiplications and by using twisted Edwards curves in the isogeny image curve computations, yielding a speed-up factor of 1.33 in comparison to the implementation of Castryck et al. Furthermore, we suggest techniques for constant-time implementations.",
+    "summary": "First optimization of CSIDH implementation, achieving 1.33x speed-up through improved point multiplication and twisted Edwards curves.",
+    "based_on": [
+      {
+        "id": "2018/383",
+        "label": "implementation based on"
+      }
+    ],
+    "tags": [
+      "implementation",
+      "algorithm"
+    ],
+    "benchmarks": [
+      {
+        "name": "Faster CSIDH",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.128,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2018/1198",
+    "title": "On Lions and Elligators: An efficient constant-time implementation of CSIDH",
+    "short": "MCR",
+    "authors": "Michael Meyer, Fabio Campos, and Steffen Reith",
+    "date": "2018-12-18",
+    "eprint_link": "https://eprint.iacr.org/2018/1198",
+    "abstract": "The recently proposed CSIDH primitive is a promising candidate for post quantum static-static key exchanges with very small keys. However, until now there is only a variable-time proof-of-concept implementation by Castryck, Lange, Martindale, Panny, and Renes, recently optimized by Meyer and Reith, which can leak various information about the private key. Therefore, we present an efficient constant-time implementation that samples key elements only from intervals of nonnegative numbers and uses dummy isogenies, which prevents certain kinds of side-channel attacks. We apply several optimizations, e.g. Elligator and the newly introduced SIMBA, in order to get a more efficient implementation.",
+    "summary": "First constant-time implementation of CSIDH with protection against side-channel attacks using dummy isogenies and optimized algorithms.",
+    "based_on": [
+      {
+        "id": "2018/782",
+        "label": "implementation based on"
+      }
+    ],
+    "tags": [
+      "implementation",
+      "algorithm"
+    ],
+    "benchmarks": [],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2019/353",
+    "title": "A Faster Constant-time Algorithm of CSIDH keeping Two Points",
+    "short": "OAYT",
+    "authors": "Hiroshi Onuki, Yusuke Aikawa, Tsutomu Yamazaki, and Tsuyoshi Takagi ",
+    "date": "2019-04-03",
+    "eprint_link": "https://eprint.iacr.org/2019/353",
+    "abstract": "At ASIACRYPT 2018, Castryck, Lange, Martindale, Panny and Renes proposed CSIDH, which is a key-exchange protocol based on isogenies between elliptic curves, and a candidate for post-quantum cryptography. However, the implementation by Castryck et al. is not constant-time. Specifically, a part of the secret key could be recovered by the side-channel Attacks. Recently, Meyer, Campos and Reith proposed a constant-time implementation of CSIDH by introducing dummy isogenies and taking secret exponents only from intervals of non-negative integers. Their non-negative intervals make the calculation cost of their implementation of CSIDH twice that of the worst case of the standard (variable-time) implementation of CSIDH. In this paper, we propose a more efficient constant-time algorithm that takes secret exponents from intervals symmetric with respect to the zero. For using these intervals, we need to keep two torsion points in an elliptic curve and calculation for these points. We evaluate the costs of our implementation and that of Meyer et al. in terms of the number of operations on a finite prime field. Our evaluation shows that our constant-time implementation of CSIDH reduces the calculation cost by 28.23% compared with the implementation by Mayer et al. We also implemented our algorithm by extending the implementation in C of Meyer et al. (originally from Castryck et al.). Then our implementation achieved 152.8 million clock cycles, which is about 29.03% faster than that of Meyer et al. and confirms the above reduction ratio in our cost evaluation.",
+    "summary": "Improved constant-time implementation of CSIDH with 28.23% reduced calculation cost using symmetric intervals and two torsion points.",
+    "based_on": [
+      {
+        "id": "2018/1198",
+        "label": "implementation based on"
+      }
+    ],
+    "tags": [
+      "implementation"
+    ],
+    "benchmarks": [],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2019/837",
+    "title": "Stronger and Faster Side-Channel Protections for CSIDH",
+    "short": "dummy-free",
+    "authors": "Daniel Cervantes-V\u00e1zquez, Mathilde Chenu, Jes\u00fas-Javier Chi-Dom\u00ednguez, Luca De Feo, Francisco Rodr\u00edguez-Henr\u00edquez, and Benjamin Smith ",
+    "date": "2019-07-19",
+    "eprint_link": "https://eprint.iacr.org/2019/837",
+    "abstract": "CSIDH is a recent quantum-resistant primitive based on the difficulty of finding isogeny paths between supersingular curves. Recently, two constant-time versions of CSIDH have been proposed: first by Meyer, Campos and Reith, and then by Onuki,Aikawa, Yamazaki and Takagi. While both offer protection against timing attacks and simple power consumption analysis, they are vulnerable to more powerful attacks such as fault injections. In this work, we identify and repair two oversights in these algorithms that compromised their constant-time character. By exploiting Edwards arithmetic and optimal addition chains, we produce the fastest constant-time version of CSIDH to date. We then consider the stronger attack scenario of fault injection, which is relevant for the security of CSIDH static keys in embedded hardware. We propose and evaluate a dummy-free CSIDH algorithm. While these CSIDH variants are slower, their performance is still within a small constant factor of less-protected variants.Finally, we discuss derandomized CSIDH algorithms.",
+    "summary": "Enhanced side-channel protection for CSIDH with fault injection resistance and dummy-free implementation using Edwards arithmetic.",
+    "based_on": [
+      {
+        "id": "2019/353",
+        "label": "builds upon"
+      }
+    ],
+    "benchmarks": [
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 900552,
+          "S": 309680,
+          "a": 964670
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.32,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 657367,
+          "S": 209921,
+          "a": 691017
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.227,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 1320500,
+          "S": 423297,
+          "a": 1390398
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.46,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2020/341",
+    "title": "Faster computation of isogenies of large prime degree",
+    "short": "velusqrt",
+    "authors": "Daniel J. Bernstein, Luca De Feo, Antonin Leroux, and Benjamin Smith ",
+    "date": "2020-03-22",
+    "eprint_link": "https://eprint.iacr.org/2020/341",
+    "abstract": "TODO",
+    "summary": "Introduction of V\u00e9lu's square-root formulas for faster computation of large prime degree isogenies in CSIDH.",
+    "based_on": [
+      {
+        "id": "2018_782",
+        "label": "implementation based on"
+      }
+    ],
+    "benchmarks": [
+      {
+        "name": "CSIDH (velusqrt)",
+        "operations": {
+          "M": 437839,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.118,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "CSIDH (velusqrt)",
+        "operations": {
+          "M": 579917,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.707,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2020/417",
+    "title": "Optimal strategies for CSIDH",
+    "short": "Optimal strategies",
+    "authors": "Jes\u00fas-Javier Chi-Dom\u00ednguez and Francisco Rodr\u00edguez-Henr\u00edquez",
+    "date": "2020-04-13",
+    "eprint_link": "https://eprint.iacr.org/2020/417",
+    "abstract": "Since its proposal in Asiacrypt 2018, the commutative isogeny-based key exchange protocol (CSIDH) has spurred considerable attention to improving its performance and re-evaluating its classical and quantum security guarantees. In this paper we discuss how the optimal strategies employed by the Supersingular Isogeny Diffie-Hellman (SIDH) key agreement protocol can be naturally extended to CSIDH. Furthermore, we report a software library that achieves moderate but noticeable performance speedups when compared against state-of-the-art implementations of CSIDH-512, which is the most popular CSIDH  instantiation. We also report an estimated number of field operations for larger instantiations of this protocol, namely, CSIDH-1024 and CSIDH-1792.",
+    "summary": "Development of optimal strategies for CSIDH implementation, extending SIDH techniques and analyzing larger parameter sizes.",
+    "based_on": [
+      {
+        "id": "2018/1198",
+        "label": "implements"
+      },
+      {
+        "id": "2019_353",
+        "label": "implements"
+      },
+      {
+        "id": "2019_837",
+        "label": "implements"
+      }
+    ],
+    "benchmarks": [],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2020/1520",
+    "title": "The SQALE of CSIDH: Sublinear V\u00e9lu Quantum-resistant isogeny Action with Low Exponents",
+    "short": "SQALE",
+    "authors": "Jorge Ch\u00e1vez-Saab, Jes\u00fas-Javier Chi-Dom\u00ednguez, Samuel Jaques, and Francisco Rodr\u00edguez-Henr\u00edquez",
+    "date": "2020-12-04",
+    "eprint_link": "https://eprint.iacr.org/2020/1520",
+    "abstract": "Recent independent analyses by Bonnetain-Schrottenloher and Peikert in Eurocrypt 2020 significantly reduced the estimated quantum security of the isogeny-based commutative group action key-exchange protocol CSIDH. This paper refines the estimates of a resource-constrained quantum collimation sieve attack to give a precise quantum security to CSIDH. Furthermore, we optimize large CSIDH parameters for performance while still achieving the NIST security levels 1, 2, and 3. Finally, we provide a C-code constant-time implementation of those CSIDH large instantiations using the square-root-complexity V\u00e9lu's formulas recently proposed by Bernstein, De Feo, Leroux and Smith.",
+    "summary": "SQALE protocol combining V\u00e9lu's formulas with low exponents for improved quantum security and performance in CSIDH.",
+    "based_on": [
+      {
+        "id": "2020/417",
+        "label": "based on"
+      },
+      {
+        "id": "2020/341",
+        "label": "uses"
+      }
+    ],
+    "benchmarks": [
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 857000,
+          "S": 231000,
+          "a": 1188000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.347,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 579000,
+          "S": 163000,
+          "a": 816000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.242,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 447000,
+          "S": 128000,
+          "a": 626000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.187,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 793000,
+          "S": 190000,
+          "a": 1246000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.344,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 536000,
+          "S": 132000,
+          "a": 854000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.948,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 436000,
+          "S": 125000,
+          "a": 652000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.795,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 851000,
+          "S": 214000,
+          "a": 1065000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 4.541,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 1792,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 568000,
+          "S": 145000,
+          "a": 949000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 3.212,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1792,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 523000,
+          "S": 155000,
+          "a": 927000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 2.951,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1792,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 878000,
+          "S": 227000,
+          "a": 1439000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 6.229,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 584000,
+          "S": 154000,
+          "a": 973000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 4.384,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 530000,
+          "S": 118000,
+          "a": 938000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 3.954,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 634000,
+          "S": 185000,
+          "a": 819000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 11.743,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 3072,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 558000,
+          "S": 135000,
+          "a": 977000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 10.373,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 3072,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 1234000,
+          "S": 233000,
+          "a": 2387000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 37.843,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 813000,
+          "S": 154000,
+          "a": 1604000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 27.403,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 583000,
+          "S": 152000,
+          "a": 1.006
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 22.677,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 1263000,
+          "S": 246000,
+          "a": 2432000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 67.011,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 5120,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 832000,
+          "S": 163000,
+          "a": 1633000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 49.194,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 5120,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 612000,
+          "S": 166000,
+          "a": 1051000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 42.328,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 5120,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 1427000,
+          "S": 284000,
+          "a": 2765000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 118.042,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 6144,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 933000,
+          "S": 185000,
+          "a": 1838000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 85.86,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 6144,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 706000,
+          "S": 194000,
+          "a": 9000000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 74.399,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 6144,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "dummy free",
+        "operations": {
+          "M": 2655000,
+          "S": 468000,
+          "a": 5514000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 353.79,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": true,
+        "size": 8192,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "MCR",
+        "operations": {
+          "M": 1744000,
+          "S": 304000,
+          "a": 3693000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 260.883,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 8192,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "OAYT",
+        "operations": {
+          "M": 1270000,
+          "S": 302000,
+          "a": 2357000
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 211.72,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 8192,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2021/633",
+    "title": "CTIDH: faster constant-time CSIDH",
+    "short": "CTIDH",
+    "authors": "Gustavo Banegas, Daniel J. Bernstein, Fabio Campos, Tung Chou, Tanja Lange, Michael Meyer, Benjamin Smith, and Jana Sot\u00e1kov\u00e1 ",
+    "date": "2021-05-17",
+    "eprint_link": "https://eprint.iacr.org/2021/633",
+    "abstract": "This paper introduces a new key space for CSIDH and a new algorithm for constant-time evaluation of the CSIDH group action. The key space is not useful with previous algorithms, and the algorithm is not useful with previous key spaces, but combining the new key space with the new algorithm produces speed records for constant-time CSIDH. For example, for CSIDH-512 with a 256-bit key space, the best previous constant-time results used 789000 multiplications and more than 200 million Skylake cycles; this paper uses 438006 multiplications and 125.53 million cycles.",
+    "summary": "CTIDH: A new constant-time implementation of CSIDH with significantly improved performance, reducing multiplications by 44%.",
+    "based_on": [
+      {
+        "id": "2020/341",
+        "label": "implementation based on"
+      }
+    ],
+    "benchmarks": [
+      {
+        "name": "CTIDH (aggressive)",
+        "operations": {
+          "M": 310841,
+          "S": 82119,
+          "a": 346715
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.089,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 437858,
+          "S": 116739,
+          "a": 482184
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.125,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 375731,
+          "S": 87964,
+          "a": 486802
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.47,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2023/793",
+    "title": "Optimizations and Practicality of High-Security CSIDH",
+    "short": "dCSIDH",
+    "authors": "Fabio Campos, Jorge Chavez-Saab, Jes\u00fas-Javier Chi-Dom\u00ednguez, Michael Meyer, Krijn Reijnders, Francisco Rodr\u00edguez-Henr\u00edquez, Peter Schwabe, and Thom Wiggers",
+    "date": "2023-05-30",
+    "eprint_link": "https://eprint.iacr.org/2023/793",
+    "abstract": "In this work, we assess the real-world practicality of CSIDH, an isogeny-based non-interactive key exchange. We provide the first thorough assessment of the practicality of CSIDH in higher parameter sizes for conservative estimates of quantum security, and with protection against physical attacks. <br>This requires a three-fold analysis of CSIDH. First, we describe two approaches to efficient high-security CSIDH implementations, based on SQALE and CTIDH. Second, we optimize such high-security implementations, on a high level by improving several subroutines, and on a low level by improving the finite field arithmetic. Third, we benchmark the performance of high-security CSIDH. As a stand-alone primitive, our implementations outperform previous results by a factor up to 2.53\u00d7.<br>As a real-world use case considering network protocols, we use CSIDH in TLS variants that allow early authentication through a NIKE. Although our instantiations of CSIDH have smaller communication requirements than post-quantum KEM and signature schemes, even our highly-optimized implementations result in too-large handshake latency (tens of seconds), showing that CSIDH is only practical in niche cases.",
+    "summary": "Comprehensive analysis of high-security CSIDH implementations, achieving 2.53x performance improvement but identifying practical limitations in real-world applications.",
+    "based_on": [
+      {
+        "id": "2020/1520",
+        "label": "builds upon"
+      },
+      {
+        "id": "2021/633",
+        "label": "uses and extends"
+      }
+    ],
+    "benchmarks": [
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 1315203,
+          "S": 227501,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 7.039,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 286464,
+          "S": 83271,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.695,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 1744469,
+          "S": 293510,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 34.173,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 4096,
+        "keyspace": 262,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 405818,
+          "S": 127244,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 8.259,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 4096,
+        "keyspace": 262,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 1527366,
+          "S": 268326,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 29.528,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 5120,
+        "keyspace": 244,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 718638,
+          "S": 235047,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 34.322,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 5120,
+        "keyspace": 244,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 1757077,
+          "S": 305853,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 44.019,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 6144,
+        "keyspace": 262,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 470230,
+          "S": 167917,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 13.325,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 6144,
+        "keyspace": 262,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCSIDH",
+        "operations": {
+          "M": 2805650,
+          "S": 458065,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 119.583,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 8192,
+        "keyspace": 338,
+        "nist_level": "?"
+      },
+      {
+        "name": "CTIDH",
+        "operations": {
+          "M": 718638,
+          "S": 235047,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 34.322,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": false,
+        "dummy_free": false,
+        "size": 8192,
+        "keyspace": 338,
+        "nist_level": "?"
+      }
+    ],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2025/107",
+    "title": "dCTIDH: Fast & Deterministic CTIDH",
+    "short": "dCTIDH",
+    "authors": "Fabio Campos, Andreas Hellenbrand, Michael Meyer, and Krijn Reijnders",
+    "date": "2025-01-23",
+    "eprint_link": "https://eprint.iacr.org/2025/107",
+    "abstract": "This paper introduces a new key space for CSIDH and a new algorithm for constant-time evaluation of the CSIDH group action. The key space is not useful with previous algorithms, and the algorithm is not useful with previous key spaces, but combining the new key space with the new algorithm produces speed records for constant-time CSIDH. For example, for CSIDH-512 with a 256-bit key space, the best previous constant-time results used 789000 multiplications and more than 200 million Skylake cycles; this paper uses 438006 multiplications and 125.53 million cycles.",
+    "summary": "Deterministic version of CTIDH with improved performance and security guarantees for constant-time CSIDH implementations.",
+    "based_on": [
+      {
+        "id": "2021/633",
+        "label": "builds upon"
+      },
+      {
+        "id": "2023/793",
+        "label": "implementation based on"
+      }
+    ],
+    "benchmarks": [
+      {
+        "name": "dCTIDH-205",
+        "operations": {
+          "M": 263545,
+          "S": 50825,
+          "a": 465224
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.43,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCTIDH-194",
+        "operations": {
+          "M": 266101,
+          "S": 51258,
+          "a": 469258
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.409,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCTIDH-226",
+        "operations": {
+          "M": 265192,
+          "S": 50572,
+          "a": 474336
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.497,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": false,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      }
+    ],
+    "scheme": "CSIDH"
+  },
+  {
+    "id": "2025/1645",
+    "title": "Hardened CTIDH: Dummy-Free and Deterministic CTIDH",
+    "short": "Hardened dCTIDH",
+    "authors": "Gustavo Banegas, Andreas Hellenbrand, and Matheus Saldanha",
+    "date": "2025-09-11",
+    "eprint_link": "https://eprint.iacr.org/2025/1645",
+    "abstract": "Isogeny-based cryptography has emerged as a promising post-quantum alternative, with CSIDH and its constant-time variant CTIDH offering efficient group-action protocols. dCTIDH recently introduced an efficient deterministic version. However, CTIDH and dCTIDH rely on dummy operations in differential addition chains (DACs) and Matryoshka isogenies, which can be exploitable by fault-injection attacks. In this work, we present the first dummy-free implementation of dCTIDH. Our approach combines two recent ideas: DACsHUND, which enforces equal-length DACs within each batch without padding, and a reformulated Matryoshka structure that removes dummy multiplications and validates all intermediate points. Our analysis shows that small primes such as 3, 5, and 7 severely restrict feasible DACsHUND configurations, motivating new parameter sets that exclude them. We implement dummy-free dCTIDH-2048-194 and dCTIDH-2048-205, achieving group action costs of roughly 357,000 to 362,000 finite-field multiplications, with median evaluation times of 1.59 to 1.60 gigacycles. These results do not surpass dCTIDH, but they outperform CTIDH by roughly 5 percent while eliminating dummy operations entirely. Compared to dCSIDH, our construction is more than four times faster. To the best of our knowledge, this is the first efficient implementation of a CSIDH-like protocol that is simultaneously deterministic, constant-time, and fully dummy-free.",
+    "summary": "First dummy-free, deterministic, and constant-time CSIDH-like implementation, combining DACsHUND and a reformulated Matryoshka structure to eliminate all dummy operations.",
+    "scheme": "CSIDH",
+    "based_on": [
+      {
+        "id": "2021/633",
+        "label": "builds upon"
+      },
+      {
+        "id": "2023/793",
+        "label": "implementation based on"
+      }
+    ],
+    "tags": [
+      "algorithm",
+      "implementation"
+    ],
+    "benchmarks": [
+      {
+        "name": "dCTIDH-205",
+        "operations": {
+          "M": 303058,
+          "S": 54074,
+          "a": 560276
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.6,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      },
+      {
+        "name": "dCTIDH-194",
+        "operations": {
+          "M": 307004,
+          "S": 55215,
+          "a": 553193
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 1.595,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 2048,
+        "keyspace": 221,
+        "nist_level": "?"
+      }
+    ]
+  }
+]
