@@ -17,8 +17,8 @@
     ],
     "benchmarks": [
       {
-        "name": "SQIsign NIST v1 (ref)",
-        "variant": "NIST v1",
+        "name": "SQIsign NIST v1 (asm) lvl1",
+        "variant": "NIST v1 asm",
         "nist_level": 1,
         "pk_size": 64,
         "sk_size": 782,
@@ -27,15 +27,99 @@
           {
             "platform": "Skylake",
             "keygen": {
-              "value": 2.166,
+              "value": 2.1662,
               "unit": "Gcyc"
             },
             "sign": {
-              "value": 2.978,
+              "value": 2.9778,
               "unit": "Gcyc"
             },
             "verify": {
-              "value": 0.039,
+              "value": 0.0391,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "SQIsign NIST v1 (ref) lvl1",
+        "variant": "NIST v1 ref",
+        "nist_level": 1,
+        "pk_size": 64,
+        "sk_size": 782,
+        "sig_size": 177,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 5.0719,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 8.043,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.193,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "SQIsign NIST v1 (ref) lvl3",
+        "variant": "NIST v1 ref",
+        "nist_level": 3,
+        "pk_size": 96,
+        "sk_size": 1228,
+        "sig_size": 263,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 34.2806,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 62.2896,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 1.0355,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "SQIsign NIST v1 (ref) lvl5",
+        "variant": "NIST v1 ref",
+        "nist_level": 5,
+        "pk_size": 128,
+        "sk_size": 2072,
+        "sig_size": 335,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 132.7016,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 237.0413,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 3.3836,
               "unit": "Gcyc"
             }
           }
@@ -70,8 +154,8 @@
     ],
     "benchmarks": [
       {
-        "name": "SQIsign NIST v2 lvl1",
-        "variant": "NIST v2",
+        "name": "SQIsign NIST v2 (asm) lvl1",
+        "variant": "NIST v2 asm",
         "nist_level": 1,
         "pk_size": 64,
         "sk_size": 782,
@@ -98,8 +182,36 @@
         "dummy_free": false
       },
       {
-        "name": "SQIsign NIST v2 (bench) lvl3",
-        "variant": "NIST v2",
+        "name": "SQIsign NIST v2 (ref) lvl1",
+        "variant": "NIST v2 ref",
+        "nist_level": 1,
+        "pk_size": 64,
+        "sk_size": 782,
+        "sig_size": 177,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.1023,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.2327,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0148,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "SQIsign NIST v2 (asm) lvl3",
+        "variant": "NIST v2 asm",
         "nist_level": 3,
         "pk_size": 96,
         "sk_size": 1228,
@@ -126,8 +238,36 @@
         "dummy_free": false
       },
       {
-        "name": "SQIsign NIST v2 (bench) lvl5",
-        "variant": "NIST v2",
+        "name": "SQIsign NIST v2 (ref) lvl3",
+        "variant": "NIST v2 ref",
+        "nist_level": 3,
+        "pk_size": 96,
+        "sk_size": 1228,
+        "sig_size": 263,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.2471,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.5624,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0371,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "SQIsign NIST v2 (asm) lvl5",
+        "variant": "NIST v2 asm",
         "nist_level": 5,
         "pk_size": 128,
         "sk_size": 2072,
@@ -145,6 +285,34 @@
             },
             "verify": {
               "value": 0.0388,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "SQIsign NIST v2 (ref) lvl5",
+        "variant": "NIST v2 ref",
+        "nist_level": 5,
+        "pk_size": 128,
+        "sk_size": 2072,
+        "sig_size": 335,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.4108,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.9415,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.072,
               "unit": "Gcyc"
             }
           }
@@ -182,8 +350,8 @@
     ],
     "benchmarks": [
       {
-        "name": "Qlapoti lvl1",
-        "variant": "Qlapoti",
+        "name": "Qlapoti (asm) lvl1",
+        "variant": "Qlapoti asm",
         "nist_level": 1,
         "pk_size": 64,
         "sk_size": 782,
@@ -210,8 +378,36 @@
         "dummy_free": false
       },
       {
-        "name": "Qlapoti lvl3",
-        "variant": "Qlapoti",
+        "name": "Qlapoti (ref) lvl1",
+        "variant": "Qlapoti ref",
+        "nist_level": 1,
+        "pk_size": 64,
+        "sk_size": 782,
+        "sig_size": 177,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.0584,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.1443,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0146,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "Qlapoti (asm) lvl3",
+        "variant": "Qlapoti asm",
         "nist_level": 3,
         "pk_size": 96,
         "sk_size": 1228,
@@ -238,8 +434,36 @@
         "dummy_free": false
       },
       {
-        "name": "Qlapoti lvl5",
-        "variant": "Qlapoti",
+        "name": "Qlapoti (ref) lvl3",
+        "variant": "Qlapoti ref",
+        "nist_level": 3,
+        "pk_size": 96,
+        "sk_size": 1228,
+        "sig_size": 263,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.1756,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.4616,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0371,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "Qlapoti (asm) lvl5",
+        "variant": "Qlapoti asm",
         "nist_level": 5,
         "pk_size": 128,
         "sk_size": 2072,
@@ -257,6 +481,34 @@
             },
             "verify": {
               "value": 0.039,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": true,
+        "dummy_free": false
+      },
+      {
+        "name": "Qlapoti (ref) lvl5",
+        "variant": "Qlapoti ref",
+        "nist_level": 5,
+        "pk_size": 128,
+        "sk_size": 2072,
+        "sig_size": 335,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.2657,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.6855,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.0722,
               "unit": "Gcyc"
             }
           }
