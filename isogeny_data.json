@@ -1394,5 +1394,45 @@
         "nist_level": "?"
       }
     ]
+  },
+  {
+    "id": "2025/847",
+    "title": "Deterministic algorithms for class group actionsH",
+    "short": "DetCGA (Houben)",
+    "authors": "Marc Houben",
+    "date": "2025-07-27",
+    "eprint_link": "https://eprint.iacr.org/2025/847",
+    "abstract": "We present an algorithm for the CSIDH protocol that is fully deterministic and strictly constant time. It does not require dummy operations and can be implemented without conditional branches. Our proof-of-concept C implementation shows that a key exchange can be performed in a constant (i.e. fixed) number of finite field operations, independent of the secret keys. The algorithm relies on a technique reminiscent of the standard Montgomery ladder, and applies to the computation of isogenies that divide an endomorphism of smooth degree represented by its kernel. We describe our method in the general context of class group actions on oriented elliptic curves, giving rise to a large family of non-interactive key exchanges different from CSIDH.",
+    "summary": null,
+    "scheme": "CSIDH",
+    "based_on": [
+    ],
+    "tags": [
+      "algorithm",
+      "implementation"
+    ],
+    "benchmarks": [
+      {
+        "name": "detCGA (PoC)",
+        "operations": {
+          "M": 3127970,
+          "S": 990150,
+          "a": 3130410
+        },
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "value": 0.862,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ]
   }
 ]

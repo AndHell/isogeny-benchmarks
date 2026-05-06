@@ -822,8 +822,9 @@ document.getElementById('btn-png').addEventListener('click', async () => {
     clone.setAttribute('height', H * SCALE)
 
     const svgStr  = new XMLSerializer().serializeToString(clone)
-    const blob    = new Blob([svgStr], { type: 'image/svg+xml' })
-    const url     = URL.createObjectURL(blob)
+    const b64     = btoa(unescape(encodeURIComponent(svgStr)))
+    const url     = `data:image/svg+xml;base64,${b64}`
+ 
 
     const img = new Image()
     img.onload = () => {
