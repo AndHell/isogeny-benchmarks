@@ -112,10 +112,10 @@ main {
 }
 
 .page-sub {
-    font-size: 13px;
+    font-size: 16px;
     color: var(--muted);
     margin-bottom: 24px;
-    font-weight: 300;
+    font-weight: 450;
 }
 
 /* ── Tabs ── */

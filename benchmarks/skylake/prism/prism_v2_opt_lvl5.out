@@ -1,0 +1,5 @@
+Random seed: "--seed={ 0x88afdf7a, 0xb52add68, 0x06dfcd51, 0x0a7e3bb7, 0x58597e83, 0xecc08d8d, 0xb7b252a4, 0x368e9de4, 0xf571e1ab, 0x7508ec38, 0x25a6e73a, 0xc6d4d8ca }"
+PRISM_lvl5 (5000 iterations)
+  keypair    | average   295.812 | stddev    52.603 | median   263.746 | min   204.686 | max  1382.447  (megacycles)
+  sign       | average   482.464 | stddev    51.904 | median   433.595 | min   241.995 | max  1973.873  (megacycles)
+  verify     | average    71.277 | stddev     0.071 | median    71.276 | min    71.135 | max    72.608  (megacycles)

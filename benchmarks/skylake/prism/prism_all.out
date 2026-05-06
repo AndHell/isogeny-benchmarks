@@ -1,0 +1,41 @@
+==> prism_v2_opt_lvl1.out <==
+Random seed: "--seed={ 0xc1f97921, 0x3396ac16, 0xb84956fa, 0xdbee151a, 0x8c26c15a, 0xe7799054, 0x2f93b039, 0x2d050b24, 0x165ee665, 0x269e6e00, 0x7a307f5c, 0x53da4091 }"
+PRISM_lvl1 (5000 iterations)
+  keypair    | average    61.626 | stddev    11.905 | median    58.675 | min    45.491 | max   140.292  (megacycles)
+  sign       | average   102.211 | stddev    38.589 | median    91.914 | min    54.936 | max   484.251  (megacycles)
+  verify     | average    17.868 | stddev     0.030 | median    17.860 | min    17.815 | max    18.058  (megacycles)
+
+==> prism_v2_opt_lvl3.out <==
+Random seed: "--seed={ 0x4cd808f3, 0xe99d13d9, 0x9096292f, 0x3f12fd71, 0xec24b937, 0x8973109e, 0xfd72126a, 0x6ab88496, 0xf5fb7b32, 0xfaee623b, 0xbe31ad89, 0xc3cb8356 }"
+PRISM_lvl3 (5000 iterations)
+  keypair    | average   223.072 | stddev    34.551 | median   173.647 | min   107.323 | max  1614.212  (megacycles)
+  sign       | average   318.928 | stddev    45.276 | median   272.406 | min   129.848 | max  1881.263  (megacycles)
+  verify     | average    39.388 | stddev     0.048 | median    39.386 | min    39.279 | max    39.617  (megacycles)
+
+==> prism_v2_opt_lvl5.out <==
+Random seed: "--seed={ 0x88afdf7a, 0xb52add68, 0x06dfcd51, 0x0a7e3bb7, 0x58597e83, 0xecc08d8d, 0xb7b252a4, 0x368e9de4, 0xf571e1ab, 0x7508ec38, 0x25a6e73a, 0xc6d4d8ca }"
+PRISM_lvl5 (5000 iterations)
+  keypair    | average   295.812 | stddev    52.603 | median   263.746 | min   204.686 | max  1382.447  (megacycles)
+  sign       | average   482.464 | stddev    51.904 | median   433.595 | min   241.995 | max  1973.873  (megacycles)
+  verify     | average    71.277 | stddev     0.071 | median    71.276 | min    71.135 | max    72.608  (megacycles)
+
+==> prism_v2_ref_lvl1.out <==
+Random seed: "--seed={ 0xe997cadd, 0x5ac78ebb, 0x040a9359, 0x97cb50ed, 0xbff87768, 0x0a6a22c3, 0xd4598dd4, 0x526fc2ba, 0x1fda1654, 0xe9ac79d1, 0xbf577243, 0xd0204e4b }"
+PRISM_lvl1 (5000 iterations)
+  keypair    | average    61.655 | stddev    11.834 | median    58.745 | min    45.674 | max   143.306  (megacycles)
+  sign       | average   102.137 | stddev    37.555 | median    91.877 | min    55.631 | max   388.657  (megacycles)
+  verify     | average    17.866 | stddev     0.030 | median    17.871 | min    17.814 | max    18.037  (megacycles)
+
+==> prism_v2_ref_lvl3.out <==
+Random seed: "--seed={ 0x6d1ae3ab, 0x5822104e, 0x4a21ae62, 0xdda1d020, 0x0313b4b7, 0x61e035ae, 0xd03776e4, 0x8fef1582, 0xdaa4a739, 0x9b345c4c, 0x67daa956, 0x96a243a2 }"
+PRISM_lvl3 (5000 iterations)
+  keypair    | average   224.516 | stddev    45.621 | median   175.440 | min   107.017 | max  1693.253  (megacycles)
+  sign       | average   316.937 | stddev    59.065 | median   274.253 | min   129.053 | max  1712.418  (megacycles)
+  verify     | average    39.233 | stddev     0.055 | median    39.234 | min    39.143 | max    40.799  (megacycles)
+
+==> prism_v2_ref_lvl5.out <==
+Random seed: "--seed={ 0x279e1cc5, 0x47d75a41, 0x94ed1a34, 0xc6f55076, 0x5011ba6b, 0xd63dafba, 0xb6bc7342, 0x19b6a960, 0x2d338720, 0x4a79f73a, 0x516abe55, 0xdc149034 }"
+PRISM_lvl5 (5000 iterations)
+  keypair    | average   295.544 | stddev    48.110 | median   263.375 | min   204.463 | max  1060.020  (megacycles)
+  sign       | average   479.160 | stddev    18.425 | median   433.388 | min   239.911 | max  1662.523  (megacycles)
+  verify     | average    70.981 | stddev     0.070 | median    70.981 | min    70.852 | max    72.238  (megacycles)

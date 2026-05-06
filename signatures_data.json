@@ -518,5 +518,193 @@
         "dummy_free": false
       }
     ]
+  },
+  {
+    "id": "2025/135",
+    "title": "PRISM: Simple and Compact Identification and Signatures from Large Prime Degree Isogenies",
+    "short": "PRISM",
+    "authors": "Andrea Basso, Giacomo Borin, Wouter Castryck, Maria Corte-Real Santos, Riccardo Invernizzi, Antonin Leroux, Luciano Maino, Frederik Vercauteren, and Benjamin Wesolowski",
+    "date": "2025-01-28",
+    "eprint_link": "https://eprint.iacr.org/2025/135",
+    "abstract": "The problem of computing an isogeny of large prime degree from a supersingular elliptic curve of unknown endomorphism ring is assumed to be hard both for classical as well as quantum computers. In this work, we first build a two-round identification protocol whose security reduces to this problem. The challenge consists of a random large prime q and the prover simply replies with an efficient representation of an isogeny of degree q from its public key. Using the hash-and-sign paradigm, we then derive a signature scheme with a very simple and flexible signing procedure and prove its security in the standard model.",
+    "summary": "Signature scheme from large prime degree isogenies with a simple hash-and-sign construction. Signing is ~1.8x faster than SQIsign variants; verification is ~1.4x slower. The ref and opt cycle counts are nearly identical, as the bottleneck is the large prime isogeny computation rather than finite field arithmetic.",
+    "scheme": "PRISM",
+    "based_on": [],
+    "tags": [
+      "signature",
+      "PRISM",
+      "supersingular",
+      "large-prime-isogeny"
+    ],
+    "benchmarks": [
+      {
+        "name": "PRISM (opt) lvl1",
+        "variant": "PRISM v2 opt",
+        "nist_level": 1,
+        "pk_size": null,
+        "sk_size": null,
+        "sig_size": null,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.058675,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.091914,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.01786,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false
+      },
+      {
+        "name": "PRISM (ref) lvl1",
+        "variant": "PRISM v2 ref",
+        "nist_level": 1,
+        "pk_size": null,
+        "sk_size": null,
+        "sig_size": null,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.058745,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.091877,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.017871,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false
+      },
+      {
+        "name": "PRISM (opt) lvl3",
+        "variant": "PRISM v2 opt",
+        "nist_level": 3,
+        "pk_size": null,
+        "sk_size": null,
+        "sig_size": null,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.173647,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.272406,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.039386,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false
+      },
+      {
+        "name": "PRISM (ref) lvl3",
+        "variant": "PRISM v2 ref",
+        "nist_level": 3,
+        "pk_size": null,
+        "sk_size": null,
+        "sig_size": null,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.17544,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.274253,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.039234,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false
+      },
+      {
+        "name": "PRISM (opt) lvl5",
+        "variant": "PRISM v2 opt",
+        "nist_level": 5,
+        "pk_size": null,
+        "sk_size": null,
+        "sig_size": null,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.263746,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.433595,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.071276,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false
+      },
+      {
+        "name": "PRISM (ref) lvl5",
+        "variant": "PRISM v2 ref",
+        "nist_level": 5,
+        "pk_size": null,
+        "sk_size": null,
+        "sig_size": null,
+        "cycles": [
+          {
+            "platform": "Skylake",
+            "keygen": {
+              "value": 0.263375,
+              "unit": "Gcyc"
+            },
+            "sign": {
+              "value": 0.433388,
+              "unit": "Gcyc"
+            },
+            "verify": {
+              "value": 0.070981,
+              "unit": "Gcyc"
+            }
+          }
+        ],
+        "constant_time": false,
+        "deterministic": false,
+        "dummy_free": false
+      }
+    ]
   }
 ]
