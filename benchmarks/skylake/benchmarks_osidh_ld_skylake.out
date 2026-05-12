@@ -1,0 +1,62 @@
+==> benchmark_id_ld256.out <==
+Benchmark: OSIDH-LD | use invariant differential | not use strategy | use AoS
+
+OSIDH-LD | use invariant differential | not use strategy | use AoS:
+Public Key Avg: 22034276948 cycles, 6.465 seconds
+Agreement Key Avg: 17730671669 cycles, 5.203 seconds
+
+==> benchmark_id_stra_ld256.out <==
+Benchmark: OSIDH-LD | use invariant differential | use strategy | use AoS
+
+OSIDH-LD | use invariant differential | use strategy | use AoS:
+Public Key Avg: 17943746341 cycles, 5.265 seconds
+Agreement Key Avg: 14306525884 cycles, 4.198 seconds
+
+==> benchmark_if_ld256.out <==
+Benchmark: OSIDH-LD | use isomorphism formula | not use strategy | use AoS
+
+OSIDH-LD | use isomorphism formula | not use strategy | use AoS:
+Public Key Avg: 18731417151 cycles, 5.496 seconds
+Agreement Key Avg: 15516678367 cycles, 4.553 seconds
+
+==> benchmark_if_stra_ld256.out <==
+Benchmark: OSIDH-LD | use isomorphism formula | use strategy | use AoS
+
+OSIDH-LD | use isomorphism formula | use strategy | use AoS:
+Public Key Avg: 14678587612 cycles, 4.307 seconds
+Agreement Key Avg: 12159230125 cycles, 3.568 seconds
+
+==> benchmark_omp_ld256.out <==
+Benchmark: OSIDH-LD | multithread
+Thread num: 4
+
+Public Key Avg: 1.089 seconds
+Agreement Key Avg: 0.924 seconds
+
+==> benchmark_soa_id_ld256.out <==
+Benchmark: OSIDH-LD | use invariant differential | not use strategy | use SoA
+
+OSIDH-LD | use invariant differential | not use strategy | use SoA:
+Public Key Avg: 21187212312 cycles, 6.217 seconds
+Agreement Key Avg: 17039408772 cycles, 5.000 seconds
+
+==> benchmark_soa_id_stra_ld256.out <==
+Benchmark: OSIDH-LD | use invariant differential | use strategy | use SoA
+
+OSIDH-LD | use invariant differential | use strategy | use SoA:
+Public Key Avg: 17785930173 cycles, 5.219 seconds
+Agreement Key Avg: 14165237848 cycles, 4.156 seconds
+
+==> benchmark_soa_if_ld256.out <==
+Benchmark: OSIDH-LD | use isomorphism formula | not use strategy | use SoA
+
+OSIDH-LD | use isomorphism formula | not use strategy | use SoA:
+Public Key Avg: 18010681931 cycles, 5.285 seconds
+Agreement Key Avg: 14943497839 cycles, 4.385 seconds
+
+==> benchmark_soa_if_stra_ld256.out <==
+Benchmark: OSIDH-LD | use isomorphism formula | use strategy | use SoA
+
+OSIDH-LD | use isomorphism formula | use strategy | use SoA:
+Public Key Avg: 14305033444 cycles, 4.197 seconds
+Agreement Key Avg: 11855186875 cycles, 3.479 seconds
