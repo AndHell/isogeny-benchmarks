@@ -1597,6 +1597,11 @@
             "platform": "EPYC-Milan",
             "value": 11.520,
             "unit": "Gcyc"
+          },
+          {
+            "platform": "Skylake",
+            "value": 16.166,
+            "unit": "Gcyc"
           }
         ],
         "constant_time": true,
@@ -1659,6 +1664,11 @@
           {
             "platform": "EPYC-Milan",
             "value": 6.191,
+            "unit": "Gcyc"
+          },
+          {
+            "platform": "Skylake",
+            "value": 8.706,
             "unit": "Gcyc"
           }
         ],
