@@ -1272,6 +1272,11 @@
             "platform": "Skylake",
             "value": 1.43,
             "unit": "Gcyc"
+          },
+          {
+            "platform": "EPYC-Milan",
+            "value": 0.988,
+            "unit": "Gcyc"
           }
         ],
         "constant_time": true,
@@ -1293,6 +1298,11 @@
             "platform": "Skylake",
             "value": 1.409,
             "unit": "Gcyc"
+          },
+          {
+            "platform": "EPYC-Milan",
+            "value": 0.992,
+            "unit": "Gcyc"
           }
         ],
         "constant_time": true,
@@ -1313,6 +1323,11 @@
           {
             "platform": "Skylake",
             "value": 1.497,
+            "unit": "Gcyc"
+          },
+          {
+            "platform": "EPYC-Milan",
+            "value": 1.015,
             "unit": "Gcyc"
           }
         ],
@@ -1363,6 +1378,11 @@
             "platform": "Skylake",
             "value": 1.6,
             "unit": "Gcyc"
+          },
+          {
+            "platform": "EPYC-Milan",
+            "value": 1.124,
+            "unit": "Gcyc"
           }
         ],
         "constant_time": true,
@@ -1384,6 +1404,11 @@
             "platform": "Skylake",
             "value": 1.595,
             "unit": "Gcyc"
+          },
+          {
+            "platform": "EPYC-Milan",
+            "value": 1.123,
+            "unit": "Gcyc"
           }
         ],
         "constant_time": true,
@@ -1404,7 +1429,7 @@
     "eprint_link": "https://eprint.iacr.org/2025/847",
     "abstract": "We present an algorithm for the CSIDH protocol that is fully deterministic and strictly constant time. It does not require dummy operations and can be implemented without conditional branches. Our proof-of-concept C implementation shows that a key exchange can be performed in a constant (i.e. fixed) number of finite field operations, independent of the secret keys. The algorithm relies on a technique reminiscent of the standard Montgomery ladder, and applies to the computation of isogenies that divide an endomorphism of smooth degree represented by its kernel. We describe our method in the general context of class group actions on oriented elliptic curves, giving rise to a large family of non-interactive key exchanges different from CSIDH.",
     "summary": null,
-    "scheme": "CSIDH",
+    "scheme": "Houben",
     "based_on": [
     ],
     "tags": [
@@ -1430,6 +1455,107 @@
         "deterministic": true,
         "dummy_free": true,
         "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ]
+  },
+  {
+    "id": "2026/627",
+    "title": "Efficient and Parallel Implementation of Isogeny-based Deterministic Group Actions",
+    "short": "OSIDH-LD",
+    "authors": "Weize Wang,Yi-Fu Lai, Kaizhan Lin, Yunlei Zhao",
+    "date": "2026-04-08",
+    "eprint_link": "https://eprint.iacr.org/2026/627",
+    "abstract": "Recent work by Houben (Asiacrypt'25) introduced a new formulation for class group actions on supersingular elliptic curves oriented by an imaginary quadratic order for an arbitrarily large discriminant. The algorithm is not only constant-time but also fully deterministic, dummy-free, and branch-free. As a result, it gives the fastest isogeny-based non-interactive key exchange (NIKE) in theory, referred to as OSIDH-LD in this paper. However, the current proof-of-concept SageMath implementation remains substantially slower than mainstream post-quantum key-exchange candidates.<br>In this paper, we develop an efficient implementation of OSIDH-LD with several approaches. First, we provide algorithmic-level optimizations: (i) we develop the ``tail pruning'' approach such that key agreement avoids redundant orientation updates. This optimization maintains the fully deterministic and dummy-free feature of OSIDH-LD; (ii) we adapt a faster codomain isomorphism identification adapted from the technique used in the SQIsign implementations; and (iii) we present effective isogeny-computation strategies tailored to the cost profile of OSIDH-LD. Second, we adapt the parallelism technique. We apply the fork-join parallel execution model to optimize the class group action performance, and achieve near-perfect parallelism in key generation, as well as improved performance in key agreement.<br>We provide two kinds of implementations to show the impacts of our improvements. The first one is in C with assembly language for field arithmetic, which verifies the correctness of our optimization techniques targeting OSIDH-LD. The experimental results show that our techniques lead to an overall  and  acceleration for key generation and key agreement, respectively. <br>On an Intel Core i7 CPU, the resulting costs are 12.8~Gcycs (KeyGen) and 10.57~Gcycs (KeyAgree) at a conjectured CSIDH-4096 security strength. Second, we provide parallel implementations that exploit multi-threading and AVX-512 vector extensions, respectively, by batching independent subroutines in the class group action. In particular, the AVX-512 vectorized implementation is  faster than the improved C+assembly implementation in key generation, which is close to the theoretical optimum.",
+    "summary": null,
+    "scheme": "Houben",
+    "based_on": [
+    ],
+    "tags": [
+      "algorithm",
+      "implementation"
+    ],
+    "benchmarks": [
+      {
+        "name": "detCGA avx512-IFMA",
+        "operations": {
+          "M": null,
+          "S": null,
+          "a": null
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 1.799,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ]
+  },
+  {
+    "id": "2026/679",
+    "title": "Compressed Key Exchange Protocol from Orientations of Large Discriminant Using AVX-512",
+    "short": "CSIDH-LDO",
+    "authors": "Yuhao Zheng, Jianming Lin, Yutong Liang, Yanzhen Ren, Huixin Zhang, Chang-An Zhao",
+    "date": "2026-04-08",
+    "eprint_link": "https://eprint.iacr.org/2026/679",
+    "abstract": "CSIDH (Commutative Supersingular Isogeny Diffie--Hellman) is a class-group-based key-exchange protocol operated on supersingular elliptic curves, which, at the time of its proposal, exhibited several attractive selling points such as non-interactivity. Unfortunately, CSIDH is vulnerable to the sub-exponentiation attack--Kuperberg's algorithm, thereby requiring large parameters to ensure security. A recent work based on oriented elliptic curves with large discriminants, proposed by Houben, allows for a significantly small base field (around 255 bits). We name this protocol CSIDH-LDO. However, the practicality of CSIDH-LDO is currently hindered by the necessity of performing multiple group actions and  its huge public-key size.<br><br>In this paper, we address these bottlenecks by presenting highly optimized constant-time implementations alongside an effective public-key compression framework for CSIDH-LDO. We combine algorithmic improvements, specifically scalar multiplication by differential addition chains and isogeny computation on the twisted Edwards model, with \textit{limb-slicing} to exploit parallelism via Intel's AVX-512 instructions. To resolve the architectural mismatch when mapping  group actions to 8-lane SIMD registers, we evaluate two parallel scheduling strategies. While a dummy-based approach allows us to leverage efficient -arithmetic, our dummy-free strategy systematically exploits internal parallelism to fully saturate the 512-bit vectors without redundant computations. Benchmarks on an Intel Tiger Lake processor demonstrate our parallel implementations achieve speedups of up to 3.40 (AVX-512F) and 7.30 (AVX-512IFMA) over an optimized x64 assembly baseline.<br>Furthermore, we establish a formal framework for public-key compression tailored for CSIDH-LDO. Specifically, we propose two efficient techniques that achieve a compact public key representation of approximately  bits, thereby significantly reducing communication bandwidth. To the best of our knowledge, this work is the first to demonstrate the efficacy of SIMD parallelization combined with optimized compression for isogeny-based protocols derived from orientations of large discriminants.",
+    "summary": null,
+    "scheme": "Houben",
+    "based_on": [
+    ],
+    "tags": [
+      "algorithm",
+      "implementation"
+    ],
+    "benchmarks": [
+      {
+        "name": "detCGA avx512-IFMA",
+        "operations": {
+          "M": null,
+          "S": null,
+          "a": null
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 1.652,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "detCGA avx512-IFMA",
+        "operations": {
+          "M": null,
+          "S": null,
+          "a": null
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 0.940,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 2048,
         "keyspace": 256,
         "nist_level": "?"
       }
