@@ -1480,9 +1480,9 @@
       {
         "name": "detCGA avx512-IFMA",
         "operations": {
-          "M": null,
-          "S": null,
-          "a": null
+          "M": 0,
+          "S": 0,
+          "a": 0
         },
         "cycles": [
           {
@@ -1520,9 +1520,9 @@
       {
         "name": "detCGA avx512-IFMA",
         "operations": {
-          "M": null,
-          "S": null,
-          "a": null
+          "M": 0,
+          "S": 0,
+          "a": 0
         },
         "cycles": [
           {
@@ -1541,9 +1541,9 @@
       {
         "name": "detCGA avx512-IFMA",
         "operations": {
-          "M": null,
-          "S": null,
-          "a": null
+          "M": 0,
+          "S": 0,
+          "a": 0
         },
         "cycles": [
           {
