@@ -1497,6 +1497,27 @@
         "size": 4096,
         "keyspace": 256,
         "nist_level": "?"
+      },
+      {
+        "name": "detCGA (soa if stra)",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 8.076,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
       }
     ]
   },
@@ -1539,6 +1560,48 @@
         "nist_level": "?"
       },
       {
+        "name": "detCGA avx512-F",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 4.020,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "detCGA ASM ",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 11.520,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 4096,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
         "name": "detCGA avx512-IFMA",
         "operations": {
           "M": 0,
@@ -1556,6 +1619,197 @@
         "deterministic": true,
         "dummy_free": true,
         "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "detCGA avx512-F",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 2.347,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "detCGA ASM ",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 6.191,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      }
+    ]
+  },
+  {
+    "id": "2026/896",
+    "title": "CORAL Faster Isogeny Group Action for Post-Quantum NIKE",
+    "short": "CORAL",
+    "authors": "Andrea Basso, Giacomo Borin, Ryan Rueger, Sina Schaeffler",
+    "date": "2026-05-10",
+    "eprint_link": "https://eprint.iacr.org/2026/896",
+    "abstract": "There are two kinds of cryptographic group actions: restricted and unrestricted. While unrestricted actions like (qt-)PEGASIS are needed for more advanced constructions, restricted ones like dCTIDH are sufficient for instantiating a NIKE and usually much more efficient.<br>In this work, we propose CORAL, a significantly faster algorithm to evaluate the same action as (qt-)PEGASIS, but in a restricted fashion; CORAL only computes two-dimensional -isogenies to evaluate the action and outperforms both recent unrestricted (KLaPoTi, (qt-)PEGASIS) and (restricted) CSIDH-based approaches (SQALE, dCTIDH).<br>In essence, CORAL trades off unrestrictedness for efficiency.<br>Our unoptimised C implementation evaluates a group-action in 240 ms with a 2032-bit prime. When used to construct a non-interactive key exchange, CORAL yields an actively secure post-quantum NIKE with compact public keys (e.g. 256 bytes for 2032-bit primes).",
+    "summary": null,
+    "scheme": "HD",
+    "based_on": [
+    ],
+    "tags": [
+      "algorithm",
+      "implementation"
+    ],
+    "benchmarks": [
+      {
+        "name": "CORAL (asm)",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 0.010,
+            "unit": "Gcyc"
+          },
+          {
+            "platform": "Skylake",
+            "value": 0.014,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "CORAL (ref)",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 0.017,
+            "unit": "Gcyc"
+          },
+          {
+            "platform": "Skylake",
+            "value": 0.023,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 512,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "CORAL (ref)",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 0.88,
+            "unit": "Gcyc"
+          },
+          {
+            "platform": "Skylake",
+            "value": 0.112,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 1024,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "CORAL (ref)",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 0.582,
+            "unit": "Gcyc"
+          },
+          {
+            "platform": "Skylake",
+            "value": 0.745,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 2048,
+        "keyspace": 256,
+        "nist_level": "?"
+      },
+      {
+        "name": "CORAL (ref)",
+        "operations": {
+          "M": 0,
+          "S": 0,
+          "a": 0
+        },
+        "cycles": [
+          {
+            "platform": "EPYC-Milan",
+            "value": 4.344,
+            "unit": "Gcyc"
+          },
+          {
+            "platform": "Skylake",
+            "value": 5.627,
+            "unit": "Gcyc"
+          }
+        ],
+        "constant_time": true,
+        "deterministic": true,
+        "dummy_free": true,
+        "size": 4096,
         "keyspace": 256,
         "nist_level": "?"
       }

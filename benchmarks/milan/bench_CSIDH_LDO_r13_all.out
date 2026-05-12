@@ -1,0 +1,18 @@
+==> bench_asm_r13.out <==
+"group_action"                 cycles= 11520390858 
+
+==> bench_avx_512F_8w4w1w.out <==
+"group_action"                 cycles=  4020444436 
+
+
+==> bench_avx_512F_8w8w.out <==
+"group_action_8w8w"            cycles=  4644756992 
+
+
+==> bench_avx_512IFMA_8w4w1w.out <==
+"group_action"                 cycles=  1652031066 
+
+
+==> bench_avx_512IFMA_8w8w.out <==
+"group_action_8w8w"            cycles=  1862934281 
+

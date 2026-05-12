@@ -236,8 +236,8 @@
         "2020/1520"
       ],
       "_pos": {
-        "x": 505,
-        "y": 728
+        "x": 508,
+        "y": 723
       }
     },
     {
@@ -381,13 +381,13 @@
         "2025/107"
       ],
       "_pos": {
-        "x": 395,
-        "y": 871
+        "x": 341,
+        "y": 850
       }
     },
     {
       "id": "2025/691",
-      "name": "3-isogeny",
+      "name": "Faster 3-isogeny",
       "eprint": "https://eprint.iacr.org/2025/691",
       "tags": [
         "Super",
@@ -419,8 +419,8 @@
         "2025/847"
       ],
       "_pos": {
-        "x": 503,
-        "y": 814
+        "x": 510,
+        "y": 804
       }
     },
     {
@@ -437,6 +437,46 @@
       "_pos": {
         "x": 389,
         "y": 666
+      }
+    },
+    {
+      "id": "2026/627",
+      "name": "OSIDH-LD",
+      "eprint": "https://eprint.iacr.org/2026/627",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2025/1098"
+      ],
+      "flavours": [
+        "Houben",
+        "AVX-512"
+      ],
+      "_pos": {
+        "x": 466,
+        "y": 908
+      }
+    },
+    {
+      "id": "2026/679",
+      "name": "CSIDH-LDO",
+      "eprint": "https://eprint.iacr.org/2026/679",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2025/1098"
+      ],
+      "flavours": [
+        "Houben",
+        "AVX-512"
+      ],
+      "_pos": {
+        "x": 566,
+        "y": 961
       }
     }
   ]
