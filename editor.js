@@ -214,7 +214,7 @@ function render() {
     state.nodes.forEach(n => nodeById[n.id] = n)
 
     // ── Region boxes ──
-    const PADS = [0, 22, 40, 58, 76]
+    const PADS = [0, 8, 14, 20, 26]
     const regionEntries = Object.entries(state.tagRegions)
         .sort((a,b) => (b[1].draw_order||1) - (a[1].draw_order||1))
     for (const [tagId, tagDef] of regionEntries) {
@@ -289,12 +289,24 @@ function render() {
         const isSel   = selected?.type==='node' && selected.id===node.id
         const c = C()
 
+        // Resolve fill/stroke from node type, falling back to eprint/no-eprint defaults
+        const nt = (state.nodeTypes || {})[node.type]
+        let nFill, nStroke
+        if (nt?.color) {
+            const rgb = hexToRgbE(nt.color)
+            nFill   = isDark ? `rgba(${rgb},0.28)` : `rgba(${rgb},0.16)`
+            nStroke = nt.color
+        } else {
+            nFill   = hasLink ? c.nodeFill : c.noFill
+            nStroke = hasLink ? c.nodeStroke : c.noStroke
+        }
+
         const g = svgEl('g', { class:'node-g', 'data-id':node.id, style:'cursor:pointer' })
 
         g.appendChild(svgEl('rect', {
             x:p.x-NODE_W/2, y:p.y-NODE_H/2, width:NODE_W, height:NODE_H, rx:5,
-            fill: hasLink ? c.nodeFill : c.noFill,
-            stroke: isSel ? c.selStroke : (hasLink ? c.nodeStroke : c.noStroke),
+            fill: nFill,
+            stroke: isSel ? c.selStroke : nStroke,
             'stroke-width': isSel ? '2.5' : '1.5',
             'stroke-dasharray': node._uncertain ? '4,2' : 'none'
         }))

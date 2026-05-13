@@ -37,6 +37,20 @@
       "color": "#2a8a8a"
     }
   },
+  "node_types": {
+    "scheme": {
+      "label": "Scheme",
+      "color": "#2d6a8a"
+    },
+    "algorithm": {
+      "label": "Algorithm",
+      "color": "#2a7a50"
+    },
+    "implementation": {
+      "label": "Implementation",
+      "color": "#8a6a2a"
+    }
+  },
   "nodes": [
     {
       "id": "2006/291",
@@ -47,30 +61,30 @@
         "restrict"
       ],
       "depends_on": [],
+      "type": "scheme",
       "_pos": {
-        "x": 514,
-        "y": 61
-      },
-      "type": "scheme"
+        "x": 520,
+        "y": 105
+      }
     },
     {
       "id": "2006/145",
-      "name": "Rostovtsev\u2013Stolbunov",
+      "name": "Rostovtsev–Stolbunov",
       "eprint": "https://eprint.iacr.org/2006/145",
       "tags": [
         "Odinary",
         "restrict"
       ],
       "depends_on": [],
+      "type": "scheme",
       "_pos": {
-        "x": 697,
-        "y": 57
-      },
-      "type": "scheme"
+        "x": 671,
+        "y": 118
+      }
     },
     {
       "id": "2018/485",
-      "name": "De Feo\u2013Kieffer\u2013Smith",
+      "name": "De Feo–Kieffer–Smith",
       "eprint": "https://eprint.iacr.org/2018/485",
       "tags": [
         "Odinary",
@@ -81,11 +95,11 @@
         "2006/145",
         "2006/291"
       ],
+      "type": "scheme",
       "_pos": {
-        "x": 600,
-        "y": 150
-      },
-      "type": "scheme"
+        "x": 582,
+        "y": 194
+      }
     },
     {
       "id": "2018/383",
@@ -98,11 +112,11 @@
       "depends_on": [
         "2018/485"
       ],
+      "type": "scheme",
       "_pos": {
         "x": 650,
         "y": 285
-      },
-      "type": "scheme"
+      }
     },
     {
       "id": "2019/498",
@@ -115,11 +129,11 @@
       "depends_on": [
         "2018/383"
       ],
+      "type": "scheme",
       "_pos": {
-        "x": 998,
+        "x": 963,
         "y": 383
-      },
-      "type": "scheme"
+      }
     },
     {
       "id": "2019/1404",
@@ -133,11 +147,11 @@
       "depends_on": [
         "2018/383"
       ],
+      "type": "scheme",
       "_pos": {
         "x": 216,
         "y": 355
-      },
-      "type": "scheme"
+      }
     },
     {
       "id": "2021/633",
@@ -150,11 +164,11 @@
       "depends_on": [
         "2018/383"
       ],
+      "type": "algorithm",
       "_pos": {
         "x": 419,
         "y": 433
-      },
-      "type": "algorithm"
+      }
     },
     {
       "id": "2020/985",
@@ -168,11 +182,11 @@
       "depends_on": [
         "2018/383"
       ],
+      "type": "scheme",
       "_pos": {
         "x": 708,
         "y": 512
-      },
-      "type": "scheme"
+      }
     },
     {
       "id": "2020/1520",
@@ -186,14 +200,14 @@
         "2018/383",
         "2021/633"
       ],
+      "type": "scheme",
       "flavours": [
         "CTIDH"
       ],
       "_pos": {
         "x": 508,
         "y": 509
-      },
-      "type": "scheme"
+      }
     },
     {
       "id": "2023/793",
@@ -208,11 +222,11 @@
         "2021/1019",
         "2020/1520"
       ],
+      "type": "algorithm",
       "_pos": {
         "x": 391,
         "y": 588
-      },
-      "type": "algorithm"
+      }
     },
     {
       "id": "2023/058",
@@ -228,11 +242,11 @@
         "2019/498",
         "2020/985"
       ],
+      "type": "scheme",
       "_pos": {
-        "x": 995,
-        "y": 505
-      },
-      "type": "scheme"
+        "x": 958,
+        "y": 501
+      }
     },
     {
       "id": "2025/847",
@@ -246,11 +260,11 @@
         "2021/1019",
         "2020/1520"
       ],
+      "type": "algorithm",
       "_pos": {
         "x": 508,
         "y": 723
-      },
-      "type": "algorithm"
+      }
     },
     {
       "id": "2024/1744",
@@ -264,11 +278,11 @@
       "depends_on": [
         "2023/058"
       ],
+      "type": "scheme",
       "_pos": {
-        "x": 1110,
-        "y": 643
-      },
-      "type": "scheme"
+        "x": 1075,
+        "y": 647
+      }
     },
     {
       "id": "2023/1766",
@@ -280,11 +294,11 @@
         "hd"
       ],
       "depends_on": [],
+      "type": "algorithm",
       "_pos": {
-        "x": 1321,
-        "y": 598
-      },
-      "type": "algorithm"
+        "x": 1261,
+        "y": 578
+      }
     },
     {
       "id": "2023/1488",
@@ -300,11 +314,11 @@
         "2023/1488",
         "2023/058"
       ],
+      "type": "scheme",
       "_pos": {
-        "x": 956,
-        "y": 637
-      },
-      "type": "scheme"
+        "x": 936,
+        "y": 602
+      }
     },
     {
       "id": "2024/1844",
@@ -322,11 +336,11 @@
         "2023/1488",
         "2023/1766"
       ],
+      "type": "scheme",
       "_pos": {
-        "x": 959,
-        "y": 760
-      },
-      "type": "scheme"
+        "x": 928,
+        "y": 780
+      }
     },
     {
       "id": "2025/401",
@@ -341,11 +355,11 @@
         "2023/1247",
         "2023/1766"
       ],
+      "type": "scheme",
       "_pos": {
-        "x": 1305,
-        "y": 722
-      },
-      "type": "scheme"
+        "x": 1270,
+        "y": 690
+      }
     },
     {
       "id": "2025/1859",
@@ -359,11 +373,11 @@
       "depends_on": [
         "2025/401"
       ],
+      "type": "scheme",
       "_pos": {
-        "x": 1317,
-        "y": 786
-      },
-      "type": "scheme"
+        "x": 1288,
+        "y": 773
+      }
     },
     {
       "id": "2026/896",
@@ -382,11 +396,11 @@
         "2023/1766",
         "2020/1520"
       ],
+      "type": "scheme",
       "_pos": {
-        "x": 752,
-        "y": 963
-      },
-      "type": "scheme"
+        "x": 751,
+        "y": 944
+      }
     },
     {
       "id": "2025/1645",
@@ -399,11 +413,11 @@
       "depends_on": [
         "2025/107"
       ],
+      "type": "implementation",
       "_pos": {
-        "x": 341,
-        "y": 850
-      },
-      "type": "implementation"
+        "x": 347,
+        "y": 830
+      }
     },
     {
       "id": "2025/691",
@@ -418,6 +432,7 @@
         "2019/1404",
         "2025/107"
       ],
+      "type": "algorithm",
       "flavours": [
         "dCTIDH",
         "QFESTA"
@@ -425,8 +440,7 @@
       "_pos": {
         "x": 211,
         "y": 744
-      },
-      "type": "algorithm"
+      }
     },
     {
       "id": "2025/1098",
@@ -439,11 +453,11 @@
       "depends_on": [
         "2025/847"
       ],
+      "type": "algorithm",
       "_pos": {
         "x": 510,
-        "y": 804
-      },
-      "type": "algorithm"
+        "y": 791
+      }
     },
     {
       "id": "2025/107",
@@ -456,11 +470,11 @@
       "depends_on": [
         "2023/793"
       ],
+      "type": "implementation",
       "_pos": {
         "x": 389,
         "y": 666
-      },
-      "type": "implementation"
+      }
     },
     {
       "id": "2026/627",
@@ -473,15 +487,15 @@
       "depends_on": [
         "2025/1098"
       ],
+      "type": "implementation",
       "flavours": [
         "Houben",
         "AVX-512"
       ],
       "_pos": {
-        "x": 466,
-        "y": 908
-      },
-      "type": "implementation"
+        "x": 415,
+        "y": 901
+      }
     },
     {
       "id": "2026/679",
@@ -494,29 +508,15 @@
       "depends_on": [
         "2025/1098"
       ],
+      "type": "implementation",
       "flavours": [
         "Houben",
         "AVX-512"
       ],
       "_pos": {
-        "x": 566,
-        "y": 961
-      },
-      "type": "implementation"
+        "x": 575,
+        "y": 902
+      }
     }
-  ],
-  "node_types": {
-    "scheme": {
-      "label": "Scheme",
-      "color": "#2d6a8a"
-    },
-    "algorithm": {
-      "label": "Algorithm",
-      "color": "#2a7a50"
-    },
-    "implementation": {
-      "label": "Implementation",
-      "color": "#8a6a2a"
-    }
-  }
+  ]
 }
