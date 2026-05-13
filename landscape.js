@@ -145,7 +145,7 @@ function computeLayout(containerW) {
    draw_order (low = back).
 ═══════════════════════════ */
 function computeRegions(positions, nodeW, nodeH, tagRegions) {
-    const PADDING = [0, 22, 40, 58, 76]  // padding by draw_order level
+    const PADDING = [0, 8, 14, 20, 26]  // padding by draw_order level
 
     const boxes = []
     for (const [tagId, tagDef] of Object.entries(tagRegions)) {
@@ -300,6 +300,19 @@ function clientToSvg(cx, cy) {
 /* ═══════════════════════════
    MAIN RENDER
 ═══════════════════════════ */
+function typeColor(node, C, part) {
+    const nt = (data.node_types || {})[node.type]
+    if (nt?.color) {
+        const rgb = hexToRgb(nt.color)
+        if (part === 'fill')   return isDark ? `rgba(${rgb},0.25)` : `rgba(${rgb},0.15)`
+        if (part === 'stroke') return nt.color
+    }
+    const hasLink = !!node.eprint
+    if (part === 'fill')   return hasLink ? C.nodeFill   : C.noEprintFill
+    if (part === 'stroke') return hasLink ? C.nodeStroke : C.noEprintStroke
+    return C.nodeText
+}
+
 function hexToRgb(hex) {
     const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16)
     return `${r},${g},${b}`
@@ -326,15 +339,23 @@ function render() {
         nodes.forEach(n => { pos[n.id] = n._pos })
     }
 
-    // Derive viewBox from actual positions
+    // Derive viewBox from node positions first, then expand to include region boxes
     const NODE_W = 128, NODE_H = 38
-    const VIEWPAD = 40
+    const VIEWPAD = 24
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity
     for (const p of Object.values(pos)) {
         minX = Math.min(minX, p.x - NODE_W/2)
         minY = Math.min(minY, p.y - NODE_H/2)
         maxX = Math.max(maxX, p.x + NODE_W/2)
         maxY = Math.max(maxY, p.y + NODE_H/2)
+    }
+    // Expand bounds to include region boxes (computed on raw pos before shift)
+    const preBoxes = computeRegions(pos, NODE_W, NODE_H, tag_regions)
+    for (const box of preBoxes) {
+        minX = Math.min(minX, box.x)
+        minY = Math.min(minY, box.y)
+        maxX = Math.max(maxX, box.x + box.w)
+        maxY = Math.max(maxY, box.y + box.h)
     }
     const VW = (maxX - minX) + VIEWPAD * 2
     const VH = (maxY - minY) + VIEWPAD * 2
@@ -425,8 +446,8 @@ function render() {
         g.appendChild(el('rect', {
             x: p.x - NODE_W/2, y: p.y - NODE_H/2,
             width: NODE_W, height: NODE_H, rx: 5, ry: 5,
-            fill:   hasLink ? C.nodeFill   : C.noEprintFill,
-            stroke: hasLink ? C.nodeStroke : C.noEprintStroke,
+            fill:   typeColor(node, C, 'fill'),
+            stroke: typeColor(node, C, 'stroke'),
             'stroke-width': '1.5',
             'stroke-dasharray': isUncertain ? '4,2' : 'none'
         }))
@@ -544,8 +565,21 @@ function buildLegend(C) {
         lg.appendChild(div)
     }
 
-    item({ background: C.nodeFill,     borderColor: C.nodeStroke },     'Paper with ePrint link')
-    item({ background: C.noEprintFill, borderColor: C.noEprintStroke }, 'No confirmed ePrint yet')
+    // Node types (if defined)
+    const nodeTypes = Object.entries(data.node_types || {})
+    if (nodeTypes.length) {
+        nodeTypes.forEach(([,nt]) => {
+            const rgb = hexToRgb(nt.color)
+            item({
+                background:  isDark ? `rgba(${rgb},0.25)` : `rgba(${rgb},0.15)`,
+                borderColor: nt.color
+            }, nt.label)
+        })
+    } else {
+        item({ background: C.nodeFill,     borderColor: C.nodeStroke },     'Paper with ePrint link')
+        item({ background: C.noEprintFill, borderColor: C.noEprintStroke }, 'No confirmed ePrint yet')
+    }
+    item({ borderColor: C.noEprintStroke, borderStyle: 'dashed', background: 'transparent' }, 'No confirmed ePrint')
 
     // Region boxes — one entry per tag with its own color
     const sortedTags = Object.entries(tag_regions)

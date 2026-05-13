@@ -46,6 +46,7 @@ function C() {
 ═══════════════════════════════════════ */
 let state = {
     tagRegions: {},
+    nodeTypes: {},      // id → { label, color }
     nodes: []           // each has _pos:{x,y} in editor
 }
 let undoStack = [], redoStack = []
@@ -157,6 +158,11 @@ function autoLayout() {
     }
 
     resetView()
+}
+
+function hexToRgbE(hex) {
+    const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16)
+    return `${r},${g},${b}`
 }
 
 /* ═══════════════════════════════════════
@@ -607,6 +613,25 @@ function renderGlobalPanel(panel) {
     tagBtn.onclick=()=>openTagsModal()
     sec2.appendChild(tagBtn)
     panel.appendChild(sec2)
+
+    // Node types summary
+    const sec3 = div('panel-section')
+    sec3.innerHTML = `<div class="panel-section-title">Node Types</div>`
+    Object.entries(state.nodeTypes||{}).forEach(([id,t])=>{
+        const row = document.createElement('div'); row.className='tag-row'
+        const swatch = document.createElement('span')
+        swatch.style.cssText=`display:inline-block;width:12px;height:12px;border-radius:50%;background:${t.color};margin-right:6px;flex-shrink:0`
+        const lbl = document.createElement('span')
+        lbl.className='tag-label-text'; lbl.textContent=t.label
+        row.appendChild(swatch); row.appendChild(lbl)
+        sec3.appendChild(row)
+    })
+    const typesBtn = document.createElement('button')
+    typesBtn.className='btn btn-sm'; typesBtn.textContent='Manage Types'
+    typesBtn.style.marginTop='10px'
+    typesBtn.onclick=()=>openTypesModal()
+    sec3.appendChild(typesBtn)
+    panel.appendChild(sec3)
 }
 
 function renderNodePanel(panel) {
@@ -635,6 +660,15 @@ function renderNodePanel(panel) {
         sec.appendChild(d)
     })
 
+    // Type selector
+    const typeDiv = div('field')
+    const typeOpts = Object.entries(state.nodeTypes||{}).map(([id,t]) =>
+        `<option value="${id}" ${node.type===id?'selected':''}>${t.label}</option>`
+    ).join('')
+    typeDiv.innerHTML=`<label>Type</label>
+        <select id="pp-type"><option value="">— none —</option>${typeOpts}</select>`
+    sec.appendChild(typeDiv)
+
     // Depends on
     const depDiv = div('field')
     depDiv.innerHTML=`<label>Depends on (comma-separated IDs)</label>
@@ -660,6 +694,7 @@ function renderNodePanel(panel) {
         node.flavours = document.getElementById('pp-flavours').value.split(',').map(s=>s.trim()).filter(Boolean)
         node.depends_on = document.getElementById('pp-depends').value.split(',').map(s=>s.trim()).filter(Boolean)
         node._uncertain = document.getElementById('pp-uncertain').checked
+        node.type = document.getElementById('pp-type')?.value || null
         node.tags = []
         document.querySelectorAll('#pp-tags .tag-check').forEach(tc => {
             if (tc.classList.contains('checked')) node.tags.push(tc.dataset.tag)
@@ -866,6 +901,65 @@ function openTagsModal() {
     document.getElementById('modal-tags').style.display='flex'
 }
 
+/* ═══════════════════════════════════════
+   NODE TYPES MODAL
+═══════════════════════════════════════ */
+function openTypesModal() {
+    const list = document.getElementById('types-list'); list.innerHTML=''
+
+    const entries = Object.entries(state.nodeTypes||{})
+        .sort((a,b) => a[1].label.localeCompare(b[1].label))
+
+    entries.forEach(([typeId, typeDef]) => {
+        const row = document.createElement('div')
+        row.style.cssText='display:grid;grid-template-columns:1fr 36px 32px;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)'
+
+        // Label input
+        const labelIn = document.createElement('input')
+        labelIn.value = typeDef.label
+        labelIn.style.cssText='width:100%;padding:4px 7px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:12px;font-family:var(--mono)'
+        labelIn.addEventListener('change', () => {
+            pushUndo(); typeDef.label = labelIn.value.trim(); render()
+        })
+        row.appendChild(labelIn)
+
+        // Color picker
+        const cp = document.createElement('input')
+        cp.type='color'; cp.value=typeDef.color||'#2a8a8a'; cp.title='Node color'
+        cp.style.cssText='width:32px;height:28px;padding:1px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none'
+        cp.addEventListener('input', () => { typeDef.color=cp.value; render() })
+        row.appendChild(cp)
+
+        // Delete
+        const btnDel = document.createElement('button')
+        btnDel.className='btn btn-danger btn-icon btn-sm'; btnDel.textContent='✕'
+        btnDel.onclick = () => {
+            if (!confirm(`Delete type "${typeDef.label}"?`)) return
+            pushUndo()
+            delete state.nodeTypes[typeId]
+            state.nodes.forEach(n=>{ if(n.type===typeId) n.type=null })
+            render(); openTypesModal()
+        }
+        row.appendChild(btnDel)
+        list.appendChild(row)
+    })
+
+    document.getElementById('ntype-add').onclick = () => {
+        const id    = document.getElementById('ntype-id').value.trim().replace(/\s+/g,'-')
+        const label = document.getElementById('ntype-label').value.trim()
+        const color = document.getElementById('ntype-color').value
+        if (!id||!label) { alert('ID and label required'); return }
+        if (state.nodeTypes[id]) { alert(`Type "${id}" already exists`); return }
+        pushUndo()
+        state.nodeTypes[id] = { label, color }
+        document.getElementById('ntype-id').value=''
+        document.getElementById('ntype-label').value=''
+        render(); openTypesModal()
+    }
+
+    document.getElementById('modal-types').style.display='flex'
+}
+
 function openExportModal() {
     const updatePreview = () => {
         const inclPos = document.getElementById('exp-positions').checked
@@ -881,11 +975,13 @@ function buildExportJSON(includePositions) {
     return {
         _note: "IDs marked with _uncertain require verification.",
         tag_regions: state.tagRegions,
+        node_types: state.nodeTypes,
         nodes: state.nodes.map(n => {
             const out = {
                 id: n.id, name: n.name, eprint: n.eprint||null,
                 tags: n.tags||[], depends_on: n.depends_on||[]
             }
+            if (n.type) out.type = n.type
             if (n.flavours?.length) out.flavours = n.flavours
             if (n._uncertain) out._uncertain = true
             if (includePositions && n._pos) out._pos = { x:Math.round(n._pos.x), y:Math.round(n._pos.y) }
@@ -921,6 +1017,22 @@ document.getElementById('btn-autolayout').addEventListener('click', ()=>{ pushUn
 document.getElementById('btn-tags').addEventListener('click', openTagsModal)
 document.getElementById('btn-export').addEventListener('click', openExportModal)
 
+document.getElementById('btn-github').addEventListener('click', () => {
+    const json = JSON.stringify(buildExportJSON(true), null, 2)
+    try { navigator.clipboard.writeText(json) } catch(e) {}
+    const url = 'https://github.com/AndHell/isogeny-benchmarks/edit/main/landscape_data.json'
+    if (!window.open(url, '_blank')) {
+        alert('Pop-up blocked. Please allow pop-ups and try again.\nThe JSON has been copied to your clipboard.')
+    } else {
+        // Show a brief notice
+        const notice = document.createElement('div')
+        notice.style.cssText='position:fixed;bottom:40px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:6px;font-size:13px;z-index:999;box-shadow:0 4px 16px rgba(0,0,0,.3)'
+        notice.textContent='JSON copied to clipboard — paste it into the GitHub editor'
+        document.body.appendChild(notice)
+        setTimeout(()=>notice.remove(), 4000)
+    }
+})
+
 // Load JSON file
 document.getElementById('file-input').addEventListener('change', e => {
     const file = e.target.files[0]; if (!file) return
@@ -941,8 +1053,8 @@ document.getElementById('file-input').addEventListener('change', e => {
 ═══════════════════════════════════════ */
 function loadData(data) {
     state.tagRegions = data.tag_regions || {}
-    // Seed default color for any tag missing one
     Object.values(state.tagRegions).forEach(t => { if (!t.color) t.color = '#2a8a8a' })
+    state.nodeTypes = data.node_types || {}
     state.nodes = (data.nodes || []).map(n => ({
         ...n,
         depends_on: n.depends_on || [],
@@ -986,6 +1098,11 @@ fetch('landscape_data.json')
                 "supersingular":   { label:"Supersingular",   draw_order:2, color:"#2a8a8a" },
                 "large-conductor": { label:"Large Conductor", draw_order:3, color:"#d4a027" },
                 "hd":              { label:"HD",              draw_order:4, color:"#8a2a8a" }
+            },
+            nodeTypes: {
+                "scheme":         { label:"Scheme",         color:"#2d6a8a" },
+                "algorithm":      { label:"Algorithm",      color:"#2a8a5a" },
+                "implementation": { label:"Implementation", color:"#8a6a2a" }
             },
             nodes: []
         }
