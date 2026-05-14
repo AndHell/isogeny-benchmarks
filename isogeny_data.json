@@ -1717,7 +1717,7 @@
             "unit": "Gcyc"
           }
         ],
-        "constant_time": true,
+        "constant_time": false,
         "deterministic": true,
         "dummy_free": true,
         "size": 512,
@@ -1743,7 +1743,7 @@
             "unit": "Gcyc"
           }
         ],
-        "constant_time": true,
+        "constant_time": false,
         "deterministic": true,
         "dummy_free": true,
         "size": 512,
@@ -1769,7 +1769,7 @@
             "unit": "Gcyc"
           }
         ],
-        "constant_time": true,
+        "constant_time": false,
         "deterministic": true,
         "dummy_free": true,
         "size": 1024,
@@ -1795,7 +1795,7 @@
             "unit": "Gcyc"
           }
         ],
-        "constant_time": true,
+        "constant_time": false,
         "deterministic": true,
         "dummy_free": true,
         "size": 2048,
@@ -1821,7 +1821,7 @@
             "unit": "Gcyc"
           }
         ],
-        "constant_time": true,
+        "constant_time": false,
         "deterministic": true,
         "dummy_free": true,
         "size": 4096,
