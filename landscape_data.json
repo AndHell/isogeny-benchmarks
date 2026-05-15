@@ -162,7 +162,7 @@
         "restrict"
       ],
       "depends_on": [
-        "2018/383"
+        "2020/341"
       ],
       "type": "algorithm",
       "_pos": {
@@ -197,13 +197,10 @@
         "restrict"
       ],
       "depends_on": [
-        "2018/383",
-        "2021/633"
+        "2021/633",
+        "2020/341"
       ],
-      "type": "scheme",
-      "flavours": [
-        "CTIDH"
-      ],
+      "type": "algorithm",
       "_pos": {
         "x": 508,
         "y": 509
@@ -516,6 +513,26 @@
       "_pos": {
         "x": 575,
         "y": 902
+      }
+    },
+    {
+      "id": "2020/341",
+      "name": "velusqrt",
+      "eprint": "https://eprint.iacr.org/2020/341",
+      "tags": [
+        "Super",
+        "restrict"
+      ],
+      "depends_on": [
+        "2018/383"
+      ],
+      "type": "algorithm",
+      "flavours": [
+        "CSIDH"
+      ],
+      "_pos": {
+        "x": 543,
+        "y": 358
       }
     }
   ]
